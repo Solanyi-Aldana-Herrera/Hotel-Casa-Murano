@@ -1,0 +1,190 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+header {
+    background-color: #1e1e1e;
+    padding: 8px 8px;
+    width: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 150px; 
+}
+
+.enlace-logo {
+    display: inline-block;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.enlace-logo:hover {
+    transform: scale(1.1);
+}
+
+.enlace-logo img {
+    display: block;
+}
+
+.navegador {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1500px; /* Ajustable a tu diseño */
+    margin: 0 auto;
+    padding: 0px 0px;
+}
+
+.navbar {
+    margin-left: 150px;
+    flex-grow: 1;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 26px; /* Espaciado solicitado de 26 */
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-family: 'Forum', serif;
+    font-size: 22.3px;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.navbar ul li a:hover {
+    background-color: #545454; /* Color de fondo solicitado */
+    border-radius: 25px;       /* Esquinas redondeadas solicitadas */
+    color: #ffffff;            /* Mantiene el texto en blanco */
+}
+
+.btn-reserva {
+    background-color: #1fd6e3;
+    color: #1e1e1e;
+    font-family: 'Fraunces', serif;
+    font-size: 22.3px;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px; /* Esquinas redondeadas */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Para que la animación sea suave */
+}
+
+.btn-reserva:hover {
+    transform: scale(1.1); /* Se agranda un 10% */
+    box-shadow: 0 0 15px #ffffff; /* Efecto de iluminación */
+    color: #1e1e1e;
+}
+
+
+footer {
+    background-color: #1e1e1e;
+    padding: 0px 0px;
+    width: 100%;
+}
+
+.pie-pagina {
+    display: flex;
+    justify-content: space-around; /* Distribuye los 3 bloques con espacio entre ellos */
+    align-items: flex-start;           /* Alinea todo verticalmente al centro */
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 20px 0px;
+    text-align: center;
+}
+
+.pie-pagina h4 {
+    font-family: 'Forum', serif;
+    font-size: 15.3px;
+    color: #ffffff;
+    margin-top: 0;
+    text-transform: uppercase;
+}
+
+.pie-pagina p {
+    font-family: 'Forum', serif;
+    font-size: 14.3px;
+    color: #ffffff;
+    margin: 5px 0;
+}
+
+.pie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.redes-sociales {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.redes-sociales .icono-social img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.redes-sociales .icono-social img:hover {
+    transform: scale(1.1);
+}
+
+.informacion {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.informacion h4 {
+    margin-bottom: 2px; /* Espacio extra entre bloques de info */
+    margin-top: 15px;
+    font-family: 'Forum', serif;
+    font-size: 15.3px;
+}
+
+.informacion h4:first-child {
+    margin-top: 0;
+}
+
+.informacion p {
+    margin-top: 0;      /* Pegamos el párrafo al h4 de arriba */
+    margin-bottom: 0;   /* Quitamos el margen de abajo */
+    font-family: 'Forum', serif;
+    font-size: 14.3px;
+    line-height: 1;     /* Interlineado mínimo para el texto */
+}
+
+.pie-pagina .logo img {
+    height: 150px; /* Tamaño un poco más grande para el footer */
+    width: auto;
+}
+
+.contenedor-iconos {
+    display: flex;
+    flex-direction: row; /* Mantiene los iconos UNO AL LADO DEL OTRO */
+    gap: 20px;           /* Espacio entre Facebook e Instagram */
+    justify-content: center;
+}
+

@@ -1,0 +1,49 @@
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Logo a la izquierda, links a la derecha */
+    align-items: center;            /* Centrado vertical */
+    padding: 15px 50px;
+    background-color: #ffffff;      /* Fondo blanco */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Sombra sutil */
+    position: sticky;               /* Se queda fijo al hacer scroll */
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-logo img {
+    height: 60px; /* Ajusta según el tamaño de tu logo */
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px; /* Espacio entre cada opción */
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-family: "Fraunces", serif; /* Usando las fuentes de tus servicios */
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ab9025; /* Dorado que usas en tus títulos */
+}
+
+/* Estilo especial para el botón Salir */
+.btn-salir {
+    border: 1px solid #ab9025;
+    padding: 8px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.btn-salir:hover {
+    background-color: #ab9025;
+    color: white !important;
+}

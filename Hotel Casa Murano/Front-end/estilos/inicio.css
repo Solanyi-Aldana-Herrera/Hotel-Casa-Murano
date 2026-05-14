@@ -1,0 +1,368 @@
+header {
+    background-color: rgba(30, 30, 30, 0.0); 
+    padding: 8px 8px;
+    width: 100%;
+    position: absolute; 
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Asegura que esté por encima de la imagen de fondo */
+}
+
+.hero-section {
+    position: relative;
+    height: 100vh; /* Ocupa toda la vista del navegador */
+    width: 100%;
+    background-color: #545454; /* Color de fondo base */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('/Front-end/imagenes/FondoPrincipal.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35; /* Transparencia solicitada */
+    z-index: 1;
+}
+
+.nombrehotel {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #f6f6f5;
+    margin-bottom: 0px;
+    margin-top: 320px;
+}
+
+.nombrehotel h1 {
+    font-family: 'Forum', serif;
+    font-size: 59.5px; /* Tamaño solicitado */
+    letter-spacing: 8px;
+}
+
+.nombrehotel h2 {
+    font-family: 'Forum', serif;
+    font-size: 35.3px; /* Tamaño solicitado */
+    letter-spacing: 5px;
+}
+
+.reserva {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+}
+
+.reserva-box {
+    background-color: #f6f6f5;
+    padding: 15px 30px;
+    border-radius: 60px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.label-reserva {
+    font-family: 'Fraunces', serif;
+    font-size: 15.6px; /* Tamaño solicitado */
+    color: #1e1e1e;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    /* Asegura que todos los títulos empiecen a la misma altura */
+    line-height: 1.0;
+}
+
+.input-invisible {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none; /* Evita que el mouse lo detecte directamente */
+}
+
+.campo {
+    cursor: pointer; /* Indica al usuario que es cliqueable */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fecha-display {
+    font-family: 'Forum', serif; /* Aplicamos la fuente Forum a todo el bloque */
+    text-align: center;
+    color: #1e1e1e; /* Ajusta el color según prefieras */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
+}
+
+#dia-entrada, #dia-salida {
+    font-size: 34.6px; /* Tamaño solicitado para el día */
+    margin: 0;
+    font-weight: normal; /* Forum suele verse mejor con peso normal */
+}
+
+#mes-entrada, #mes-salida {
+    font-size: 15.6px; /* Tamaño solicitado para mes y año */
+    margin-top: -5px; /* Ajuste para que el mes esté más cerca del día */
+    text-transform: capitalize; /* Asegura que la primera letra sea mayúscula */
+}
+
+/* Grupo de iconos y números */
+.icon-group {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre imagen y número */
+    margin-top: 2px;
+    cursor: pointer;
+    justify-content: center;
+}
+
+
+
+/* Forzamos un contenedor cuadrado para la imagen */
+.icon-wrapper {
+    width: 35px;   /* Espacio de ancho fijo */
+    height: 35px;  /* Espacio de alto fijo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-wrapper img {
+    /* Aquí está la magia: se ajustan al máximo de  
+       sin importar sus dimensiones originales */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; 
+}
+
+/* Estilo para los números (1) */
+.icon-group span {
+    font-family: 'Forum', serif;
+    font-size: 25px;
+    color: #1e1e1e;
+    margin-right: 10px; /* Espacio para separar el grupo Adulto del grupo Niño */
+}
+
+/* Estilo del Formulario Emergente */
+.ocupacion-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+    z-index: 101;
+    bottom: 115%;
+    min-width: 180px;
+}
+
+.control-pasajero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    font-family: 'Forum', serif;
+}
+
+.control-pasajero input {
+    width: 45px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn-listo {
+    width: 100%;
+    background-color: #1fd6e3;
+    border: none;
+    padding: 8px;
+    border-radius: 20px;
+    font-family: 'Forum', serif;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.btn-reserva-home{
+    background-color: #1e1e1e;
+    color: #f6f6f5;
+    font-family: 'Fraunces', serif;
+    font-size: 22.3px;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px; /* Esquinas redondeadas */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Para que la animación sea suave */
+}
+
+.btn-reserva-home:hover{
+    transform: scale(1.1); /* Se agranda un 10% */
+    box-shadow: 0 0 15px #f6f6f5; /* Efecto de iluminación */
+    color: #ab9025;
+}
+
+.fechas-container {
+    display: flex;
+    gap: 15px;
+    padding: 10px 15px;
+    border: 2px solid #ab9025; /* Color dorado elegante para el recuadro */
+    border-radius: 35px;
+    margin-right: 10px;
+    align-items: flex-start;
+}
+
+.ocupacion-bloque {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.btn-reserva {
+    background-color: #1e1e1e;
+    color: #f6f6f5;
+    font-family: 'Fraunces', serif;
+    font-size: 22.3px;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px; /* Esquinas redondeadas */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Para que la animación sea suave */
+}
+
+.btn-reserva:hover {
+    transform: scale(1.1); /* Se agranda un 10% */
+    box-shadow: 0 0 15px #ffffff; /* Efecto de iluminación */
+    color: #1fd6e3;
+}
+
+
+
+/* Estilos del Header Base */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    transition: all 0.4s ease; /* Transición suave */
+    z-index: 1000;
+    padding: 20px;
+    background: transparent;
+}
+
+/* Clase que se activará con JavaScript al bajar */
+header.scrolled {
+    background-color: #1e1e1e; /* Color de fondo del header al bajar */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+header.scrolled nav a {
+    color: #ffffff !important; /* Color de las letras del menú */
+}
+
+header.scrolled .btn-reserva {
+    background-color: #1fd6e3; /* Color del botón al bajar */
+    color: black;
+}
+
+/* Sección Bienvenidos */
+/* Contenedor Principal */
+#bienvenidos {
+    display: grid;
+    grid-template-areas: 
+        "header header"
+        "texto imagen";
+    grid-template-columns: 1fr 1fr; /* Divide la página en dos columnas iguales */
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    align-items: stretch; /* Obliga a que imagen y texto midan lo mismo de alto */
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+/* Bloque de Títulos (Arriba) */
+.titulo {
+    grid-area: header;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.titulo h2 {
+    font-family: 'Pinyon Script', cursive;
+    color: #ab9025;
+    font-size: 60.3px;
+    margin: 0;
+    font-weight: 400;
+}
+
+.titulo h3 {
+    font-family: 'Fraunces', serif;
+    color: #000000;
+    font-size: 30.3px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: -10px; /* Ajuste para que los títulos se vean integrados */
+}
+
+/* Bloque de Texto (Izquierda) */
+.texto_bienvenida {
+    grid-area: texto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el texto verticalmente respecto a la imagen */
+}
+
+.texto_bienvenida p {
+    font-family: 'Forum', serif;
+    font-size: 23.3px;
+    color: black;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.texto_bienvenida h4 {
+    font-family: 'Forum', serif;
+    font-size: 23.3px;
+    color: #ab9025;
+    margin: 0;
+}
+
+/* Bloque de Imagen (Derecha) */
+.imagen_lateral {
+    grid-area: imagen;
+}
+
+.imagen_lateral img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Recorta la imagen para que llene el alto del texto sin deformarse */
+    display: block;
+    border-radius: 4px; /* Opcional: un toque de suavizado en las esquinas */
+}
+
+/* Adaptación para celulares */
+@media (max-width: 768px) {
+    #bienvenidos {
+        grid-template-areas: 
+            "header"
+            "imagen"
+            "texto";
+        grid-template-columns: 1fr;
+    }
+    
+    .titulo h2 { font-size: 45px; }
+    .titulo h3 { font-size: 24px; }
+}

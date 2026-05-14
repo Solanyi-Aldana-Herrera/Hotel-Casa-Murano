@@ -1,0 +1,245 @@
+/* =========================
+   SECCIÓN CONTACTO
+========================= */
+
+#contacto,
+#box-contacto{
+    padding: 40px 20px;
+}
+
+/* CONTENEDOR GENERAL */
+
+.contacto-contenedor{
+
+    max-width: 1200px;
+    margin: auto;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 60px;
+}
+
+/* =========================
+   ENCABEZADO
+========================= */
+
+.encabezado{
+
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.encabezado h2{
+
+    font-size: 60.3px;
+    font-family: "Pinyon Script", cursive;
+    color: #ab9025;
+    margin-bottom: 10px;
+}
+
+.encabezado h3{
+
+    font-size: 30.3px;
+    color: black;
+    font-weight: bold;
+}
+
+/* =========================
+   INFORMACIÓN CONTACTO
+========================= */
+
+.información-contacto{
+
+    flex: 1;
+}
+
+/* TÍTULO */
+
+.información-contacto h4{
+
+    font-size: 30.3px;
+    color: #ab9025;
+    margin-bottom: 25px;
+}
+
+/* TEXTO */
+
+.información-contacto p{
+
+    font-size: 23.3px;
+    line-height: 1.5;
+    color: black;
+    margin-bottom: 30px;
+}
+
+/* =========================
+   MAPA
+========================= */
+
+.mapa iframe{
+
+    width: 100%;
+    height: 530px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* =========================
+   FORMULARIO
+========================= */
+
+#box-contacto {
+    margin-bottom: 80px;
+}
+.formulario{
+
+    flex: 1;
+
+    background: #d7cfb0;
+
+    padding: 35px;
+
+    border-radius: 10px;
+}
+
+/* TÍTULO FORMULARIO */
+
+.formulario::before{
+
+    content: "Envíanos un mensaje";
+
+    display: block;
+
+    text-align: center;
+
+    font-size: 45px;
+
+    color: #b08a1e;
+
+    margin-bottom: 30px;
+
+    font-weight: bold;
+}
+
+/* LABELS */
+
+.formulario label{
+
+    display: block;
+
+    font-size: 25px;
+
+    margin-bottom: 10px;
+
+    color: #111;
+}
+
+/* INPUTS */
+
+.formulario input,
+.formulario textarea{
+
+    width: 100%;
+
+    padding: 12px;
+
+    margin-bottom: 25px;
+
+    border: none;
+
+    outline: none;
+
+    font-size: 18px;
+
+    border-radius: 3px;
+}
+
+/* TEXTAREA */
+
+.formulario textarea{
+
+    resize: none;
+}
+
+/* BOTÓN */
+
+.formulario button{
+
+    display: block;
+
+    margin: auto;
+
+    background: #000;
+
+    color: white;
+
+    border: none;
+
+    padding: 14px 45px;
+
+    border-radius: 40px;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+/* HOVER BOTÓN */
+
+.formulario button:hover{
+
+    background: #222;
+
+    transform: scale(1.05);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width: 992px){
+
+    .contacto-contenedor{
+
+        flex-direction: column;
+    }
+
+    .información-contacto h4,
+    .formulario::before{
+
+        font-size: 38px;
+    }
+
+    .información-contacto p{
+
+        font-size: 22px;
+    }
+}
+
+@media(max-width: 768px){
+
+    .encabezado h3{
+
+        font-size: 40px;
+    }
+
+    .información-contacto h4,
+    .formulario::before{
+
+        font-size: 32px;
+    }
+
+    .formulario{
+
+        padding: 25px;
+    }
+}

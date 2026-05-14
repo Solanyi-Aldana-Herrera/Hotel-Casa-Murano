@@ -1,0 +1,410 @@
+
+#mensaje{
+    width: 100%;
+    background: white;
+    padding: 90px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+}
+
+/* CONTENEDOR */
+.contenedor-mensaje{
+    max-width: 950px;
+    text-align: center;
+    position: relative;
+}
+
+/* TÍTULO */
+.titulo-mensaje h2{
+    font-family: "Pinyon Script", serif;
+    font-size: 60.1px;
+    font-style: italic;
+    font-weight: 400;
+    color: #ab9025;
+    margin-bottom: 45px;
+    position: relative;
+}
+
+/* Línea decorativa debajo del título */
+.titulo-mensaje h2::after{
+    content: url("/Front-end/imagenes/linea.png");
+    display: block;
+    font-size: 30px;
+    color: #ab9025;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    letter-spacing: 10px;
+}
+
+/* TEXTO */
+.mensaje-mensaje p{
+    font-family: "Forum", serif;
+    font-size: 23.3px;
+    text-align: justify;
+    line-height: 1.5;
+    color: black;
+    max-width: 760px;
+    margin: auto;
+    margin-bottom: 40px;
+    margin-top: 0px;
+}
+
+/* =========================
+   FLORES DECORATIVAS
+========================= */
+
+/* Flor izquierda */
+.contenedor-mensaje::before{
+    content: "";
+    position: absolute;
+    width: 380px;
+    height: 350px;
+    left: -150px;
+    bottom: -80px;
+    background: url("/Front-end/imagenes/derecha.png") no-repeat center;
+    background-size: contain;
+    opacity: 0.95;
+}
+
+/* Flor derecha */
+.contenedor-mensaje::after{
+    content: "";
+    position: absolute;
+    width: 380px;
+    height: 350px;
+    right: -150px;
+    bottom: -80px;
+    background: url("/Front-end/imagenes/izquierda.png") no-repeat center;
+    background-size: contain;
+    opacity: 0.95;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width: 992px){
+
+    .titulo-mensaje h2{
+        font-size: 42px;
+    }
+
+    .mensaje-mensaje p{
+        font-size: 24px;
+        line-height: 1.7;
+    }
+
+    .contenedor-mensaje::before,
+    .contenedor-mensaje::after{
+        width: 150px;
+        height: 150px;
+    }
+
+    .contenedor-mensaje::before{
+        left: -50px;
+    }
+
+    .contenedor-mensaje::after{
+        right: -50px;
+    }
+}
+
+@media(max-width: 768px){
+
+    #mensaje{
+        padding: 70px 20px;
+    }
+
+    .titulo-mensaje h2{
+        font-size: 34px;
+    }
+
+    .mensaje-mensaje p{
+        font-size: 20px;
+    }
+
+    .contenedor-mensaje::before,
+    .contenedor-mensaje::after{
+        display: none;
+    }
+}
+
+
+/* =========================
+   SECCIÓN HABITACIONES
+========================= */
+
+#habitaciones{
+    width: 100%;
+    background:white;
+    padding: 80px 20px;
+}
+
+/* CONTENEDOR */
+.contenedor-habitaciones{
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* TÍTULO */
+.titulo-habitaciones{
+    text-align: center;
+    margin-bottom: 60px;
+    margin-top: 60px;
+}
+
+.titulo-habitaciones h2{
+    font-family: "Fraunces", serif;
+    font-size: 30.3px;
+    font-weight: 600;
+    color: #111;
+}
+
+/* =========================
+   CATÁLOGO
+========================= */
+
+.catalogo-habitaciones{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+/* TARJETAS */
+.catalogo-habitaciones article{
+    background: transparent;
+    transition: 0.3s ease;
+}
+
+/* IMAGEN */
+.catalogo-habitaciones article img{
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 20px;
+}
+
+/* TÍTULO HABITACIÓN */
+.catalogo-habitaciones article h3{
+    font-family: "Fraunces", serif;
+    font-size: 23.3px;
+    color: #ab9025;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+/* DESCRIPCIÓN */
+.catalogo-habitaciones article p{
+    font-family: "Forum", serif;
+    font-size: 23.3px;
+    line-height: 1.7;
+    color: black;
+    margin-bottom: 20px;
+}
+
+/* LISTA */
+.catalogo-habitaciones article ul{
+    margin-bottom: 30px;
+    padding-left: 20px;
+}
+
+.catalogo-habitaciones article ul li{
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    color: #1d1d1d;
+    margin-bottom: 8px;
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+.botones-habitacion{
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* BOTÓN GENERAL */
+.botones-habitacion a{
+    text-decoration: none;
+    background: #b08a1e;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 30px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    font-weight: 700;
+    transition: 0.3s ease;
+}
+
+/* EFECTO HOVER */
+.botones-habitacion a:hover{
+    background: #8f6f17;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   EFECTO TARJETA
+========================= */
+
+.catalogo-habitaciones article:hover{
+    transform: translateY(-5px);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width: 992px){
+
+    .catalogo-habitaciones{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .titulo-habitaciones h2{
+        font-size: 42px;
+    }
+}
+
+@media(max-width: 768px){
+
+    .catalogo-habitaciones{
+        grid-template-columns: 1fr;
+    }
+
+    .titulo-habitaciones h2{
+        font-size: 36px;
+    }
+
+    .catalogo-habitaciones article h3{
+        font-size: 30px;
+    }
+
+    .catalogo-habitaciones article p,
+    .catalogo-habitaciones article ul li{
+        font-size: 20px;
+    }
+
+    .botones-habitacion a{
+        font-size: 20px;
+        padding: 10px 18px;
+    }
+}
+
+
+/* =========================
+   BOTONES
+========================= */
+
+.ver,
+.btn-reserva{
+
+    background: #b08a1e;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 15px;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+.ver:hover,
+.btn-reserva:hover{
+
+    background: #8b6c18;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+
+    display: none;
+    position: fixed;
+    z-index: 999;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.6);
+
+    justify-content: center;
+    align-items: center;
+}
+
+/* CONTENIDO MODAL */
+
+.modal-contenido{
+
+    background: white;
+    width: 90%;
+    max-width: 600px;
+
+    padding: 40px;
+
+    border-radius: 15px;
+
+    position: relative;
+
+    animation: aparecer 0.3s ease;
+}
+
+/* TÍTULO */
+
+.modal-contenido h2{
+
+    color: #b08a1e;
+    margin-bottom: 20px;
+    font-size: 35px;
+}
+
+/* TEXTO */
+
+.modal-contenido p{
+
+    font-size: 20px;
+    line-height: 1.7;
+}
+
+/* BOTÓN CERRAR */
+
+.cerrar{
+
+    position: absolute;
+
+    top: 10px;
+    right: 20px;
+
+    font-size: 35px;
+
+    cursor: pointer;
+}
+
+/* ANIMACIÓN */
+
+@keyframes aparecer{
+
+    from{
+
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to{
+
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
