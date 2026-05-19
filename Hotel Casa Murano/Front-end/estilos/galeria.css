@@ -16,7 +16,8 @@
     text-align: center;
     font-family: "Pinyon script", cursive;
     font-size: 60.3px;
-    margin-bottom: 50px;
+    margin: 0;
+    font-weight: 400;
     color: #ab9025;
 }
 

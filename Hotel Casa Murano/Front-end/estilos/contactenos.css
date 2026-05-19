@@ -39,7 +39,8 @@
     font-size: 60.3px;
     font-family: "Pinyon Script", cursive;
     color: #ab9025;
-    margin-bottom: 10px;
+    margin: 0;
+    font-weight: 400;
 }
 
 .encabezado h3{

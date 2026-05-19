@@ -49,6 +49,8 @@
     color: #ab9025;
     font-family: "Pinyon Script",cursive;
     font-size: 60.3px;
+    font-weight: 400;
+    margin: 0;
 }
 .encabezado-servicios h3{
     color: black;

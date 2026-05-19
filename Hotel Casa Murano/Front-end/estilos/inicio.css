@@ -81,7 +81,7 @@ header {
 
 .reserva-box {
     background-color: #f6f6f5;
-    padding: 15px 30px;
+    padding: 10px 30px;
     border-radius: 75px;
     display: flex;
     align-items: center;
@@ -235,7 +235,7 @@ header {
 .fechas-container {
     display: flex;
     gap: 15px;
-    padding: 10px 15px;
+    padding: 10px 30px;
     border: 2px solid #ab9025; /* Color dorado elegante para el recuadro */
     border-radius: 35px;
     margin-right: 10px;
@@ -297,6 +297,9 @@ header.scrolled .btn-reserva {
 
 /* Sección Bienvenidos */
 /* Contenedor Principal */
+main{
+    background-color: white;
+}
 #bienvenidos {
     display: grid;
     grid-template-areas: 
@@ -310,6 +313,7 @@ header.scrolled .btn-reserva {
     align-items: stretch; /* Obliga a que imagen y texto midan lo mismo de alto */
     margin-top: 50px;
     margin-bottom: 100px;
+    background-color: white;
 }
 
 /* Bloque de Títulos (Arriba) */
@@ -350,6 +354,7 @@ header.scrolled .btn-reserva {
     color: black;
     line-height: 1.5;
     margin-bottom: 20px;
+    text-align: justify;
 }
 
 .texto_bienvenida h4 {

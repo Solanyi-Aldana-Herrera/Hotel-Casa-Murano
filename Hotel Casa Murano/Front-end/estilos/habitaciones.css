@@ -2,11 +2,11 @@
 #mensaje{
     width: 100%;
     background: white;
-    padding: 90px 20px;
+    padding: 50px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 80px;
+    margin: 35px 0px 0px;
 }
 
 /* CONTENEDOR */
@@ -155,7 +155,7 @@
     margin-top: 60px;
 }
 
-.titulo-habitaciones h2{
+.titulo-habitaciones h3{
     font-family: "Fraunces", serif;
     font-size: 30.3px;
     font-weight: 600;
@@ -300,26 +300,7 @@
    BOTONES
 ========================= */
 
-.ver,
-.btn-reserva{
 
-    background: #b08a1e;
-    color: white;
-    border: none;
-    padding: 12px 22px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 18px;
-    margin-top: 15px;
-    margin-right: 10px;
-    transition: 0.3s;
-}
-
-.ver:hover,
-.btn-reserva:hover{
-
-    background: #8b6c18;
-}
 
 /* =========================
    MODAL

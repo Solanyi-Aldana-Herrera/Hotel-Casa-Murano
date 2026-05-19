@@ -28,7 +28,8 @@ header.scrolled .btn-reserva {
     align-items: stretch;
     justify-content: center;
     gap: 50px;
-    padding: 80px 10%;
+    margin: 0 auto;
+    padding: 50px 20px;
     min-height: 600px;
     margin-bottom: 0px;
     margin-top: 150px;
@@ -53,7 +54,9 @@ header.scrolled .btn-reserva {
 .intro h2{
     font-family: 'Pinyon Script', cursive;
     font-size: 60.3px;
-    color: #ab9025; 
+    color: #ab9025;
+    font-weight: 400;
+    margin: 0;
 }
 
 .intro h3{
@@ -68,8 +71,8 @@ header.scrolled .btn-reserva {
 .contenedor-nosotros{
     display: flex;
     align-items: stretch; /* Esto hace que ambos hijos tengan la misma altura */
-    gap: 20px;            /* Espacio entre la imagen y el texto */
-    max-width: 1000px;    /* Opcional: para que no se estire al infinito */
+    gap: 60px;            /* Espacio entre la imagen y el texto */
+    max-width: 1150px;    /* Opcional: para que no se estire al infinito */
     margin: 0 auto;       /* Centra el contenedor en la pantalla */
 }
 
@@ -108,8 +111,15 @@ header.scrolled .btn-reserva {
 #segunda {
     display: flex;
     flex-direction: column;
-    gap: 0px; /* Espacio entre los bloques */
-    padding: 80px 10%;
+    align-items: stretch;
+    justify-content: center;
+    gap: 60px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    width: 1600px;
+    max-width: 100%;
+    margin-bottom: 80px;
+    margin-top: 150px;
 }
 
 /* Estilo base para los tres bloques */
@@ -117,15 +127,18 @@ header.scrolled .btn-reserva {
 .bloque-vision, 
 .bloque-valores {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+    align-items: flex-start;    /* alinea altura verticalmente entre texto e imagen */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    gap: 60px;              /* Espacio entre el texto y la imagen */
+    width: 100%;
+    flex-direction: column;
 }
 
 /* --- MISIÓN: Texto izquierda, Icono derecha --- */
 .bloque-mision {
     text-align: left;
     margin-top: 0px;
+    flex-direction: row;
 }
 
 /* --- VISIÓN: Texto derecha, Icono izquierda --- */
@@ -137,18 +150,23 @@ header.scrolled .btn-reserva {
 /* --- VALORES: Texto izquierda, Icono derecha --- */
 .bloque-valores {
     text-align: left;
+    flex-direction: row;
 }
 
 /* Ajustes de los contenedores internos de texto e imagen */
 .mision, .vision, .valores {
-    flex: 2;
-    line-height: 1.5;
+    flex: 0 1 600px;        /* El texto tendrá un ancho máximo de 600px */
+    display: flex;
+    flex-direction: column;
+    margin-left: 150px;
+    margin-right: 150px;
 }
 
 .imagen-mision, .imagen\.vision, .imagen\.valores {
-    flex: 1;
+    flex: 0 1 430px;
     display: flex;
     justify-content: center;
+    
 }
 
 /* Ajuste de tamaño de los iconos */
@@ -156,16 +174,26 @@ header.scrolled .btn-reserva {
 .imagen\.vision img, 
 .imagen\.valores img {
     width: 100%;
-    max-width: 200px; /* Puedes ajustar el tamaño según prefieras */
-    height: auto;
+    max-width: 220px; /* Puedes ajustar el tamaño según prefieras */
+    height: 220px;
+    object-fit: cover;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.imagen-mision img:hover, 
+.imagen\.vision img:hover, 
+.imagen\.valores img:hover {
+    transform: scale(1.1);
 }
 
 /* Estilos de fuentes para mantener consistencia */
-#segunda h2 {
+#segunda h4 {
     font-family: 'Fraunces', serif;
     font-size: 30.3px;
     color: #ab9025;
     margin-bottom: 20px;
+    font-weight: 400;
 }
 
 #segunda p {
