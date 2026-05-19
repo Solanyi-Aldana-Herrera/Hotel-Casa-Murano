@@ -44,67 +44,82 @@
     <!-- Sección principal -->
      <main>
         <section class="hero-section">
-        <div class="nombrehotel">
-            <h1>HOTEL</h1>
-            <h2>CASA MURANO</h2>
-        </div>
 
-        <div class="reserva">
-            <div class="reserva-box">
-                <div class="fechas-container">
-
-                    <div class="campo" onclick="document.getElementById('input-entrada').showPicker()">
-                        <span class="label-reserva">Entrada</span>
-                        <div class="fecha-display">
-                            <p id="dia-entrada"></p>
-                            <span id="mes-entrada"></span>
-                        </div>
-                        <input type="date" id="input-entrada" class="input-invisible">
-                    </div>
-
-                    <div class="campo" onclick="document.getElementById('input-salida').showPicker()">
-                        <span class="label-reserva">Salida</span>
-                        <div class="fecha-display">
-                            <p id="dia-salida"></p>
-                            <span id="mes-salida"></span>
-                        </div>
-                        <input type="date" id="input-salida" class="input-invisible">
-                    </div>
-                </div>
-                <div class="campo">
-                    <div class="ocupacion-bloque">
-                        <span class="label-reserva">Ocupación</span>
-                        <div class="ocupacion-selector" onclick="toggleOcupacion()">
-                            <div class="icon-group">
-                                <div class="icon-wrapper">
-                                    <img src="/Front-end/imagenes/Adulto.png" alt="Adulto"> 
-                                </div>
-                                <span id="num-adultos">1</span>
-                                <div class="icon-wrapper">
-                                    <img src="/Front-end/imagenes/Niño.png" alt="Niño"> 
-                                </div>
-                                <span id="num-ninos">1</span>
-                            </div>
-                        </div>
-                        <div class="ocupacion-dropdown" id="dropdown-ocupacion">
-                            <div class="control-pasajero">
-                                <span>Adultos</span>
-                                <input type="number" id="cant-adultos" value="1" min="1" oninput="actualizarOcupacion()">
-                            </div>
-                            <div class="control-pasajero">
-                                <span>Niños</span>
-                                <input type="number" id="cant-ninos" value="1" min="0" oninput="actualizarOcupacion()">
-                            </div>
-                            <button class="btn-listo" onclick="toggleOcupacion()">Listo</button>
-                        </div>
-                    </div>
+            <div class="slider">
+                <div class="slide active">
+                    <img src="/Front-end/imagenes/FondoPrincipal.png" alt="Hotel 1">
                 </div>
 
-                <button class="btn-reserva-home" onclick="window.location.href='/Front-end/paginas/reserva.html'">RESERVA</button>
+                <div class="slide">
+                    <img src="/Front-end/imagenes/Frente de hotel.webp" alt="Hotel 2">
+                </div>
+
+                <div class="slide">
+                    <img src="/Front-end/imagenes/1.jpg" alt="Hotel 3">
+                </div>
             </div>
-        </div>
-    </section>
-            
+
+            <div class="nombrehotel">
+                <h1>HOTEL</h1>
+                <h2>CASA MURANO</h2>
+            </div>
+
+            <div class="reserva">
+                <div class="reserva-box">
+                    <div class="fechas-container">
+
+                        <div class="campo" onclick="document.getElementById('input-entrada').showPicker()">
+                            <span class="label-reserva">Entrada</span>
+                            <div class="fecha-display">
+                                <p id="dia-entrada"></p>
+                                <span id="mes-entrada"></span>
+                            </div>
+                            <input type="date" id="input-entrada" class="input-invisible">
+                        </div>
+
+                        <div class="campo" onclick="document.getElementById('input-salida').showPicker()">
+                            <span class="label-reserva">Salida</span>
+                            <div class="fecha-display">
+                                <p id="dia-salida"></p>
+                                <span id="mes-salida"></span>
+                            </div>
+                            <input type="date" id="input-salida" class="input-invisible">
+                        </div>
+                    </div>
+                    <div class="campo">
+                        <div class="ocupacion-bloque">
+                            <span class="label-reserva">Ocupación</span>
+                            <div class="ocupacion-selector" onclick="toggleOcupacion()">
+                                <div class="icon-group">
+                                    <div class="icon-wrapper">
+                                        <img src="/Front-end/imagenes/Adulto.png" alt="Adulto"> 
+                                    </div>
+                                    <span id="num-adultos">1</span>
+                                    <div class="icon-wrapper">
+                                        <img src="/Front-end/imagenes/Niño.png" alt="Niño"> 
+                                    </div>
+                                    <span id="num-ninos">1</span>
+                                </div>
+                            </div>
+                            <div class="ocupacion-dropdown" id="dropdown-ocupacion">
+                                <div class="control-pasajero">
+                                    <span>Adultos</span>
+                                    <input type="number" id="cant-adultos" value="1" min="1" oninput="actualizarOcupacion()">
+                                </div>
+                                <div class="control-pasajero">
+                                    <span>Niños</span>
+                                    <input type="number" id="cant-ninos" value="1" min="0" oninput="actualizarOcupacion()">
+                                </div>
+                                <button class="btn-listo" onclick="toggleOcupacion()">Listo</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-reserva-home" onclick="window.location.href='/Front-end/paginas/reserva.html'">RESERVA</button>
+                </div>
+            </div>
+        </section>
+                
 
 
         <!-- Sección de bienvenida -->
