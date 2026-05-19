@@ -188,12 +188,13 @@
 }
 
 /* TÍTULO HABITACIÓN */
-.catalogo-habitaciones article h3{
+.catalogo-habitaciones article h4{
     font-family: "Fraunces", serif;
     font-size: 23.3px;
     color: #ab9025;
     font-weight: 700;
     margin-bottom: 18px;
+    font-weight: 400;
 }
 
 /* DESCRIPCIÓN */
@@ -299,8 +300,42 @@
 /* =========================
    BOTONES
 ========================= */
+.ver {
+    background-color: #6F7674;
+    color: white;
+    font-family: 'Fraunces', serif;
+    font-size: 22.3px;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 35px; /* Esquinas redondeadas */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Para que la animación sea suave */
+    margin-right: 10px;
+}
 
+.ver:hover {
+    transform: scale(1.1); /* Se agranda un 10% */
+    box-shadow: 0 0 15px white; /* Efecto de iluminación */
+    color: black;
+}
 
+.btn-reserva2 {
+    background-color: #6F7674;
+    color: white;
+    font-family: 'Fraunces', serif;
+    font-size: 22.3px;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 35px; /* Esquinas redondeadas */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Para que la animación sea suave */
+}
+
+.btn-reserva2:hover {
+    transform: scale(1.1); /* Se agranda un 10% */
+    box-shadow: 0 0 15px white; /* Efecto de iluminación */
+    color: black;
+}
 
 /* =========================
    MODAL
