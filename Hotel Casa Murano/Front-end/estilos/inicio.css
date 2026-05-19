@@ -1,6 +1,6 @@
 header {
     background-color: rgba(30, 30, 30, 0.0); 
-    padding: 8px 8px;
+    padding: 0px 0px;
     width: 100%;
     position: absolute; 
     top: 0;
@@ -82,7 +82,7 @@ header {
 .reserva-box {
     background-color: #f6f6f5;
     padding: 15px 30px;
-    border-radius: 60px;
+    border-radius: 75px;
     display: flex;
     align-items: center;
     gap: 15px;
@@ -209,26 +209,27 @@ header {
     padding: 8px;
     border-radius: 20px;
     font-family: 'Forum', serif;
+    font-size: 12.3PX;
     cursor: pointer;
     margin-top: 8px;
 }
 
 .btn-reserva-home{
-    background-color: #1e1e1e;
-    color: #f6f6f5;
+    background-color: #1fd6e3;
+    color: black;
     font-family: 'Fraunces', serif;
     font-size: 22.3px;
     border: none;
-    padding: 10px 25px;
-    border-radius: 25px; /* Esquinas redondeadas */
+    padding: 8px 15px;
+    border-radius: 35px; /* Esquinas redondeadas */
     cursor: pointer;
     transition: all 0.3s ease; /* Para que la animación sea suave */
 }
 
 .btn-reserva-home:hover{
     transform: scale(1.1); /* Se agranda un 10% */
-    box-shadow: 0 0 15px #f6f6f5; /* Efecto de iluminación */
-    color: #ab9025;
+    box-shadow: 0 0 15px white; /* Efecto de iluminación */
+    color: black;
 }
 
 .fechas-container {
@@ -249,21 +250,21 @@ header {
 }
 
 .btn-reserva {
-    background-color: #1e1e1e;
-    color: #f6f6f5;
+    background-color: #6F7674;
+    color: white;
     font-family: 'Fraunces', serif;
     font-size: 22.3px;
     border: none;
-    padding: 10px 25px;
-    border-radius: 25px; /* Esquinas redondeadas */
+    padding: 8px 15px;
+    border-radius: 35px; /* Esquinas redondeadas */
     cursor: pointer;
     transition: all 0.3s ease; /* Para que la animación sea suave */
 }
 
 .btn-reserva:hover {
     transform: scale(1.1); /* Se agranda un 10% */
-    box-shadow: 0 0 15px #ffffff; /* Efecto de iluminación */
-    color: #1fd6e3;
+    box-shadow: 0 0 15px #1fd6e3; /* Efecto de iluminación */
+    color: black;
 }
 
 
@@ -275,7 +276,7 @@ header {
     width: 100%;
     transition: all 0.4s ease; /* Transición suave */
     z-index: 1000;
-    padding: 20px;
+    padding:0px;
     background: transparent;
 }
 

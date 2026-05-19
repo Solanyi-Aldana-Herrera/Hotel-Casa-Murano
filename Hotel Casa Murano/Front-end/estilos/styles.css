@@ -6,7 +6,7 @@
 
 header {
     background-color: #1e1e1e;
-    padding: 8px 8px;
+    padding: 0px 0px;
     width: 100%;
 }
 
@@ -16,7 +16,8 @@ header {
 }
 
 .logo img {
-    height: 150px; 
+    height: 85px;
+    width: auto;
 }
 
 .enlace-logo {
@@ -39,6 +40,7 @@ header {
     justify-content: flex-start;
     width: 100%;
     max-width: 1500px; /* Ajustable a tu diseño */
+    height: 115px;
     margin: 0 auto;
     padding: 0px 0px;
 }
@@ -53,7 +55,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 26px; /* Espaciado solicitado de 26 */
+    gap: 23px; /* Espaciado solicitado de 23 */
     margin: 0;
     padding: 0;
 }
@@ -66,22 +68,42 @@ header {
     padding: 8px 16px;
     transition: all 0.3s ease;
     display: inline-block;
+    position: relative;
 }
 
+
+
+/* Línea inferior */
+.navbar ul li a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #1fd6e3; /* Azul */
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+/* Hover */
 .navbar ul li a:hover {
-    background-color: #545454; /* Color de fondo solicitado */
-    border-radius: 25px;       /* Esquinas redondeadas solicitadas */
-    color: #ffffff;            /* Mantiene el texto en blanco */
+    color: #1fd6e3; /* Texto azul */
+}
+
+/* Animación de la línea */
+.navbar ul li a:hover::after {
+    width: 70%;
 }
 
 .btn-reserva {
     background-color: #1fd6e3;
-    color: #1e1e1e;
+    color: black;
     font-family: 'Fraunces', serif;
     font-size: 22.3px;
     border: none;
-    padding: 10px 25px;
-    border-radius: 25px; /* Esquinas redondeadas */
+    padding: 8px 15px;
+    border-radius: 35px; /* Esquinas redondeadas */
     cursor: pointer;
     transition: all 0.3s ease; /* Para que la animación sea suave */
 }
@@ -89,8 +111,10 @@ header {
 .btn-reserva:hover {
     transform: scale(1.1); /* Se agranda un 10% */
     box-shadow: 0 0 15px #ffffff; /* Efecto de iluminación */
-    color: #1e1e1e;
+    color: black;
 }
+
+
 
 
 footer {
@@ -101,25 +125,27 @@ footer {
 
 .pie-pagina {
     display: flex;
-    justify-content: space-around; /* Distribuye los 3 bloques con espacio entre ellos */
-    align-items: flex-start;           /* Alinea todo verticalmente al centro */
-    max-width: 1800px;
+    justify-content: space-between; /* Distribuye los 3 bloques con espacio entre ellos */
+    align-items:center;           /* Alinea todo verticalmente al centro */
+    max-width: 1500px;
     margin: 0 auto;
-    padding: 20px 0px;
+    padding: 2px 0px;
     text-align: center;
+    gap: 26px;
 }
 
 .pie-pagina h4 {
     font-family: 'Forum', serif;
-    font-size: 15.3px;
+    font-size: 12.3px;
     color: #ffffff;
-    margin-top: 0;
+    margin-top: 10px;
     text-transform: uppercase;
+    margin-bottom: 5px;
 }
 
 .pie-pagina p {
     font-family: 'Forum', serif;
-    font-size: 14.3px;
+    font-size: 12.3px;
     color: #ffffff;
     margin: 5px 0;
 }
@@ -128,20 +154,23 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 2px;
+    justify-content: flex-start;
+    margin-bottom: 0px;
+    margin-top: 2px;
 }
 
 .redes-sociales {
-    display: flex;
+    justify-content: flex-start;
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .redes-sociales .icono-social img {
-    width: 52px;
-    height: 52px;
+    width: 40px;
+    height: 40px;
     object-fit: contain;
     transition: transform 0.3s ease;
 }
@@ -150,41 +179,41 @@ footer {
     transform: scale(1.1);
 }
 
-.informacion {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    line-height: 1.2;
-}
-
-.informacion h4 {
-    margin-bottom: 2px; /* Espacio extra entre bloques de info */
-    margin-top: 15px;
-    font-family: 'Forum', serif;
-    font-size: 15.3px;
-}
-
-.informacion h4:first-child {
-    margin-top: 0;
-}
-
-.informacion p {
-    margin-top: 0;      /* Pegamos el párrafo al h4 de arriba */
-    margin-bottom: 0;   /* Quitamos el margen de abajo */
-    font-family: 'Forum', serif;
-    font-size: 14.3px;
-    line-height: 1;     /* Interlineado mínimo para el texto */
-}
-
 .pie-pagina .logo img {
-    height: 150px; /* Tamaño un poco más grande para el footer */
+    height: 85px; /* Tamaño del logo del footer */
     width: auto;
 }
 
 .contenedor-iconos {
     display: flex;
     flex-direction: row; /* Mantiene los iconos UNO AL LADO DEL OTRO */
-    gap: 20px;           /* Espacio entre Facebook e Instagram */
+    gap: 10px;           /* Espacio entre Facebook e Instagram */
     justify-content: center;
+    margin-bottom: 0px;
+    margin-top: 2px;
 }
+
+.copyrith p {
+    margin: 0px;
+    margin-bottom: 5px;
+    margin-top: 0px;
+}
+
+.info-item1,
+.info-item2,
+.info-item3 {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre título y texto */
+}
+
+.info-item1 h4,
+.info-item1 p,
+.info-item2 h4,
+.info-item2 p,
+.info-item3 h4,
+.info-item3 p {
+    margin: 0;
+}
+
 
