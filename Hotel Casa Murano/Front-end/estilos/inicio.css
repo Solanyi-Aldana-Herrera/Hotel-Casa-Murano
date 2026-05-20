@@ -53,15 +53,15 @@ header {
     position: relative;
     z-index: 2;
     text-align: center;
-    color: #f6f6f5;
-    margin-bottom: 0px;
-    margin-top: 320px;
+    color: white;
+    margin-bottom: 20px;
+    margin-top: 290px;
 }
 
 .nombrehotel h1 {
     font-family: 'Forum', serif;
     font-size: 59.5px; /* Tamaño solicitado */
-    letter-spacing: 8px;
+    letter-spacing: 5px;
 }
 
 .nombrehotel h2 {
