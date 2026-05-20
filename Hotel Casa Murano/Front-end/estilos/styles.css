@@ -5,7 +5,7 @@
     }
 
 header {
-    background-color: #1e1e1e;
+    background-color: black;
     padding: 0px 0px;
     width: 100%;
 }
@@ -118,7 +118,7 @@ header {
 
 
 footer {
-    background-color: #1e1e1e;
+    background-color: black;
     padding: 0px 0px;
     width: 100%;
 }
