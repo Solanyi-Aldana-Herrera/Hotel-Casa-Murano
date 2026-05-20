@@ -305,7 +305,7 @@
    BOTONES
 ========================= */
 .ver {
-    background-color: #6F7674;
+    background-color: #6f7674;
     color: white;
     font-family: 'Fraunces', serif;
     font-size: 22.3px;
@@ -318,13 +318,12 @@
 }
 
 .ver:hover {
-    transform: scale(1.1); /* Se agranda un 10% */
-    box-shadow: 0 0 15px white; /* Efecto de iluminación */
-    color: black;
+    background: #222;
+    transform: scale(1.05);
 }
 
 .btn-reserva2 {
-    background-color: #6F7674;
+    background-color: #6f7674;
     color: white;
     font-family: 'Fraunces', serif;
     font-size: 22.3px;
@@ -336,9 +335,8 @@
 }
 
 .btn-reserva2:hover {
-    transform: scale(1.1); /* Se agranda un 10% */
-    box-shadow: 0 0 15px white; /* Efecto de iluminación */
-    color: black;
+    background: #222;
+    transform: scale(1.05);
 }
 
 /* =========================

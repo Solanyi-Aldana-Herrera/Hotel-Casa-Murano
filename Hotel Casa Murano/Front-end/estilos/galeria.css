@@ -27,13 +27,14 @@
 #galeria h3{
 
     text-align: center;
-    font-family: "Fraunces", cursive;
+    font-family: "Fraunces", serif;
     font-size: 30.3px;
     margin-bottom: 80px;
     color: black;
     letter-spacing: 2px;
     text-transform: uppercase;
     font-weight: 700;
+    margin-top: -10px;
 }
 /* CONTENEDOR IMÁGENES */
 

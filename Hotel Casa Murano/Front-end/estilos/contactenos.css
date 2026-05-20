@@ -1,25 +1,27 @@
 /* =========================
    SECCIÓN CONTACTO
 ========================= */
+#contacto-general {
+    width: 100%;
+    background-color: white;
+    padding: 50px 20px;
+    margin: 0 auto;
+    margin-top: -10px;
+    margin-bottom: 30px;
 
-#contacto,
-#box-contacto{
-    padding: 40px 20px;
 }
+
+
 
 /* CONTENEDOR GENERAL */
 
 .contacto-contenedor{
 
-    max-width: 1200px;
+    max-width: 1500px;
     margin: auto;
-
     display: flex;
-
-    justify-content: space-between;
-
+    justify-content:center;
     align-items: flex-start;
-
     gap: 60px;
 }
 
@@ -31,16 +33,17 @@
 
     text-align: center;
     margin-bottom: 50px;
-    margin-top: 50px;
+    margin-top: 35px;
 }
 
 .encabezado h2{
 
     font-size: 60.3px;
-    font-family: "Pinyon Script", cursive;
+    font-family: "Pinyon Script", serif;
     color: #ab9025;
     margin: 0;
     font-weight: 400;
+    text-align: center;
 }
 
 .encabezado h3{
@@ -48,6 +51,11 @@
     font-size: 30.3px;
     color: black;
     font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: "Fraunces", serif;
+    margin: -10px 0px 80px;
 }
 
 /* =========================
@@ -57,6 +65,8 @@
 .información-contacto{
 
     flex: 1;
+    max-width: 700px;
+    width: 100%;
 }
 
 /* TÍTULO */
@@ -64,6 +74,7 @@
 .información-contacto h4{
 
     font-size: 30.3px;
+    font-family: "Forum", serif;
     color: #ab9025;
     margin-bottom: 25px;
 }
@@ -73,7 +84,8 @@
 .información-contacto p{
 
     font-size: 23.3px;
-    line-height: 1.5;
+    font-family: "Forum", serif;
+    line-height: 1.2;
     color: black;
     margin-bottom: 30px;
 }
@@ -85,8 +97,7 @@
 .mapa iframe{
 
     width: 100%;
-    height: 530px;
-
+    height: 350px;
     border-radius: 18px;
 
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
@@ -102,12 +113,12 @@
 .formulario{
 
     flex: 1;
-
-    background: #d7cfb0;
-
+    background: #e1d9ba;
     padding: 35px;
-
-    border-radius: 10px;
+    padding-top: 25px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    width: 550px;
 }
 
 /* TÍTULO FORMULARIO */
@@ -115,17 +126,12 @@
 .formulario::before{
 
     content: "Envíanos un mensaje";
-
+    font-family: "Forum", serif;
     display: block;
-
     text-align: center;
-
-    font-size: 45px;
-
-    color: #b08a1e;
-
-    margin-bottom: 30px;
-
+    font-size: 30.3px;
+    color: #ab9025;
+    margin-bottom: 20px;
     font-weight: bold;
 }
 
@@ -134,12 +140,10 @@
 .formulario label{
 
     display: block;
-
-    font-size: 25px;
-
+    font-family: "Forum",serif;
+    font-size: 23.3px;
     margin-bottom: 10px;
-
-    color: #111;
+    color: black;
 }
 
 /* INPUTS */
@@ -148,18 +152,12 @@
 .formulario textarea{
 
     width: 100%;
-
-    padding: 12px;
-
-    margin-bottom: 25px;
-
+    padding: 5px;
+    margin-bottom: 10px;
     border: none;
-
     outline: none;
-
-    font-size: 18px;
-
-    border-radius: 3px;
+    font-size: 14px;
+    border-radius: 5px;
 }
 
 /* TEXTAREA */
@@ -172,25 +170,16 @@
 /* BOTÓN */
 
 .formulario button{
-
     display: block;
-
     margin: auto;
-
-    background: #000;
-
+    margin-top: 10px;
+    background: #545454;
     color: white;
-
     border: none;
-
     padding: 14px 45px;
-
     border-radius: 40px;
-
     font-size: 28px;
-
     cursor: pointer;
-
     transition: 0.3s ease;
 }
 
@@ -199,7 +188,6 @@
 .formulario button:hover{
 
     background: #222;
-
     transform: scale(1.05);
 }
 
