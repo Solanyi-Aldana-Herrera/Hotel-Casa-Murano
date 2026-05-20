@@ -5,8 +5,11 @@
 #galeria{
 
     width: 100%;
-    padding: 80px 20px;
-    background: #f3f3f3;
+    padding: 50px 20px;
+    background: white;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 /* TÍTULO */
@@ -28,6 +31,9 @@
     font-size: 30.3px;
     margin-bottom: 80px;
     color: black;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
 }
 /* CONTENEDOR IMÁGENES */
 
