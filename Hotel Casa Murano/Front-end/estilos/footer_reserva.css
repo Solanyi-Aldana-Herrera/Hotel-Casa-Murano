@@ -1,0 +1,106 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+
+footer {
+    background-color: #1e1e1e;
+    padding: 0px 0px;
+    width: 100%;
+}
+
+.pie-pagina {
+    display: flex;
+    justify-content: space-between; /* Distribuye los 3 bloques con espacio entre ellos */
+    align-items:center;           /* Alinea todo verticalmente al centro */
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 2px 0px;
+    text-align: center;
+    gap: 26px;
+}
+
+.pie-pagina h4 {
+    font-family: 'Forum', serif;
+    font-size: 12.3px;
+    color: #ffffff;
+    margin-top: 10px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.pie-pagina p {
+    font-family: 'Forum', serif;
+    font-size: 12.3px;
+    color: #ffffff;
+    margin: 5px 0;
+}
+
+.pie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    justify-content: flex-start;
+    margin-bottom: 0px;
+    margin-top: 2px;
+}
+
+.redes-sociales {
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 5px;
+}
+
+.redes-sociales .icono-social img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.redes-sociales .icono-social img:hover {
+    transform: scale(1.1);
+}
+
+.pie-pagina .logo img {
+    height: 85px; /* Tamaño del logo del footer */
+    width: auto;
+}
+
+.contenedor-iconos {
+    display: flex;
+    flex-direction: row; /* Mantiene los iconos UNO AL LADO DEL OTRO */
+    gap: 10px;           /* Espacio entre Facebook e Instagram */
+    justify-content: center;
+    margin-bottom: 0px;
+    margin-top: 2px;
+}
+
+.copyrith p {
+    margin: 0px;
+    margin-bottom: 5px;
+    margin-top: 0px;
+}
+
+.info-item1,
+.info-item2,
+.info-item3 {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre título y texto */
+}
+
+.info-item1 h4,
+.info-item1 p,
+.info-item2 h4,
+.info-item2 p,
+.info-item3 h4,
+.info-item3 p {
+    margin: 0;
+}
+

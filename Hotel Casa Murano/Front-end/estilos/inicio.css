@@ -12,7 +12,7 @@ header {
     position: relative;
     height: 100vh; /* Ocupa toda la vista del navegador */
     width: 100%;
-    background-color: #545454; /* Color de fondo base */
+    background-color: black; /* Color de fondo base */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,7 +35,7 @@ header {
     width: 100%;
     height: 100%;
     opacity: 0;
-    transition: opacity 1.5s ease-in-out;
+    transition: opacity 1,5s ease-in-out;
 }
 
 .slide.active {
@@ -80,24 +80,26 @@ header {
 }
 
 .reserva-box {
-    background-color: #f6f6f5;
+    background-color: rgba(246, 246, 245, 0.1); /* El 0.4 es el nivel de opacidad (40%) */
     padding: 10px 30px;
     border-radius: 75px;
     display: flex;
     align-items: center;
     gap: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Suavisé la sombra para que combine mejor */
+    border: 3px solid #27d0dc;
 }
 
 .label-reserva {
     font-family: 'Fraunces', serif;
     font-size: 15.6px; /* Tamaño solicitado */
-    color: #1e1e1e;
+    color: #27d0dc;
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
     /* Asegura que todos los títulos empiecen a la misma altura */
     line-height: 1.0;
+    letter-spacing: 1px;
 }
 
 .input-invisible {
@@ -118,7 +120,7 @@ header {
 .fecha-display {
     font-family: 'Forum', serif; /* Aplicamos la fuente Forum a todo el bloque */
     text-align: center;
-    color: #1e1e1e; /* Ajusta el color según prefieras */
+    color: white; /* Ajusta el color según prefieras */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -170,7 +172,7 @@ header {
 .icon-group span {
     font-family: 'Forum', serif;
     font-size: 25px;
-    color: #1e1e1e;
+    color: white;
     margin-right: 10px; /* Espacio para separar el grupo Adulto del grupo Niño */
 }
 
@@ -204,7 +206,7 @@ header {
 
 .btn-listo {
     width: 100%;
-    background-color: #1fd6e3;
+    background-color: #27d0dc;
     border: none;
     padding: 8px;
     border-radius: 20px;
@@ -215,8 +217,8 @@ header {
 }
 
 .btn-reserva-home{
-    background-color: #1fd6e3;
-    color: black;
+    background-color: #27d0dc;
+    color: #1e1e1e;
     font-family: 'Fraunces', serif;
     font-size: 22.3px;
     border: none;
@@ -236,7 +238,7 @@ header {
     display: flex;
     gap: 15px;
     padding: 10px 30px;
-    border: 2px solid #ab9025; /* Color dorado elegante para el recuadro */
+    border: 2px solid #27d0dc; /* Color dorado elegante para el recuadro */
     border-radius: 35px;
     margin-right: 10px;
     align-items: flex-start;
@@ -247,24 +249,6 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-}
-
-.btn-reserva {
-    background-color: #6F7674;
-    color: white;
-    font-family: 'Fraunces', serif;
-    font-size: 22.3px;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 35px; /* Esquinas redondeadas */
-    cursor: pointer;
-    transition: all 0.3s ease; /* Para que la animación sea suave */
-}
-
-.btn-reserva:hover {
-    transform: scale(1.1); /* Se agranda un 10% */
-    box-shadow: 0 0 15px #1fd6e3; /* Efecto de iluminación */
-    color: black;
 }
 
 
@@ -291,8 +275,8 @@ header.scrolled nav a {
 }
 
 header.scrolled .btn-reserva {
-    background-color: #1fd6e3; /* Color del botón al bajar */
-    color: black;
+    background-color: #27d0dc; /* Color del botón al bajar */
+    color: #1e1e1e;
 }
 
 /* Sección Bienvenidos */

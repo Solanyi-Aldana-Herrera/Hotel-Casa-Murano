@@ -25,9 +25,22 @@
                     <img src="/Front-end/imagenes/LogoConNombre.png" alt="logo">
                 </a>
                 
-            </div> 
+            </div>
+             
+
             <nav class="navbar">
+                <!--Icono administrador-->
+            
                 <ul>
+                    <div class="admin-icon-container" id="adminBtn">
+                        <svg class="admin-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="11" fill="none" stroke-width="1.2"/>
+                            <circle cx="9.5" cy="8.5" r="3" />
+                            <path d="M4 17c0-2.5 3-3.5 5.5-3.5.8 0 1.6.1 2.3.4-.4.6-.6 1.4-.6 2.1v2.5H4V17z" />
+                            <rect x="14" y="14" width="6" height="4.5" rx="1" />
+                            <path d="M15 14v-1.5c0-1.1.9-2 2-2s2 .9 2 2V14" fill="none" stroke-width="1.5" />
+                        </svg>
+                    </div>    
                     <li><a href="/Front-end/index.html">INICIO</a></li>
                     <li><a href="/Front-end/paginas/nosotros.html">NOSOTROS</a></li>
                     <li><a href="/Front-end/paginas/habitaciones.html">HABITACIONES</a></li>
@@ -181,7 +194,15 @@
                 </div>
                 
             </div>
-        </div>   
+        </div>
+        
+
+        <script>
+            document.getElementById('adminBtn').addEventListener('click', () => {
+            // Esto redirige automáticamente a la página de login
+            window.location.href = '/Front-end/paginas/login_admin.html';
+        });;
+        </script>   
         
     </footer>
 
