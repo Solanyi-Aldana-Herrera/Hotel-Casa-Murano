@@ -70,7 +70,7 @@
                         </svg>
                     </button>
 
-                    <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+                    <a href="/Front-end/paginas/recuperar.html" class="forgot-link">¿Olvidaste tu contraseña?</a>
                 </form>
             </div>
         </div>
@@ -96,17 +96,58 @@
         });
 
         // 2. Control de envío del formulario
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault(); // Evita la recarga automática
-            
-            const user = document.getElementById('username').value;
-            const pass = passwordInput.value;
+        document
+.getElementById('loginForm')
+.addEventListener('submit', async (e) => {
 
-            console.log("Intentando iniciar sesión con:", user);
-            
-            // Aquí agregas tu lógica de validación real (Fetch API / Axios)
-            alert(`¡Conexión exitosa para el usuario: ${user}! Redirigiendo al panel de control de Casa Murano...`);
-        });
+    e.preventDefault();
+
+    const usuario =
+        document.getElementById('username').value;
+
+    const contrasena =
+        document.getElementById('password').value;
+
+    try {
+
+        const respuesta = await fetch(
+            'http://localhost:3000/login',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    usuario,
+                    contrasena
+                })
+            }
+        );
+
+        const datos = await respuesta.json();
+
+        if (datos.success) {
+
+            alert('Bienvenido al sistema');
+
+            window.location.href =
+                'admin.html';
+
+        } else {
+
+            alert(datos.mensaje);
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert('No se pudo conectar con el servidor');
+
+    }
+
+});
     </script>
 
 </body>
