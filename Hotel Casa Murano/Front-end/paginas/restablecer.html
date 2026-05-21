@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Contraseña | Hotel Casa Murano</title>
+    <link rel="stylesheet" href="/Front-end/estilos/login.css">
+</head>
+<body>
+
+    <div class="login-container">
+        
+        <div class="left-side">
+            <div class="brand-box">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                    </svg>
+                </div>
+                <h1 class="brand-title">Hotel<br>Casa Murano</h1>
+                <p class="brand-tagline">Exclusividad. Confort. Experiencia.</p>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <div class="login-box">
+                <div class="login-header">
+                    <h2>Restablecer Contraseña</h2>
+                    <p>Ingresa la nueva contraseña para tu cuenta de administrador.</p>
+                </div>
+
+                <form id="simpleResetForm">
+                    <div class="input-group">
+                        <label for="nuevaContrasena">Nueva Contraseña <span>*</span></label>
+                        <div class="input-wrapper">
+                            <input type="password" id="nuevaContrasena" placeholder="Escribe tu nueva clave" required>
+                            <svg class="input-icon" viewBox="0 0 24 24">
+                                <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        Guardar nueva contraseña
+                    </button>
+
+                    <a href="/Front-end/paginas/login_admin.html" class="forgot-link" style="text-align: center; display: block; margin-top: 15px;">
+                        Volver al Login
+                    </a>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 1. Obtener el 'id' del administrador directamente desde la URL (?id=X)
+        const parametros = new URLSearchParams(window.location.search);
+        const adminId = parametros.get('id');
+
+        // Si no viene un ID válido en el enlace, lo devolvemos al login
+        if (!adminId) {
+            alert("Enlace no válido.");
+            window.location.href = '/Front-end/paginas/login_admin.html';
+        }
+
+        // 2. Enviar la contraseña al darle clic al botón
+        document.getElementById('simpleResetForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const password = document.getElementById('nuevaContrasena').value;
+
+            try {
+                const respuesta = await fetch('http://localhost:3000/actualizar-clave-directa', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        id: adminId, 
+                        contrasena: password 
+                    })
+                });
+
+                const datos = await respuesta.json();
+
+                if (datos.success) {
+                    alert('¡Contraseña cambiada con éxito!');
+                    window.location.href = '/Front-end/paginas/login_admin.html'; // Lo manda al login original
+                } else {
+                    alert('No se pudo actualizar: ' + datos.mensaje);
+                }
+
+            } catch (error) {
+                console.error(error);
+                alert('Error al conectar con el servidor.');
+            }
+        });
+    </script>
+
+</body>
+</html>

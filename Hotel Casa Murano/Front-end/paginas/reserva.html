@@ -39,6 +39,35 @@
 
         <section id="habitacion-detalle-reserva">
             <div class="seleccion-habitacion">
+                <div class="max-w-6xl mx-auto bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        
+        <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 mb-6 gap-4">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-gold-title">Paso 1: &nbsp;Selecciona habitación</h1>
+            </div>
+            <button id="toggle-mode-btn" onclick="toggleMode()" class="px-4 py-2 bg-gray-800 text-white text-sm font-semibold rounded-lg hover:bg-gray-700 shadow">
+                ⚙️ Modo Administrador / CMS
+            </button>
+        </header>
+
+        <div id="cms-global-actions" class="hidden mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg flex gap-2">
+            <button onclick="addNewRoom()" class="bg-green-600 text-white text-xs font-bold py-2 px-4 rounded">➕ Añadir Habitación</button>
+            <button onclick="resetToDefault()" class="bg-gray-500 text-white text-xs font-bold py-2 px-4 rounded">🔄 Restablecer Originales</button>
+        </div>
+
+        <div id="rooms-container" class="space-y-6"></div>
+    </div>
+            </div>
+        </section>
+
+        <section id="digitacion-datos">
+            <div class="seleccion-habitacion">
+                
+            </div>
+        </section>
+
+        <section id="resumen-reserva">
+            <div class="seleccion-habitacion">
                 
             </div>
         </section>

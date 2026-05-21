@@ -16,7 +16,7 @@ header {
 }
 
 .logo img {
-    height: 100px;
+    height: 72px;
     width: auto;
 }
 
@@ -180,7 +180,7 @@ footer {
 }
 
 .pie-pagina .logo img {
-    height: 85px; /* Tamaño del logo del footer */
+    height: 72px; /* Tamaño del logo del footer */
     width: auto;
 }
 
