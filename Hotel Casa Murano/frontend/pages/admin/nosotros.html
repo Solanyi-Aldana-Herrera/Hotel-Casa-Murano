@@ -1,0 +1,69 @@
+<section id="nosotros" class="seccion-admin active">
+    <h1>Administrar Nosotros</h1>
+    <p class="descripcion-seccion">Modifica la información del hotel y los iconos de servicios.</p>
+
+    <div class="admin-form" id="form-nosotros">
+        <h2>Información del Hotel</h2>
+        <div class="admin-form-group">
+            <label>Título</label>
+            <input type="text" id="nosotros-titulo" placeholder="Título de la sección">
+        </div>
+        <div class="admin-form-group">
+            <label>Descripción</label>
+            <textarea id="nosotros-descripcion" placeholder="Descripción del hotel"></textarea>
+        </div>
+        <div class="admin-form-group">
+            <label>Imagen</label>
+            <div class="upload-area" onclick="document.getElementById('nosotros-img-input').click()">
+                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                <p>Haz clic para seleccionar imagen</p>
+                <span class="sub-texto">JPG, JPEG, PNG, WEBP</span>
+            </div>
+            <input type="file" id="nosotros-img-input" accept="image/*" style="display:none">
+            <div class="upload-preview" id="nosotros-img-preview" style="display:none">
+                <img src="" alt="preview">
+                <div class="info"><p id="nosotros-img-nombre"></p></div>
+            </div>
+            <input type="hidden" id="nosotros-imagen">
+        </div>
+        <div class="admin-actions">
+            <button class="btn-guardar" onclick="guardarNosotros()">Guardar Información</button>
+        </div>
+    </div>
+
+    <div class="admin-toolbar" style="margin-top:30px">
+        <h2 style="font-family:var(--font-serif);font-size:1.4rem;color:#222">Iconos / Valores</h2>
+        <button class="btn-agregar" onclick="abrirFormIcono()">
+            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            Nuevo Icono
+        </button>
+    </div>
+
+    <div class="admin-card-list" id="iconos-lista">
+        <div class="msj-vacio">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <p>Sin iconos registrados</p>
+        </div>
+    </div>
+
+    <div class="admin-form" id="form-icono" style="display:none">
+        <h2 id="icono-form-titulo">Nuevo Icono</h2>
+        <input type="hidden" id="icono-id">
+        <div class="admin-form-group">
+            <label>Nombre <span class="req">*</span></label>
+            <input type="text" id="icono-nombre" placeholder="Ej: Seguridad">
+        </div>
+        <div class="admin-form-group">
+            <label>Clase del Icono <span class="req">*</span></label>
+            <input type="text" id="icono-icono" placeholder="Ej: fas fa-shield-alt">
+        </div>
+        <div class="admin-form-group">
+            <label>Descripción</label>
+            <textarea id="icono-descripcion" placeholder="Descripción del valor"></textarea>
+        </div>
+        <div class="admin-actions">
+            <button class="btn-guardar" onclick="guardarIcono()">Guardar Icono</button>
+            <button class="btn-cancelar" onclick="cerrarFormIcono()">Cancelar</button>
+        </div>
+    </div>
+</section>

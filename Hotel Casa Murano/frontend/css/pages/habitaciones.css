@@ -1,0 +1,241 @@
+#mensaje {
+  width: 100%;
+  background: white;
+  padding: 50px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 35px 0 0;
+}
+
+.contenedor-mensaje {
+  max-width: 950px;
+  text-align: center;
+  position: relative;
+}
+
+.titulo-mensaje h2 {
+  font-family: var(--font-decorative);
+  font-size: 60.1px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+  margin-bottom: 45px;
+  position: relative;
+}
+
+.titulo-mensaje h2::after {
+  content: url("/frontend/images/decoracion/linea.png");
+  display: block;
+  font-size: 30px;
+  color: var(--gold);
+  margin-top: 0;
+  letter-spacing: 10px;
+}
+
+.mensaje-mensaje p {
+  font-family: var(--font-heading);
+  font-size: 23.3px;
+  text-align: justify;
+  line-height: 1.5;
+  color: black;
+  max-width: 760px;
+  margin: 0 auto 40px;
+}
+
+.contenedor-mensaje::before {
+  content: "";
+  position: absolute;
+  width: 380px;
+  height: 350px;
+  left: -150px;
+  bottom: -80px;
+  background: url("/frontend/images/decoracion/derecha.png") no-repeat center;
+  background-size: contain;
+  opacity: 0.95;
+}
+
+.contenedor-mensaje::after {
+  content: "";
+  position: absolute;
+  width: 380px;
+  height: 350px;
+  right: -150px;
+  bottom: -80px;
+  background: url("/frontend/images/decoracion/izquierda.png") no-repeat center;
+  background-size: contain;
+  opacity: 0.95;
+}
+
+#habitaciones {
+  width: 100%;
+  background: white;
+  padding: 80px 20px;
+}
+
+.contenedor-habitaciones {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.titulo-habitaciones {
+  text-align: center;
+  margin-bottom: 60px;
+  margin-top: 60px;
+}
+
+.titulo-habitaciones h3 {
+  font-family: var(--font-body);
+  font-size: 30.3px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: #111;
+  margin-top: -10px;
+}
+
+.catalogo-habitaciones {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.catalogo-habitaciones article {
+  background: transparent;
+  transition: 0.3s ease;
+}
+
+.catalogo-habitaciones article img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.catalogo-habitaciones article h4 {
+  font-family: var(--font-body);
+  font-size: 23.3px;
+  color: var(--gold);
+  font-weight: 400;
+  margin-bottom: 18px;
+}
+
+.catalogo-habitaciones article p {
+  font-family: var(--font-heading);
+  font-size: 23.3px;
+  line-height: 1.7;
+  color: black;
+  margin-bottom: 20px;
+}
+
+.catalogo-habitaciones article ul {
+  margin-bottom: 30px;
+  padding-left: 20px;
+}
+
+.catalogo-habitaciones article ul li {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px;
+  color: #1d1d1d;
+  margin-bottom: 8px;
+}
+
+.botones-habitacion {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.botones-habitacion a {
+  text-decoration: none;
+  background: #b08a1e;
+  color: white;
+  padding: 12px 22px;
+  border-radius: 30px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px;
+  font-weight: 700;
+  transition: 0.3s ease;
+}
+
+.botones-habitacion a:hover {
+  background: #8f6f17;
+  transform: translateY(-2px);
+}
+
+.catalogo-habitaciones article:hover {
+  transform: translateY(-5px);
+}
+
+.ver {
+  background-color: #6f7674;
+  color: white;
+  font-family: var(--font-body);
+  font-size: 22.3px;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 35px;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-right: 10px;
+}
+
+.ver:hover {
+  background: #222;
+  transform: scale(1.05);
+}
+
+.btn-reserva2 {
+  background-color: #6f7674;
+  color: white;
+  font-family: var(--font-body);
+  font-size: 22.3px;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 35px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-reserva2:hover {
+  background: #222;
+  transform: scale(1.05);
+}
+
+.modal-content h2 {
+  color: #b08a1e;
+  margin-bottom: 20px;
+  font-size: 35px;
+}
+
+.modal-content p {
+  font-size: 20px;
+  line-height: 1.7;
+}
+
+@media (max-width: 992px) {
+  .catalogo-habitaciones {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .titulo-mensaje h2 { font-size: 42px; }
+  .mensaje-mensaje p { font-size: 24px; line-height: 1.7; }
+  .contenedor-mensaje::before,
+  .contenedor-mensaje::after { width: 150px; height: 150px; }
+  .contenedor-mensaje::before { left: -50px; }
+  .contenedor-mensaje::after { right: -50px; }
+}
+
+@media (max-width: 768px) {
+  .catalogo-habitaciones { grid-template-columns: 1fr; }
+  #mensaje { padding: 70px 20px; }
+  .titulo-mensaje h2 { font-size: 34px; }
+  .mensaje-mensaje p { font-size: 20px; }
+  .contenedor-mensaje::before,
+  .contenedor-mensaje::after { display: none; }
+  .titulo-habitaciones h2 { font-size: 36px; }
+  .catalogo-habitaciones article h3 { font-size: 30px; }
+  .catalogo-habitaciones article p,
+  .catalogo-habitaciones article ul li { font-size: 20px; }
+  .botones-habitacion a { font-size: 20px; padding: 10px 18px; }
+}

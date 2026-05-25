@@ -1,0 +1,141 @@
+#contacto-general {
+  width: 100%;
+  background-color: white;
+  margin: -10px auto 30px;
+}
+
+.contacto-contenedor {
+  max-width: 1500px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 60px;
+}
+
+.encabezado {
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 90px;
+}
+
+.encabezado h2 {
+  font-size: 60.3px;
+  font-family: var(--font-decorative);
+  color: var(--gold);
+  margin: 0;
+  font-weight: 400;
+  text-align: center;
+}
+
+.encabezado h3 {
+  font-size: 30.3px;
+  color: black;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-family: var(--font-body);
+  margin: -10px 0 80px;
+}
+
+.información-contacto {
+  flex: 1;
+  max-width: 700px;
+  width: 100%;
+}
+
+.información-contacto h4 {
+  font-size: 30.3px;
+  font-family: var(--font-heading);
+  color: var(--gold);
+  margin-bottom: 25px;
+}
+
+.información-contacto p {
+  font-size: 23.3px;
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  color: black;
+  margin-bottom: 30px;
+}
+
+.mapa iframe {
+  width: 100%;
+  height: 350px;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.formulario {
+  flex: 1;
+  background: #e1d9ba;
+  padding: 35px 35px 20px;
+  border-radius: 20px;
+  width: 550px;
+}
+
+.formulario::before {
+  content: "Envíanos un mensaje";
+  font-family: var(--font-heading);
+  display: block;
+  text-align: center;
+  font-size: 30.3px;
+  color: var(--gold);
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.formulario label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 23.3px;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.formulario input,
+.formulario textarea {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.formulario textarea {
+  resize: none;
+}
+
+.formulario button {
+  display: block;
+  margin: 10px auto 0;
+  background: #545454;
+  color: white;
+  border: none;
+  padding: 14px 45px;
+  border-radius: 40px;
+  font-size: 28px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.formulario button:hover {
+  background: #222;
+  transform: scale(1.05);
+}
+
+@media (max-width: 992px) {
+  .contacto-contenedor { flex-direction: column; }
+  .información-contacto h4,
+  .formulario::before { font-size: 38px; }
+  .información-contacto p { font-size: 22px; }
+}
+
+@media (max-width: 768px) {
+  .encabezado h3 { font-size: 40px; }
+  .información-contacto h4,
+  .formulario::before { font-size: 32px; }
+  .formulario { padding: 25px; }
+}

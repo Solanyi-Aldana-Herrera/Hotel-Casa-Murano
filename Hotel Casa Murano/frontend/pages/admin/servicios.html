@@ -1,0 +1,50 @@
+<section id="servicios" class="seccion-admin active">
+    <h1>Administrar Servicios</h1>
+    <p class="descripcion-seccion">Administra los servicios que ofrece el hotel.</p>
+
+    <div class="admin-toolbar">
+        <button class="btn-agregar" onclick="abrirFormServicio()">
+            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            Nuevo Servicio
+        </button>
+        <input type="text" class="buscar-input" id="servicios-buscar" placeholder="Buscar servicios..." oninput="filtrarTabla('servicios')">
+    </div>
+
+    <div class="admin-card-list" id="servicios-lista">
+        <div class="msj-vacio">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <p>Sin servicios registrados</p>
+        </div>
+    </div>
+
+    <div class="admin-form" id="form-servicio" style="display:none">
+        <h2 id="servicio-form-titulo">Nuevo Servicio</h2>
+        <input type="hidden" id="servicio-id">
+        <div class="admin-form-group">
+            <label>Nombre <span class="req">*</span></label>
+            <input type="text" id="servicio-nombre" placeholder="Nombre del servicio">
+        </div>
+        <div class="admin-form-group">
+            <label>Descripción</label>
+            <textarea id="servicio-descripcion" placeholder="Descripción del servicio"></textarea>
+        </div>
+        <div class="admin-form-group">
+            <label>Imagen</label>
+            <div class="upload-area" onclick="document.getElementById('servicio-img-input').click()">
+                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                <p>Haz clic para seleccionar imagen</p>
+                <span class="sub-texto">JPG, JPEG, PNG, WEBP</span>
+            </div>
+            <input type="file" id="servicio-img-input" accept="image/*" style="display:none">
+            <div class="upload-preview" id="servicio-img-preview" style="display:none">
+                <img src="" alt="preview">
+                <div class="info"><p id="servicio-img-nombre"></p></div>
+            </div>
+            <input type="hidden" id="servicio-imagen">
+        </div>
+        <div class="admin-actions">
+            <button class="btn-guardar" onclick="guardarServicio()">Guardar Servicio</button>
+            <button class="btn-cancelar" onclick="cerrarFormServicio()">Cancelar</button>
+        </div>
+    </div>
+</section>

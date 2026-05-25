@@ -1,0 +1,36 @@
+<section id="galeria" class="seccion-admin active">
+    <h1>Administrar Galería</h1>
+    <p class="descripcion-seccion">Sube y elimina imágenes de la galería del hotel.</p>
+
+    <div class="admin-form">
+        <h2>Subir nueva imagen</h2>
+        <div class="admin-form-group">
+            <label>Título de la imagen</label>
+            <input type="text" id="galeria-titulo" placeholder="Ej: Piscina al atardecer">
+        </div>
+        <div class="admin-form-group">
+            <label>Imagen <span class="req">*</span></label>
+            <div class="upload-area" id="galeria-upload-area" onclick="document.getElementById('galeria-img-input').click()">
+                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                <p>Haz clic o arrastra una imagen aquí</p>
+                <span class="sub-texto">JPG, JPEG, PNG, WEBP</span>
+            </div>
+            <input type="file" id="galeria-img-input" accept="image/*" style="display:none">
+            <div class="upload-preview" id="galeria-img-preview" style="display:none">
+                <img src="" alt="preview">
+                <div class="info"><p id="galeria-img-nombre"></p></div>
+            </div>
+        </div>
+        <div class="admin-actions">
+            <button class="btn-guardar" onclick="subirGaleria()">Subir Imagen</button>
+        </div>
+    </div>
+
+    <h2 style="font-family:var(--font-serif);font-size:1.4rem;color:#222;margin-top:30px">Imágenes subidas</h2>
+    <div class="admin-galeria-grid" id="galeria-grid">
+        <div class="msj-vacio" style="grid-column:1/-1">
+            <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+            <p>No hay imágenes en la galería</p>
+        </div>
+    </div>
+</section>

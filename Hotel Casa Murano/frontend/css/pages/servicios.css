@@ -1,0 +1,102 @@
+#servicios-hotel {
+  width: 1700px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 50px 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.contenedor-servicios {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  margin-bottom: 80px;
+}
+
+.ubicacion, .parqueadero, .bar, .recepcion, .wifi, .cafe, .tv {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 60px;
+  width: 100%;
+}
+
+.uno, .dos {
+  flex: 0 1 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ubicacion, .bar, .wifi, .tv {
+  flex-direction: row;
+}
+
+.parqueadero, .recepcion, .cafe {
+  flex-direction: row-reverse;
+}
+
+.encabezado-servicios {
+  text-align: center;
+  margin-top: 35px;
+  margin-bottom: 0;
+}
+
+.encabezado-servicios h2 {
+  color: var(--gold);
+  font-family: var(--font-decorative);
+  font-size: 60.3px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.encabezado-servicios h3 {
+  color: black;
+  font-family: var(--font-body);
+  font-size: 30.3px;
+  margin-bottom: 80px;
+  letter-spacing: 2px;
+  margin-top: -10px;
+  text-transform: uppercase;
+}
+
+.ubicacion p, .parqueadero p, .bar p, .recepcion p, .wifi p, .cafe p, .tv p {
+  font-size: 23.3px;
+  color: black;
+  font-family: var(--font-heading);
+  text-align: justify;
+  margin: 0;
+}
+
+.ubicacion h4, .parqueadero h4, .bar h4, .recepcion h4, .wifi h4, .cafe h4, .tv h4 {
+  font-size: 23.3px;
+  color: var(--gold);
+  font-family: var(--font-body);
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.contenedor-servicios img {
+  max-width: 430px;
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.contenedor-servicios img:hover {
+  transform: scale(1.1);
+}
+
+.img-ubicacion, .img-parqueadero, .img-bar, .img-recepcion, .img-wifi, .img-cafe, .img-tv {
+  max-width: 430px;
+  width: 100%;
+  max-height: 330px;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .modal-overlay img { width: 95%; }
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Administrador | Hotel Casa Murano</title>
+
+    <link rel="stylesheet" href="/frontend/css/base.css">
+    <link rel="stylesheet" href="/frontend/css/pages/login.css">
+
+</head>
+<body>
+
+    <!-- LOGIN -->
+
+    <div class="login-container">
+        
+        <div class="left-side">
+            <div class="brand-box">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                    </svg>
+                </div>
+                <h1 class="brand-title">Hotel<br>Casa Murano</h1>
+                <p class="brand-tagline">Exclusividad. Confort. Experiencia.</p>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <div class="login-box">
+                <div class="login-header">
+                    <h2>Bienvenido de vuelta</h2>
+                    <p>Ingresa tus credenciales para continuar</p>
+                </div>
+
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="username">Usuario <span>*</span></label>
+                        <div class="input-wrapper">
+                            <input type="text" id="username" placeholder="Tu nombre de usuario" required autocomplete="username">
+                            <svg class="input-icon" viewBox="0 0 24 24">
+                               <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Contraseña <span>*</span></label>
+                        <div class="input-wrapper">
+                            <input type="password" id="password" placeholder="Tu contraseña" required autocomplete="current-password">
+                            <svg class="input-icon" viewBox="0 0 24 24">
+                                <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                            </svg>
+                            <button type="button" class="toggle-password" id="togglePasswordBtn">
+                                <svg viewBox="0 0 24 24" id="eyeIcon">
+                                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        Ingresar al sistema
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                        </svg>
+                    </button>
+
+                    <a href="/frontend/pages/recuperar.html" class="forgot-link">¿Olvidaste tu contraseña?</a>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 1. Mostrar / Ocultar Contraseña
+        const passwordInput = document.getElementById('password');
+        const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        togglePasswordBtn.addEventListener('click', () => {
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            
+            // Cambiar dinámicamente el icono del ojo si está abierto o cerrado
+            if (isPassword) {
+                eyeIcon.innerHTML = `<path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l2.92 2.92c1.51-1.26 2.7-2.89 3.44-4.74-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.43-1.47.68-2.33.68-2.49 0-4.5-2.01-4.5-4.5 0-.86.25-1.66.68-2.33zM11.83 9l1.8 1.8c-.06-.43-.4-.77-.83-.83z"/>`;
+            } else {
+                eyeIcon.innerHTML = `<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>`;
+            }
+        });
+
+        // 2. Control de envío del formulario
+        document
+.getElementById('loginForm')
+.addEventListener('submit', async (e) => {
+
+    e.preventDefault();
+
+    const usuario =
+        document.getElementById('username').value;
+
+    const contrasena =
+        document.getElementById('password').value;
+
+    try {
+
+        const respuesta = await fetch(
+            'http://localhost:3000/login',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    usuario,
+                    contrasena
+                })
+            }
+        );
+
+        const datos = await respuesta.json();
+
+        if (datos.success) {
+
+            alert('Bienvenido al sistema');
+
+            window.location.href =
+                'admin.html';
+
+        } else {
+
+            alert(datos.mensaje);
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert('No se pudo conectar con el servidor');
+
+    }
+
+});
+    </script>
+
+</body>
+
+</html>

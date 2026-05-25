@@ -1,0 +1,33 @@
+#galeria {
+  width: 100%;
+  padding: 50px 20px;
+  background: white;
+  margin: 0 auto 30px;
+  margin-top: 30px;
+}
+
+#galeria h2 {
+  text-align: center;
+  font-family: var(--font-decorative);
+  font-size: 60.3px;
+  margin: 0;
+  font-weight: 400;
+  color: var(--gold);
+}
+
+#galeria h3 {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 30.3px;
+  margin-bottom: 80px;
+  color: black;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: -10px;
+}
+
+@media (max-width: 768px) {
+  #galeria h2 { font-size: 38px; }
+  .modal-overlay img { width: 95%; }
+}

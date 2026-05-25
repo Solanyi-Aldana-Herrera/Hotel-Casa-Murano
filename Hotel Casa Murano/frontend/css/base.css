@@ -1,0 +1,39 @@
+:root {
+  --primary: #12cbc4;
+  --primary-light: #27d0dc;
+  --primary-dark: #0ea8a0;
+  --gold: #ab9025;
+  --bg-dark: #0d1216;
+  --bg-form: #141b22;
+  --bg-black: #000;
+  --bg-dark-alt: #1e1e1e;
+  --bg-admin: #141B22;
+  --text-white: #fff;
+  --text-dark: #333;
+  --text-muted: #8a99a8;
+  --font-heading: 'Forum', serif;
+  --font-body: 'Fraunces', serif;
+  --font-decorative: 'Pinyon Script', cursive;
+  --font-sans: 'Poppins', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --transition: 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-heading);
+  color: var(--text-dark);
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}

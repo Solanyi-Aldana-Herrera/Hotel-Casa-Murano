@@ -1,0 +1,74 @@
+<section id="habitaciones" class="seccion-admin active">
+    <h1>Administrar Habitaciones</h1>
+    <p class="descripcion-seccion">Agrega, edita y elimina habitaciones del hotel.</p>
+
+    <div class="admin-toolbar">
+        <button class="btn-agregar" onclick="abrirFormHabitacion()">
+            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            Nueva Habitación
+        </button>
+        <input type="text" class="buscar-input" id="habitaciones-buscar" placeholder="Buscar habitaciones..." oninput="filtrarTabla('habitaciones')">
+    </div>
+
+    <div class="admin-table-wrap">
+        <table class="admin-table" id="tabla-habitaciones">
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Capacidad</th>
+                    <th>Estado</th>
+                    <th class="th-acciones">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="habitaciones-body"><tr><td colspan="6" class="vacio">Sin datos</td></tr></tbody>
+        </table>
+    </div>
+
+    <div class="admin-form" id="form-habitacion" style="display:none">
+        <h2 id="habitacion-form-titulo">Nueva Habitación</h2>
+        <input type="hidden" id="habitacion-id">
+        <div class="admin-form-group">
+            <label>Nombre <span class="req">*</span></label>
+            <input type="text" id="habitacion-nombre" placeholder="Nombre de la habitación">
+        </div>
+        <div class="admin-form-group">
+            <label>Descripción</label>
+            <textarea id="habitacion-descripcion" placeholder="Descripción detallada"></textarea>
+        </div>
+        <div class="admin-form-group">
+            <label>Precio por noche <span class="req">*</span></label>
+            <input type="number" id="habitacion-precio" step="0.01" placeholder="0.00">
+        </div>
+        <div class="admin-form-group">
+            <label>Capacidad</label>
+            <input type="number" id="habitacion-capacidad" placeholder="Ej: 2">
+        </div>
+        <div class="admin-form-group">
+            <label>Imagen</label>
+            <div class="upload-area" onclick="document.getElementById('habitacion-img-input').click()">
+                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                <p>Haz clic para seleccionar imagen</p>
+                <span class="sub-texto">JPG, JPEG, PNG, WEBP</span>
+            </div>
+            <input type="file" id="habitacion-img-input" accept="image/*" style="display:none">
+            <div class="upload-preview" id="habitacion-img-preview" style="display:none">
+                <img src="" alt="preview">
+                <div class="info"><p id="habitacion-img-nombre"></p></div>
+            </div>
+            <input type="hidden" id="habitacion-imagen">
+        </div>
+        <div class="admin-form-group">
+            <label>Estado</label>
+            <select id="habitacion-estado">
+                <option value="1">Disponible</option>
+                <option value="0">No disponible</option>
+            </select>
+        </div>
+        <div class="admin-actions">
+            <button class="btn-guardar" onclick="guardarHabitacion()">Guardar Habitación</button>
+            <button class="btn-cancelar" onclick="cerrarFormHabitacion()">Cancelar</button>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,261 @@
+/* =========================
+   HEADER & NAVEGACIÓN
+   ========================= */
+
+header {
+  width: 100%;
+  z-index: 1000;
+  background: #141B22;
+}
+
+.header-fixed {
+  position: fixed;
+  top: 0;
+  background: transparent;
+  transition: all 0.4s ease;
+}
+
+.header-fixed.scrolled {
+  background: #141B22;
+}
+
+.header-admin {
+  position: sticky;
+  top: 0;
+}
+
+.navegador {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1500px;
+  height: 115px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.navegador-admin {
+  max-width: 1840px;
+  padding: 20px;
+}
+
+.navbar {
+  margin-left: 150px;
+  flex-grow: 1;
+}
+
+.navbar ul {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 23px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar ul li a {
+  color: var(--text-white);
+  font-family: var(--font-heading);
+  font-size: 22.3px;
+  padding: 8px 16px;
+  transition: var(--transition);
+  display: inline-block;
+  position: relative;
+}
+
+.navbar ul li a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary-light);
+  transition: var(--transition);
+  transform: translateX(-50%);
+}
+
+.navbar ul li a:hover {
+  color: var(--primary-light);
+}
+
+.navbar ul li a:hover::after {
+  width: 70%;
+}
+
+.navbar-admin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
+}
+
+.navbar-admin h1 {
+  font-size: 30.3px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-white);
+  text-align: center;
+  flex-grow: 1;
+  margin: 0 20px;
+}
+
+/* Logo */
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 72px;
+  width: auto;
+  transition: var(--transition);
+}
+
+.logo img:hover {
+  transform: scale(1.1);
+}
+
+.logo-admin img {
+  height: 110px;
+}
+
+.enlace-logo {
+  display: inline-block;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.enlace-logo:hover {
+  transform: scale(1.1);
+}
+
+.enlace-logo img {
+  display: block;
+}
+
+/* Admin icon */
+
+.admin-icon-container {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.admin-icon-container:hover {
+  transform: scale(1.05);
+}
+
+.admin-svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--primary-light);
+  stroke: var(--primary-light);
+  stroke-width: 0.5;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+
+footer {
+  width: 100%;
+  background: #141B22;
+}
+
+.pie-pagina {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 2px 0;
+  text-align: center;
+  gap: 26px;
+}
+
+.pie-pagina h4 {
+  font-family: var(--font-heading);
+  font-size: 12.3px;
+  color: var(--text-white);
+  margin-top: 10px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.pie-pagina p {
+  font-family: var(--font-heading);
+  font-size: 12.3px;
+  color: var(--text-white);
+  margin: 5px 0;
+}
+
+.pie {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 0;
+  margin-top: 2px;
+}
+
+.redes-sociales {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 5px;
+}
+
+.contenedor-iconos {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 0;
+  margin-top: 2px;
+}
+
+.redes-sociales .icono-social img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  transition: var(--transition);
+}
+
+.redes-sociales .icono-social img:hover {
+  transform: scale(1.1);
+}
+
+.pie-pagina .logo img {
+  height: 72px;
+  width: auto;
+}
+
+.copyrith p {
+  margin: 0 0 5px;
+}
+
+.info-item1,
+.info-item2,
+.info-item3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-item1 h4,
+.info-item1 p,
+.info-item2 h4,
+.info-item2 p,
+.info-item3 h4,
+.info-item3 p {
+  margin: 0;
+}

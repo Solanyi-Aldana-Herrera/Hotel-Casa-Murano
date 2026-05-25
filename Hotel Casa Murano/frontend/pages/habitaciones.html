@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"> 
+    <title>Hotel Casa Murano</title>
+    
+    <link rel="icon" href="/frontend/images/logo/favicon.png" type="image/png" sizes="16x16">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Fraunces:opsz,wght@9..144,400&family=Forum&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/css/base.css">
+    <link rel="stylesheet" href="/frontend/css/layout.css">
+    <link rel="stylesheet" href="/frontend/css/components.css">
+    <link rel="stylesheet" href="/frontend/css/pages/habitaciones.css">
+</head>
+<body>
+
+
+    <!-- Navegador-Menu -->
+    <header>
+        <div class="navegador">
+            <div class="logo">
+                <a href="/frontend/index.html" class="enlace-logo">
+                    <img src="/frontend/images/logo/LogoConNombre.png" alt="logo">
+                </a>
+                
+            </div> 
+            <nav class="navbar">
+                <ul>
+                    <li><a href="/frontend/index.html">INICIO</a></li>
+                    <li><a href="/frontend/pages/nosotros.html">NOSOTROS</a></li>
+                    <li><a href="/frontend/pages/habitaciones.html">HABITACIONES</a></li>
+                    <li><a href="/frontend/pages/servicios.html">SERVICIOS</a></li>
+                    <li><a href="/frontend/pages/galeria.html">GALERÍA</a></li>
+                    <li><a href="/frontend/pages/contactenos.html">CONTACTENOS</a></li>
+                    <li><button class="btn-reserva" onclick="window.location.href=window.location.href='/frontend/pages/reserva.html' ">RESERVA</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    
+    <!-- Sección principal -->
+   <main>
+        <section id="mensaje">
+            <di class="contenedor-mensaje">
+                <div class="titulo-mensaje">
+                    <h2>Comodidad que se siente como en casa</h2>
+                </div>
+                <div class="mensaje-mensaje">
+                    <p>En Hotel Casa Murano, creemos que una buena estancia no necesita excesos. Nuestras habitaciones son espacios limpios, tranquilos y preparados para ofrecerte exactamente lo que necesitas, permitiéndote disfrutar de tu viaje sin preocupaciones. Simple, cómodo y listo para ti.</p>
+                </div>
+            </di>
+        </section>
+   
+
+        <section id="habitaciones">
+            <div class="contenedor-habitaciones">
+                
+                <div class="titulo-habitaciones">
+                    <h3>HABITACIONES</h3>
+                </div>
+
+                <div class="catalogo-habitaciones">
+                    <article>
+                        <h4>Suite Deluxe</h4>
+                        <img src="/frontend/images/contenido/Frente de hotel.webp">
+                        <p>Habitación amplia con vista panorámica, jacuzzi y minibar.</p>
+                        <button class="ver" onclick="abrirModal(
+                            'Suite Deluxe',
+                            'Habitación cómoda de 12 m2, ubicada en el primer piso ofrece una cama sencilla con baño privado, tv pantalla plana, wi-Fi gratuito con ocupación de hasta 1 persona.'
+                            )">Ver más</button><button class="btn-reserva2" onclick="window.location.href='/frontend/pages/reserva.html'">Reserva</button>
+                    </article>
+                    <article>
+                        <h4>Habitación Estándar</h4>
+                        <img src="/frontend/images/contenido/Frente de hotel.webp">
+                        <p>Comodidad y elegancia a un precio accesible.</p>
+                        <button class="ver" onclick="abrirModal(
+                            'Suite Deluxe',
+                            'Habitación amplia con jacuzzi, minibar, televisión, Wi-Fi y vista panorámica.'
+                            )">Ver más</button><button class="btn-reserva2" onclick="window.location.href='/frontend/pages/reserva.html'">Reserva</button>
+                    </article>
+                    <article>
+                        <h4>Suite Deluxe</h4>
+                        <img src="/frontend/images/contenido/Frente de hotel.webp">
+                        <p>Habitación amplia con vista panorámica, jacuzzi y minibar.</p>
+                        <button class="ver" onclick="abrirModal(
+                            'Suite Deluxe',
+                            'Habitación amplia con jacuzzi, minibar, televisión, Wi-Fi y vista panorámica.'
+                            )">Ver más</button><button class="btn-reserva2" onclick="window.location.href='/frontend/pages/reserva.html'">Reserva</button>
+                    </article>
+                    <article>
+                        <h4>Habitación Estándar</h4>
+                        <img src="/frontend/images/contenido/Frente de hotel.webp">
+                        <p>Comodidad y elegancia a un precio accesible.</p>
+                        <button class="ver" onclick="abrirModal(
+                            'Suite Deluxe',
+                            'Habitación amplia con jacuzzi, minibar, televisión, Wi-Fi y vista panorámica.'
+                            )">Ver más</button><button class="btn-reserva2" onclick="window.location.href='/frontend/pages/reserva.html'">Reserva</button>
+                    </article>
+                </div>
+
+            </div>
+    
+        </section>
+        <div id="modalHabitacion" class="modal-overlay">
+
+            <div class="modal-content">
+
+                <span class="modal-close" onclick="cerrarModal()">
+                    &times;
+                </span>
+
+                <h2 id="tituloModal"></h2>
+
+                <p id="textoModal"></p>
+
+            </div>
+
+        </div>
+
+    </main>
+    
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="pie-pagina">
+            <div class="logo">
+                <a href="/frontend/index.html" class="enlace-logo">
+                    <img src="/frontend/images/logo/LogoConNombre.png" alt="logo">
+                </a>
+            </div>
+        
+            <div class="pie">
+                <div class="redes-sociales">
+                    <h4>SIGUENOS</h4>
+                    <div class="contenedor-iconos">
+                        <a href="https://www.facebook.com/hotelcasamuraneivahuila/" target="_blank" class="icono-social">
+                            <img src="/frontend/images/social/facebook.png" alt="Facebook">
+                        </a>
+
+                        <a href="https://www.instagram.com/p/DXMbZM8kbkD/" target="_blank" class="icono-social">
+                            <img src="/frontend/images/social/instagram.webp" alt="Instagram">
+                        </a>
+                    </div>      
+                </div>
+                <div class="copyrith">
+                    <p>&copy; 2026 Hotel Casa Murano. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        
+            <div class="informacion">
+                <div class="info-item1">
+                    <h4>DIRECCIÓN:</h4><P>Avenida Circunvalar No 6 -32,</P><br><br>
+                </div>
+                <div class="info-item2">
+                    <h4>EMAIL:</h4><P>hotelcasamuranoneivahuila@hotmail.com</P><br>
+                </div>
+                <div class="info-item3">
+                    <h4>TELEFONO:</h4><P>3144785524</P><br><br>
+                </div>
+                
+            </div>
+        </div>   
+        
+    </footer>
+
+    <!-- Aquí enlazarás tu archivo JS -->
+    <script src="/frontend/js/habitaciones.js"></script>
+</body>
+</html>

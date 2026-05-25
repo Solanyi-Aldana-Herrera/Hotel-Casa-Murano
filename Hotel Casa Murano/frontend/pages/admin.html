@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador | Hotel Casa Murano</title>
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Fraunces:opsz,wght@9..144,400&family=Forum&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/css/base.css">
+    <link rel="stylesheet" href="/frontend/css/layout.css">
+    <link rel="stylesheet" href="/frontend/css/components.css">
+    <link rel="stylesheet" href="/frontend/css/pages/admin.css">
+</head>
+<body>
+
+    <header class="header-admin">
+        <div class="navegador navegador-admin">
+            <div class="navbar-admin">
+                <div class="logo logo-admin">
+                    <img src="/frontend/images/logo/LogoConNombre.png" alt="logo">
+                </div>
+                <h1>ADMINISTRADOR DE CONTENIDO - HOTEL CASA MURANO</h1>
+                <ul>
+                    <li>
+                        <button class="btn-salir" onclick="window.location.href='/frontend/index.html'">
+                            SALIR
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-container">
+
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><button onclick="cargarSeccion('inicio')" data-sec="inicio">Inicio</button></li>
+                    <li><button onclick="cargarSeccion('nosotros')" data-sec="nosotros">Nosotros</button></li>
+                    <li><button onclick="cargarSeccion('habitaciones')" data-sec="habitaciones">Habitaciones</button></li>
+                    <li><button onclick="cargarSeccion('servicios')" data-sec="servicios">Servicios</button></li>
+                    <li><button onclick="cargarSeccion('galeria')" data-sec="galeria">Galería</button></li>
+                    <li><button onclick="cargarSeccion('contacto')" data-sec="contacto">Contacto</button></li>
+                    <li><button onclick="cargarSeccion('reservas')" data-sec="reservas">Reservas</button></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="contenido" id="panel-contenido">
+            <div class="msj-cargando" id="cargando-inicial">
+                <div class="spinner"></div>
+                <p>Cargando panel...</p>
+            </div>
+        </main>
+
+    </div>
+
+    <div class="modal-confirmar" id="modal-confirmar">
+        <div class="modal-box">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <h3>¿Eliminar registro?</h3>
+            <p id="modal-confirmar-msg">Esta acción no se puede deshacer.</p>
+            <div class="modal-acciones">
+                <button class="btn-eliminar" id="modal-confirmar-btn">Eliminar</button>
+                <button class="btn-cancelar" onclick="cerrarModalConfirmar()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="/frontend/js/admin/admin.js"></script>
+
+</body>
+</html>

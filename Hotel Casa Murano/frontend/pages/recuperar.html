@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña | Hotel Casa Murano</title>
+    <link rel="stylesheet" href="/frontend/css/base.css">
+    <link rel="stylesheet" href="/frontend/css/pages/login.css">
+</head>
+<body>
+
+    <div class="login-container">
+        
+        <div class="left-side">
+            <div class="brand-box">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                    </svg>
+                </div>
+                <h1 class="brand-title">Hotel<br>Casa Murano</h1>
+                <p class="brand-tagline">Exclusividad. Confort. Experiencia.</p>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <div class="login-box">
+                <div class="login-header">
+                    <h2>¿Olvidaste tu contraseña?</h2>
+                    <p>Introduce tu correo electrónico registrado y te enviaremos las instrucciones para restablecerla.</p>
+                </div>
+
+                <form id="recoverForm">
+                    <div class="input-group">
+                        <label for="email">Correo Electrónico <span>*</span></label>
+                        <div class="input-wrapper">
+                            <input type="email" id="email" placeholder="tu-correo@hotelcasamurano.com" required autocomplete="email">
+                            <svg class="input-icon" viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        Enviar enlace de recuperación
+                        <svg viewBox="0 0 24 24">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+
+                    <a href="/frontend/pages/login.html" class="forgot-link" style="text-align: center; display: block; margin-top: 15px;">
+                        Volver al inicio de sesión
+                    </a>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Control de envío del formulario de recuperación
+        document.getElementById('recoverForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+
+            try {
+                // Apuntamos a tu backend local (ajusta la ruta según crees tu API)
+                const respuesta = await fetch('http://localhost:3000/recuperar-contrasena', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                const datos = await respuesta.json();
+
+                if (datos.success) {
+                    alert('Se ha enviado un correo con las instrucciones para restablecer tu contraseña.');
+                    // Opcional: Redirigir de vuelta al login
+                    window.location.href = '/frontend/pages/login.html'; 
+                } else {
+                    alert(datos.mensaje || 'El correo ingresado no está registrado.');
+                }
+
+            } catch (error) {
+                console.error(error);
+                alert('No se pudo conectar con el servidor. Inténtalo más tarde.');
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<section id="inicio" class="seccion-admin active">
+    <h1>Administrar Inicio</h1>
+    <p class="descripcion-seccion">Gestiona el slider principal y el texto de bienvenida.</p>
+
+    <div class="admin-form" id="form-bienvenida">
+        <h2>Texto de Bienvenida</h2>
+        <div class="admin-form-group">
+            <label>Título</label>
+            <input type="text" id="bienvenida-titulo" placeholder="Título de bienvenida">
+        </div>
+        <div class="admin-form-group">
+            <label>Descripción</label>
+            <textarea id="bienvenida-descripcion" placeholder="Descripción corta"></textarea>
+        </div>
+        <div class="admin-form-group">
+            <label>Imagen de fondo</label>
+            <div class="upload-area" onclick="document.getElementById('bienvenida-img-input').click()">
+                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                <p>Haz clic para seleccionar imagen</p>
+                <span class="sub-texto">JPG, JPEG, PNG, WEBP</span>
+            </div>
+            <input type="file" id="bienvenida-img-input" accept="image/*" style="display:none">
+            <div class="upload-preview" id="bienvenida-img-preview" style="display:none">
+                <img src="" alt="preview">
+                <div class="info"><p id="bienvenida-img-nombre"></p></div>
+            </div>
+            <input type="hidden" id="bienvenida-imagen">
+        </div>
+        <div class="admin-actions">
+            <button class="btn-guardar" onclick="guardarBienvenida()">Guardar Bienvenida</button>
+        </div>
+    </div>
+
+    <div class="admin-toolbar" style="margin-top:30px">
+        <h2 style="font-family:var(--font-serif);font-size:1.4rem;color:#222">Slides del Banner</h2>
+        <button class="btn-agregar" onclick="abrirFormSlider()">
+            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            Nuevo Slide
+        </button>
+    </div>
+
+    <div class="admin-table-wrap">
+        <table class="admin-table" id="tabla-slider">
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Título</th>
+                    <th>Orden</th>
+                    <th>Estado</th>
+                    <th class="th-acciones">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="slider-body"><tr><td colspan="5" class="vacio">Sin datos</td></tr></tbody>
+        </table>
+    </div>
+
+    <div class="admin-form" id="form-slider" style="display:none">
+        <h2 id="slider-form-titulo">Nuevo Slide</h2>
+        <input type="hidden" id="slider-id">
+        <div class="admin-form-group">
+            <label>Título <span class="req">*</span></label>
+            <input type="text" id="slider-titulo" placeholder="Título del slide">
+        </div>
+        <div class="admin-form-group">
+            <label>Descripción</label>
+            <textarea id="slider-descripcion" placeholder="Descripción breve"></textarea>
+        </div>
+        <div class="admin-form-group">
+            <label>Imagen <span class="req">*</span></label>
+            <div class="upload-area" onclick="document.getElementById('slider-img-input').click()">
+                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                <p>Haz clic para seleccionar imagen</p>
+                <span class="sub-texto">JPG, JPEG, PNG, WEBP</span>
+            </div>
+            <input type="file" id="slider-img-input" accept="image/*" style="display:none">
+            <div class="upload-preview" id="slider-img-preview" style="display:none">
+                <img src="" alt="preview">
+                <div class="info"><p id="slider-img-nombre"></p></div>
+            </div>
+            <input type="hidden" id="slider-imagen">
+        </div>
+        <div class="admin-form-group">
+            <label>Orden</label>
+            <input type="number" id="slider-orden" value="1" min="1">
+        </div>
+        <div class="admin-form-group">
+            <label>Estado</label>
+            <select id="slider-activo">
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+            </select>
+        </div>
+        <div class="admin-actions">
+            <button class="btn-guardar" onclick="guardarSlider()">Guardar Slide</button>
+            <button class="btn-cancelar" onclick="cerrarFormSlider()">Cancelar</button>
+        </div>
+    </div>
+</section>
