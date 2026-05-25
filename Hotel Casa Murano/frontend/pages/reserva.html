@@ -39,21 +39,113 @@
     <!-- Sección principal -->
     <main>
 
+        <!-- SECCIÓN 1: SELECCIÓN DE HABITACIÓN -->
         <section id="habitacion-detalle-reserva">
-            <div class="seleccion-habitacion">
-                
+            <div class="reserva-contenedor">
+                <h2 class="reserva-titulo">Selecciona tu habitación</h2>
+                <div id="lista-habitaciones" class="lista-habitaciones"></div>
             </div>
         </section>
 
+        <!-- SECCIÓN 2: DIGITACIÓN DE DATOS -->
         <section id="digitacion-datos">
-            <div class="seleccion-habitacion">
-                
+            <div class="reserva-contenedor">
+                <h2 class="reserva-titulo">Digita tus datos</h2>
+                <form id="form-datos" class="form-datos">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="nombres">Nombres</label>
+                            <input type="text" id="nombres" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="apellidos">Apellidos</label>
+                            <input type="text" id="apellidos" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="tipo-documento">Tipo de documento</label>
+                            <select id="tipo-documento" required>
+                                <option value="">Seleccione...</option>
+                                <option value="CC">Cédula de Ciudadanía</option>
+                                <option value="CE">Cédula de Extranjería</option>
+                                <option value="NIT">NIT</option>
+                                <option value="Pasaporte">Pasaporte</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="num-documento">Número de documento</label>
+                            <input type="text" id="num-documento" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="celular">Celular</label>
+                            <input type="tel" id="celular" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="fecha-nacimiento">Fecha de nacimiento (DD - MM - YY)</label>
+                            <input type="date" id="fecha-nacimiento" required>
+                        </div>
+                        <div class="form-field"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field form-field-full">
+                            <label for="comentario">Comentario / Novedad</label>
+                            <textarea id="comentario" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-siguiente" id="btn-siguiente">Siguiente</button>
+                </form>
             </div>
         </section>
 
+        <!-- SECCIÓN 3: RESUMEN DE RESERVA -->
         <section id="resumen-reserva">
-            <div class="seleccion-habitacion">
-                
+            <div class="reserva-contenedor">
+                <h2 class="reserva-titulo">Confirma tu reserva</h2>
+                <div class="resumen-grid">
+                    <div class="resumen-col">
+                        <h3>Habitación</h3>
+                        <p id="resumen-habitacion">—</p>
+
+                        <h3>Fechas</h3>
+                        <p><strong>Entrada:</strong> <span id="resumen-entrada">—</span></p>
+                        <p><strong>Salida:</strong> <span id="resumen-salida">—</span></p>
+                        <p><strong>Noches:</strong> <span id="resumen-noches">—</span></p>
+
+                        <h3>Ocupación</h3>
+                        <p id="resumen-ocupacion">—</p>
+                    </div>
+                    <div class="resumen-col">
+                        <h3>Tus datos</h3>
+                        <p id="resumen-nombres">—</p>
+                        <p id="resumen-documento">—</p>
+                        <p id="resumen-celular">—</p>
+                        <p id="resumen-email">—</p>
+                        <p id="resumen-fecha-nac">—</p>
+
+                        <h3>Comentario</h3>
+                        <p id="resumen-comentario">—</p>
+                    </div>
+                    <div class="resumen-col resumen-total-col">
+                        <h3>Total</h3>
+                        <p class="resumen-precio" id="resumen-total">—</p>
+
+                        <label class="resumen-checkbox">
+                            <input type="checkbox" id="check-terminos">
+                            Acepto las condiciones y políticas de reserva del hotel
+                        </label>
+
+                        <button class="btn-confirmar" id="btn-confirmar" disabled>Confirmar reserva</button>
+                    </div>
+                </div>
             </div>
         </section>
 
