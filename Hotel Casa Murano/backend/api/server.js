@@ -1,10 +1,12 @@
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '..', '..', '.env') });
+
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const multer = require('multer');
-const path = require('path');
 const fs = require('fs');
 
 const app = express();
@@ -82,15 +84,15 @@ app.post('/login', (req, res) => {
 // CONFIGURACIÓN DEL CONFIGURADOR DE CORREOS (NODEMAILER)
 // =========================================================================
 const transportador = nodemailer.createTransport({
-    service: 'gmail',
+    service: 'hotmail',
     auth: {
-        user: 'TU_CORREO_GMAIL@gmail.com',       // ⚠️ Pon aquí el correo desde donde saldrán los mensajes
-        pass: 'TU_CONTRASEÑA_DE_APLICACION'     // ⚠️ NO ES TU CLAVE NORMAL. Lee la nota de abajo para obtenerla.
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     }
 });
 
 // =========================================================================
-// RUTA DE RECUPERACIÓN ACTUALIZADA CON ENVÍO DE EMAIL REAL
+// RUTA DE RECUPERACIÓN — GENERA TOKEN Y ENVÍA ENLACE POR CORREO
 // =========================================================================
 app.post('/recuperar-contrasena', (req, res) => {
     const { email } = req.body;
@@ -112,50 +114,126 @@ app.post('/recuperar-contrasena', (req, res) => {
         }
 
         const adminId = resultados[0].id;
-        const linkDirecto = `http://127.0.0.1:5500/frontend/pages/restablecer.html?id=${adminId}`;
+        const token = crypto.randomBytes(32).toString('hex');
+        const expiracion = new Date(Date.now() + 3600000);
 
-        // 2. Creamos el contenido del correo electrónico
-        const opcionesCorreo = {
-            from: 'Hotel Casa Murano <TU_CORREO_GMAIL@gmail.com>',
-            to: email, // El correo del administrador que lo solicitó
-            subject: '🔄 Restablecer Contraseña - Hotel Casa Murano',
-            html: `
-                <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 5px;">
-                    <h2 style="color: #333; text-align: center;">Hotel Casa Murano</h2>
-                    <p>Hola, has solicitado restablecer tu contraseña de administrador para ingresar al sistema.</p>
-                    <p>Para crear una nueva contraseña, por favor haz clic en el siguiente enlace:</p>
-                    <div style="text-align: center; margin: 30px 0;">
-                        <a href="${linkDirecto}" style="background-color: #12cbc4; color: white; padding: 12px 25px; text-decoration: none; font-weight: bold; border-radius: 4px;">Restablecer Contraseña</a>
-                    </div>
-                    <p style="color: #666; font-size: 12px;">Si tú no solicitaste este cambio, puedes ignorar este correo de forma segura.</p>
-                </div>
-            `
-        };
+        const sqlGuardarToken = 'UPDATE administrador SET token_recuperacion = ?, expiracion_token = ? WHERE id = ?';
 
-        // 3. Enviar el correo usando Nodemailer
-        transportador.sendMail(opcionesCorreo, (errInfo, info) => {
-            if (errInfo) {
-                console.error('❌ Error al enviar el correo real:', errInfo);
-                return res.status(500).json({ success: false, mensaje: 'No se pudo enviar el correo electrónico.' });
+        conexion.query(sqlGuardarToken, [token, expiracion, adminId], (error) => {
+            if (error) {
+                console.error(error);
+                return res.status(500).json({ success: false, mensaje: 'Error al generar el enlace de recuperación.' });
             }
 
-            console.log(`📧 Correo enviado con éxito a: ${email}`);
-            return res.json({ 
-                success: true, 
-                mensaje: 'El enlace de recuperación ha sido enviado directamente a tu correo electrónico.' 
+            const linkRecuperacion = `http://127.0.0.1:5500/frontend/pages/restablecer.html?token=${token}`;
+
+            const opcionesCorreo = {
+                from: `Hotel Casa Murano <${process.env.EMAIL_USER}>`,
+                to: email,
+                subject: 'Restablecer Contraseña - Hotel Casa Murano',
+                html: `
+                    <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 5px;">
+                        <h2 style="color: #333; text-align: center;">Hotel Casa Murano</h2>
+                        <p>Hola, has solicitado restablecer tu contraseña de administrador.</p>
+                        <p>Para crear una nueva contraseña, haz clic en el siguiente enlace:</p>
+                        <div style="text-align: center; margin: 30px 0;">
+                            <a href="${linkRecuperacion}" style="background-color: #12cbc4; color: white; padding: 12px 25px; text-decoration: none; font-weight: bold; border-radius: 4px;">Restablecer Contraseña</a>
+                        </div>
+                        <p style="color: #666; font-size: 12px;">Este enlace expirará en 1 hora.</p>
+                        <p style="color: #666; font-size: 12px;">Si tú no solicitaste este cambio, ignora este correo.</p>
+                    </div>
+                `
+            };
+
+            transportador.sendMail(opcionesCorreo, (errInfo, info) => {
+                if (errInfo) {
+                    console.error('Error al enviar el correo:', errInfo);
+                    return res.status(500).json({ success: false, mensaje: 'No se pudo enviar el correo electrónico.' });
+                }
+
+                console.log(`Correo enviado a: ${email}`);
+                return res.json({ 
+                    success: true, 
+                    mensaje: 'El enlace de recuperación ha sido enviado a tu correo electrónico.' 
+                });
             });
         });
     });
 });
 
-// Ruta para actualizar clave
-app.post('/actualizar-clave-directa', (req, res) => {
-    const { id, contrasena } = req.body;
-    const sqlActualizar = 'UPDATE administrador SET contrasena = ? WHERE id = ?';
+// =========================================================================
+// VALIDAR TOKEN — Verifica que el token sea válido y no haya expirado
+// =========================================================================
+app.post('/validar-token', (req, res) => {
+    const { token } = req.body;
 
-    conexion.query(sqlActualizar, [contrasena, id], (error, resultado) => {
-        if (error) return res.status(500).json({ success: false, mensaje: 'Error al cambiar la contraseña' });
-        return res.json({ success: true, mensaje: 'Contraseña actualizada correctamente.' });
+    if (!token) {
+        return res.status(400).json({ success: false, mensaje: 'Token requerido.' });
+    }
+
+    const sql = 'SELECT id, expiracion_token FROM administrador WHERE token_recuperacion = ?';
+
+    conexion.query(sql, [token], (error, resultados) => {
+        if (error) {
+            return res.status(500).json({ success: false, mensaje: 'Error del servidor.' });
+        }
+
+        if (resultados.length === 0) {
+            return res.status(400).json({ success: false, mensaje: 'El enlace de recuperación no es válido.' });
+        }
+
+        const ahora = new Date();
+        const expiracion = new Date(resultados[0].expiracion_token);
+
+        if (ahora > expiracion) {
+            return res.status(400).json({ success: false, mensaje: 'El enlace de recuperación ha expirado.' });
+        }
+
+        return res.json({ success: true, mensaje: 'Token válido.' });
+    });
+});
+
+// =========================================================================
+// ACTUALIZAR CLAVE — Usa token para verificar y actualizar la contraseña
+// =========================================================================
+app.post('/actualizar-clave-directa', (req, res) => {
+    const { token, contrasena } = req.body;
+
+    if (!token || !contrasena) {
+        return res.status(400).json({ success: false, mensaje: 'Token y contraseña son requeridos.' });
+    }
+
+    if (contrasena.length < 4) {
+        return res.status(400).json({ success: false, mensaje: 'La contraseña debe tener al menos 4 caracteres.' });
+    }
+
+    const sqlVerificar = 'SELECT id, expiracion_token FROM administrador WHERE token_recuperacion = ?';
+
+    conexion.query(sqlVerificar, [token], (error, resultados) => {
+        if (error) {
+            return res.status(500).json({ success: false, mensaje: 'Error del servidor.' });
+        }
+
+        if (resultados.length === 0) {
+            return res.status(400).json({ success: false, mensaje: 'El enlace de recuperación no es válido.' });
+        }
+
+        const ahora = new Date();
+        const expiracion = new Date(resultados[0].expiracion_token);
+
+        if (ahora > expiracion) {
+            return res.status(400).json({ success: false, mensaje: 'El enlace de recuperación ha expirado.' });
+        }
+
+        const adminId = resultados[0].id;
+        const sqlActualizar = 'UPDATE administrador SET contrasena = ?, token_recuperacion = NULL, expiracion_token = NULL WHERE id = ?';
+
+        conexion.query(sqlActualizar, [contrasena, adminId], (error) => {
+            if (error) {
+                return res.status(500).json({ success: false, mensaje: 'Error al cambiar la contraseña.' });
+            }
+            return res.json({ success: true, mensaje: 'Contraseña actualizada correctamente.' });
+        });
     });
 });
 

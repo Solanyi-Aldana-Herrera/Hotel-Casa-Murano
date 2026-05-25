@@ -1,0 +1,9 @@
+# Entorno
+.env
+
+# Node
+node_modules/
+
+# Sistema
+Thumbs.db
+.DS_Store

@@ -55,17 +55,33 @@
     </div>
 
     <script>
-        // 1. Obtener el 'id' del administrador directamente desde la URL (?id=X)
         const parametros = new URLSearchParams(window.location.search);
-        const adminId = parametros.get('id');
+        const token = parametros.get('token');
 
-        // Si no viene un ID válido en el enlace, lo devolvemos al login
-        if (!adminId) {
-            alert("Enlace no válido.");
+        if (!token) {
+            alert('Enlace de recuperación no válido.');
             window.location.href = '/frontend/pages/login.html';
         }
 
-        // 2. Enviar la contraseña al darle clic al botón
+        (async () => {
+            try {
+                const respuesta = await fetch('http://localhost:3000/validar-token', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token })
+                });
+                const datos = await respuesta.json();
+                if (!datos.success) {
+                    alert(datos.mensaje || 'Enlace de recuperación no válido o expirado.');
+                    window.location.href = '/frontend/pages/login.html';
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Error al validar el enlace de recuperación.');
+                window.location.href = '/frontend/pages/login.html';
+            }
+        })();
+
         document.getElementById('simpleResetForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -76,7 +92,7 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                        id: adminId, 
+                        token, 
                         contrasena: password 
                     })
                 });
@@ -84,8 +100,8 @@
                 const datos = await respuesta.json();
 
                 if (datos.success) {
-                    alert('¡Contraseña cambiada con éxito!');
-                    window.location.href = '/frontend/pages/login.html'; // Lo manda al login original
+                    alert('Contraseña actualizada correctamente.');
+                    window.location.href = '/frontend/pages/login.html';
                 } else {
                     alert('No se pudo actualizar: ' + datos.mensaje);
                 }
