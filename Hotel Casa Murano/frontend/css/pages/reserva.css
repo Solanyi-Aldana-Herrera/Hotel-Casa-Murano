@@ -19,6 +19,185 @@ body { background-color: #fafafa; font-family: 'Forum', serif; }
 #habitacion-detalle-reserva { display: block; }
 
 /* =========================
+   BLOQUE RESERVA (funcional en reserva.html)
+   ========================= */
+
+/* Contenedor principal */
+#habitacion-detalle-reserva .reserva {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  padding: 0 10px;
+  position:relative;
+  top: 0;
+  z-index: 10;
+}
+
+/* Caja principal con fondo más oscuro y borde más visible */
+#habitacion-detalle-reserva .reserva-box {
+  background-color: #f6f6f5;
+  padding: 18px 35px;
+  border-radius: 60px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 3px solid var(--primary-light);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Labels más visibles */
+#habitacion-detalle-reserva .label-reserva {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: #222;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 5px;
+  line-height: 1;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(39, 208, 220, 0.3);
+}
+
+/* Campos clickeables */
+#habitacion-detalle-reserva .campo {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Display de fecha más grande */
+#habitacion-detalle-reserva .fecha-display {
+  font-family: var(--font-heading);
+  text-align: center;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.2;
+}
+
+#habitacion-detalle-reserva .fecha-display p {
+  font-size: 38px;
+  margin: 0;
+  font-weight: normal;
+  color: black;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+#habitacion-detalle-reserva .fecha-display span {
+  font-size: 16px;
+  margin-top: -4px;
+  text-transform: capitalize;
+  color: #545454;
+}
+
+/* Contenedor de fechas con borde más visible */
+#habitacion-detalle-reserva .fechas-container {
+  display: flex;
+  gap: 15px;
+  padding: 10px 30px;
+  border: 2px solid #4ae6f0;
+  border-radius: 35px;
+  margin-right: 10px;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Input invisible para date picker */
+#habitacion-detalle-reserva .input-invisible {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Iconos de ocupación */
+#habitacion-detalle-reserva .icon-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+  cursor: pointer;
+  justify-content: center;
+}
+
+#habitacion-detalle-reserva .icon-wrapper {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#habitacion-detalle-reserva .icon-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+#habitacion-detalle-reserva .icon-group span {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  color: black;
+  margin-right: 10px;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+#habitacion-detalle-reserva .ocupacion-selector {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 4px 12px;
+  transition: background 0.2s;
+}
+
+#habitacion-detalle-reserva .ocupacion-selector:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+#habitacion-detalle-reserva .ocupacion-bloque {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+/* Dropdown de ocupación */
+#habitacion-detalle-reserva .ocupacion-dropdown {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 101;
+  bottom: 115%;
+  min-width: 180px;
+}
+
+#habitacion-detalle-reserva .control-pasajero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  font-family: var(--font-heading);
+}
+
+#habitacion-detalle-reserva .control-pasajero input {
+  width: 45px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* =========================
    CONTENEDOR COMÚN
    ========================= */
 .reserva-contenedor {
@@ -352,6 +531,25 @@ body { background-color: #fafafa; font-family: 'Forum', serif; }
   .form-datos {
     padding: 25px;
   }
+
+  #habitacion-detalle-reserva .reserva-box {
+    padding: 15px 20px;
+    border-radius: 40px;
+    gap: 15px;
+  }
+
+  #habitacion-detalle-reserva .fechas-container {
+    padding: 8px 15px;
+    margin-right: 0;
+  }
+
+  #habitacion-detalle-reserva .fecha-display p {
+    font-size: 30px;
+  }
+
+  #habitacion-detalle-reserva .icon-group span {
+    font-size: 24px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -360,5 +558,108 @@ body { background-color: #fafafa; font-family: 'Forum', serif; }
   }
   .reserva-titulo {
     font-size: 26px;
+  }
+
+  #habitacion-detalle-reserva .reserva-box {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border-radius: 30px;
+    gap: 12px;
+  }
+
+  #habitacion-detalle-reserva .fechas-container {
+    width: 100%;
+    justify-content: center;
+  }
+
+  #habitacion-detalle-reserva .fecha-display p {
+    font-size: 26px;
+  }
+
+  #habitacion-detalle-reserva .label-reserva {
+    font-size: 12px;
+  }
+
+  #habitacion-detalle-reserva .icon-group span {
+    font-size: 22px;
+  }
+
+  #habitacion-detalle-reserva .icon-wrapper {
+    width: 28px;
+    height: 28px;
+  }
+
+  .habitacion-info {
+    padding: 15px;
+  }
+
+  .habitacion-info h4 {
+    font-size: 20px;
+  }
+
+  .habitacion-info p {
+    font-size: 14px;
+  }
+
+  .habitacion-precio {
+    font-size: 18px;
+    white-space: normal;
+  }
+
+  .reserva-contenedor {
+    margin: 20px auto;
+    padding: 0 15px;
+  }
+
+  .resumen-col {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  #habitacion-detalle-reserva .reserva-box {
+    padding: 12px;
+    border-radius: 25px;
+  }
+
+  #habitacion-detalle-reserva .fechas-container {
+    padding: 6px 10px;
+    gap: 8px;
+  }
+
+  #habitacion-detalle-reserva .fecha-display p {
+    font-size: 22px;
+  }
+
+  #habitacion-detalle-reserva .fecha-display span {
+    font-size: 13px;
+  }
+
+  #habitacion-detalle-reserva .icon-group span {
+    font-size: 18px;
+    margin-right: 5px;
+  }
+
+  #habitacion-detalle-reserva .icon-wrapper {
+    width: 24px;
+    height: 24px;
+  }
+
+  #habitacion-detalle-reserva .label-reserva {
+    font-size: 11px;
+  }
+
+  .reserva-titulo {
+    font-size: 22px;
+  }
+
+  .habitacion-img {
+    height: 160px;
+  }
+
+  .btn-seleccionar {
+    max-width: 100%;
+    width: 100%;
   }
 }

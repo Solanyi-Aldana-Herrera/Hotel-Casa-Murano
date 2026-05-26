@@ -3,6 +3,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Casa Murano</title>
     
     <link rel="icon" href="/frontend/images/logo/favicon.png" type="image/png" sizes="16x16">
@@ -29,6 +30,9 @@
                 
             </div> 
             <nav class="navbar">
+                <div class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.navbar ul').classList.toggle('show')">
+                    <span></span><span></span><span></span>
+                </div>
                 <ul>
                     <li><a href="/frontend/index.html">INICIO</a></li>
                     <li><a href="/frontend/pages/nosotros.html">NOSOTROS</a></li>
@@ -91,11 +95,11 @@
             <div class="bloque-valores">
                 <div class="valores">
                     <h4>Valores</h4>
-                    <p> Hospitalidad: Recibimos a cada huésped con calidez, amabilidad y vocación de servicio.<br>
-                    Calidad: Buscamos la excelencia en cada detalle para brindar confort y satisfacción.<br>
-                    Responsabilidad: Actuamos con compromiso frente a nuestros huéspedes, colaboradores y entorno.<br>
-                    Respeto: Promovemos relaciones basadas en la consideración, cortesía y buen trato.<br>
-                    Innovación: Buscamos mejorar continuamente nuestros servicios y experiencias para los huéspedes.<br>
+                    <p> Hospitalidad: Recibimos con calidez, amabilidad y vocación de servicio.<br>
+                    Calidad: Buscamos la excelencia para brindar confort y satisfacción.<br>
+                    Responsabilidad: Actuamos con compromiso.<br>
+                    Respeto: Promovemos relaciones basadas en la cortesía y buen trato.<br>
+                    Innovación: Buscamos mejorar nuestros servicios y experiencias.<br>
                     Sostenibilidad: Promovemos prácticas responsables con el medio ambiente y la comunidad.</p>
                 </div>
                 <div class="imagen.valores">
@@ -134,7 +138,7 @@
                     </div>      
                 </div>
                 <div class="copyrith">
-                    <p>&copy; 2026 Hotel Casa Murano. Todos los derechos reservados.</p>
+                    <p>&copy; Este proyecto fue desarrollado por TecnoParque Nodo Neiva - SENA - CIES Regional Huila</p>
                 </div>
             </div>
         

@@ -47,6 +47,8 @@ let reservaData = {
     salida: '',
     noches: 0,
     ocupacion: '',
+    adultos: 0,
+    ninos: 0,
     nombres: '',
     apellidos: '',
     tipoDocumento: '',
@@ -113,24 +115,134 @@ function seleccionarHabitacion(index) {
     const h = habitaciones[index];
     reservaData.habitacion = h;
 
-    const hoy = new Date();
-    const manana = new Date(hoy);
-    manana.setDate(hoy.getDate() + 1);
-    const pasado = new Date(hoy);
-    pasado.setDate(hoy.getDate() + 2);
-
-    const fEntrada = hoy.toISOString().split('T')[0];
-    const fSalida = pasado.toISOString().split('T')[0];
-
-    reservaData.entrada = fEntrada;
-    reservaData.salida = fSalida;
-    reservaData.noches = calcularNoches(fEntrada, fSalida);
-    reservaData.ocupacion = h.capacidad + (h.capacidad === 1 ? ' persona' : ' personas');
+    if (reservaData.entrada && reservaData.salida) {
+        reservaData.noches = calcularNoches(reservaData.entrada, reservaData.salida);
+    }
+    if (!reservaData.adultos && !reservaData.ninos) {
+        reservaData.adultos = h.capacidad;
+        reservaData.ninos = 0;
+    }
 
     irASeccion('digitacion-datos');
 }
 
+/* =========================
+   Funciones class reserva (reserva.html)
+   ========================= */
+const meses = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+];
+
+function toggleRvaOcupacion() {
+    const dropdown = document.getElementById('rva-dropdown-ocupacion');
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
+function actualizarRvaOcupacion() {
+    const adultos = document.getElementById('rva-cant-adultos').value;
+    const ninos = document.getElementById('rva-cant-ninos').value;
+    document.getElementById('rva-num-adultos').innerText = adultos;
+    document.getElementById('rva-num-ninos').innerText = ninos;
+    reservaData.adultos = parseInt(adultos);
+    reservaData.ninos = parseInt(ninos);
+}
+
+function actualizarRvaVistaFecha(fechaStr, idDia, idMes) {
+    const elDia = document.getElementById(idDia);
+    const elMes = document.getElementById(idMes);
+    if (elDia && elMes && fechaStr) {
+        const fecha = new Date(fechaStr + 'T00:00:00');
+        elDia.innerText = fecha.getDate();
+        elMes.innerText = `${meses[fecha.getMonth()]} ${fecha.getFullYear()}`;
+    }
+}
+
+function configurarRvaFecha(idInput, idDia, idMes, offsetDias = 0) {
+    const input = document.getElementById(idInput);
+    if (!input) return;
+    const fechaBase = new Date();
+    fechaBase.setDate(fechaBase.getDate() + offsetDias);
+    const yyyy = fechaBase.getFullYear();
+    const mm = String(fechaBase.getMonth() + 1).padStart(2, '0');
+    const dd = String(fechaBase.getDate()).padStart(2, '0');
+    const fechaFormateada = `${yyyy}-${mm}-${dd}`;
+    input.value = fechaFormateada;
+    actualizarRvaVistaFecha(fechaFormateada, idDia, idMes);
+
+    if (idInput === 'rva-input-entrada') {
+        reservaData.entrada = fechaFormateada;
+    } else if (idInput === 'rva-input-salida') {
+        reservaData.salida = fechaFormateada;
+    }
+
+    input.addEventListener("change", function () {
+        actualizarRvaVistaFecha(this.value, idDia, idMes);
+        if (idInput === 'rva-input-entrada') {
+            reservaData.entrada = this.value;
+        } else if (idInput === 'rva-input-salida') {
+            reservaData.salida = this.value;
+        }
+        if (reservaData.entrada && reservaData.salida) {
+            reservaData.noches = calcularNoches(reservaData.entrada, reservaData.salida);
+        }
+    });
+}
+
+function guardarReservaHome() {
+    const entrada = document.getElementById('rva-input-entrada').value;
+    const salida = document.getElementById('rva-input-salida').value;
+    if (!entrada || !salida) {
+        alert('Por favor selecciona las fechas de entrada y salida.');
+        return;
+    }
+    if (reservaData.entrada && reservaData.salida) {
+        reservaData.noches = calcularNoches(reservaData.entrada, reservaData.salida);
+    }
+    irASeccion('digitacion-datos');
+}
+
+function cerrarRvaOcupacion(e) {
+    const dropdown = document.getElementById('rva-dropdown-ocupacion');
+    const selector = document.querySelector('.ocupacion-selector');
+    if (dropdown && !selector.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.style.display = "none";
+    }
+}
+
+/* =========================
+   Cargar datos desde index
+   ========================= */
+function cargarReservaHome() {
+    const datos = sessionStorage.getItem('reservaHome');
+    if (!datos) return;
+
+    const data = JSON.parse(datos);
+    sessionStorage.removeItem('reservaHome');
+
+    document.getElementById('rva-input-entrada').value = data.entrada;
+    document.getElementById('rva-input-salida').value = data.salida;
+    actualizarRvaVistaFecha(data.entrada, 'rva-dia-entrada', 'rva-mes-entrada');
+    actualizarRvaVistaFecha(data.salida, 'rva-dia-salida', 'rva-mes-salida');
+
+    document.getElementById('rva-cant-adultos').value = data.adultos;
+    document.getElementById('rva-cant-ninos').value = data.ninos;
+    document.getElementById('rva-num-adultos').innerText = data.adultos;
+    document.getElementById('rva-num-ninos').innerText = data.ninos;
+
+    reservaData.entrada = data.entrada;
+    reservaData.salida = data.salida;
+    reservaData.noches = data.noches;
+    reservaData.adultos = data.adultos;
+    reservaData.ninos = data.ninos;
+}
+
 document.addEventListener('DOMContentLoaded', function () {
+    // Si venimos desde index con el hash, aseguramos mostrar la sección correcta
+    if (window.location.hash === '#habitacion-detalle-reserva') {
+        irASeccion('habitacion-detalle-reserva');
+    }
+
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', function (e) {
             e.preventDefault();
@@ -141,6 +253,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    configurarRvaFecha('rva-input-entrada', 'rva-dia-entrada', 'rva-mes-entrada', 0);
+    configurarRvaFecha('rva-input-salida', 'rva-dia-salida', 'rva-mes-salida', 1);
+    window.addEventListener('click', cerrarRvaOcupacion);
+
+    cargarReservaHome();
     renderizarHabitaciones();
 
     document.getElementById('btn-siguiente').addEventListener('click', function () {
@@ -187,7 +304,11 @@ function actualizarResumen() {
     document.getElementById('resumen-entrada').textContent = reservaData.entrada || '—';
     document.getElementById('resumen-salida').textContent = reservaData.salida || '—';
     document.getElementById('resumen-noches').textContent = reservaData.noches || '—';
-    document.getElementById('resumen-ocupacion').textContent = reservaData.ocupacion || '—';
+    const adultos = reservaData.adultos || 0;
+    const ninos = reservaData.ninos || 0;
+    const totalPersonas = adultos + ninos;
+    document.getElementById('resumen-ocupacion').textContent =
+        `Adultos: ${adultos}, Niños: ${ninos}, Total: ${totalPersonas} personas`;
 
     document.getElementById('resumen-nombres').textContent =
         reservaData.nombres + ' ' + reservaData.apellidos || '—';
@@ -219,7 +340,7 @@ function enviarWhatsApp() {
         'Entrada: ' + reservaData.entrada,
         'Salida: ' + reservaData.salida,
         'Noches: ' + reservaData.noches,
-        'Ocupaci\u00f3n: ' + reservaData.ocupacion,
+        'Ocupaci\u00f3n: Adultos ' + reservaData.adultos + ', Ni\u00f1os ' + reservaData.ninos + ', Total ' + (reservaData.adultos + reservaData.ninos) + ' personas',
         '',
         '*DATOS PERSONALES*',
         'Nombres: ' + reservaData.nombres + ' ' + reservaData.apellidos,

@@ -3,10 +3,9 @@
   align-items: stretch;
   justify-content: center;
   gap: 50px;
-  margin: 0 auto;
+  margin: 50px auto;
   padding: 50px 20px;
   min-height: 600px;
-  margin-top: 150px;
 }
 
 .texto_conocenos {
@@ -40,6 +39,15 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-top: -10px;
+}
+
+.intro h3::after {
+  content: url("/frontend/images/decoracion/linea.png");
+  display: block;
+  font-size: 30px;
+  color: var(--gold);
+  margin-top: 0;
+  letter-spacing: 10px;
 }
 
 .contenedor-nosotros {
@@ -80,12 +88,12 @@
 #segunda {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
   gap: 60px;
   margin: 0 auto;
   padding: 50px 20px;
-  width: 1600px;
+  width: 1350px;
   max-width: 100%;
   margin-bottom: 80px;
   margin-top: 150px;
@@ -95,10 +103,11 @@
 .bloque-vision,
 .bloque-valores {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   gap: 60px;
   width: 100%;
+  max-width: 1100px;
   flex-direction: column;
 }
 
@@ -117,34 +126,105 @@
   flex-direction: row;
 }
 
-.mision, .vision, .valores {
-  flex: 0 1 600px;
-  display: flex;
-  flex-direction: column;
-  margin-left: 150px;
-  margin-right: 150px;
-}
+
 
 .imagen-mision, .imagen-vision, .imagen-valores {
-  flex: 0 1 430px;
+  flex: 0 0 220px;
   display: flex;
   justify-content: center;
 }
 
-.imagen-mision img,
-.imagen-vision img,
-.imagen-valores img {
+.bloque-mision,
+.bloque-vision,
+.bloque-valores {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 1350px;
   width: 100%;
-  max-width: 220px;
+  flex-direction: column;
+  text-align: center;
+}
+
+.bloque-mision {
+  text-align: left;
+  flex-direction: row;
+}
+
+.bloque-vision {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.bloque-valores {
+  text-align: left;
+  flex-direction: row;
+}
+
+.mision, .vision, .valores {
+  flex: 0 1 1100px;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #ab9025;
+  background: #f6f6f5;
+  border-radius: 12px;
+  padding: 30px;
+}
+
+.imagen-mision {
+  flex: 0 0 220px;
+  display: flex;
+  justify-content: center;
+}
+
+.imagen.vision {
+  flex: 0 0 220px;
+  display: flex;
+  justify-content: center;
+}
+
+.imagen.valores {
+  flex: 0 0 220px;
+  display: flex;
+  justify-content: center;
+}
+
+.bloque-mision img {
+  width: 220px;
   height: 220px;
   object-fit: cover;
+  border-radius: 8px;
   transition: all 0.4s ease;
   cursor: pointer;
 }
 
-.imagen-mision img:hover,
-.imagen-vision img:hover,
-.imagen-valores img:hover {
+.bloque-vision img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.bloque-valores img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.bloque-mision img:hover {
+  transform: scale(1.1);
+}
+
+.bloque-vision img:hover {
+  transform: scale(1.1);
+}
+
+.bloque-valores img:hover {
   transform: scale(1.1);
 }
 

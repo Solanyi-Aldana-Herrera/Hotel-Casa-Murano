@@ -41,6 +41,56 @@
 
         <!-- SECCIÓN 1: SELECCIÓN DE HABITACIÓN -->
         <section id="habitacion-detalle-reserva">
+            <div class="reserva">
+                <div class="reserva-box">
+                    <div class="fechas-container">
+                        <div class="campo" onclick="document.getElementById('rva-input-entrada').showPicker()">
+                            <span class="label-reserva">Entrada</span>
+                            <div class="fecha-display">
+                                <p id="rva-dia-entrada"></p>
+                                <span id="rva-mes-entrada"></span>
+                            </div>
+                            <input type="date" id="rva-input-entrada" class="input-invisible">
+                        </div>
+                        <div class="campo" onclick="document.getElementById('rva-input-salida').showPicker()">
+                            <span class="label-reserva">Salida</span>
+                            <div class="fecha-display">
+                                <p id="rva-dia-salida"></p>
+                                <span id="rva-mes-salida"></span>
+                            </div>
+                            <input type="date" id="rva-input-salida" class="input-invisible">
+                        </div>
+                    </div>
+                    <div class="campo">
+                        <div class="ocupacion-bloque">
+                            <span class="label-reserva">Ocupación</span>
+                            <div class="ocupacion-selector" onclick="toggleRvaOcupacion()">
+                                <div class="icon-group">
+                                    <div class="icon-wrapper">
+                                        <img src="/frontend/images/iconos/Adulto.png" alt="Adulto"> 
+                                    </div>
+                                    <span id="rva-num-adultos">1</span>
+                                    <div class="icon-wrapper">
+                                        <img src="/frontend/images/iconos/Niño.png" alt="Niño"> 
+                                    </div>
+                                    <span id="rva-num-ninos">1</span>
+                                </div>
+                            </div>
+                            <div class="ocupacion-dropdown" id="rva-dropdown-ocupacion">
+                                <div class="control-pasajero">
+                                    <span>Adultos</span>
+                                    <input type="number" id="rva-cant-adultos" value="1" min="1" oninput="actualizarRvaOcupacion()">
+                                </div>
+                                <div class="control-pasajero">
+                                    <span>Niños</span>
+                                    <input type="number" id="rva-cant-ninos" value="1" min="0" oninput="actualizarRvaOcupacion()">
+                                </div>
+                                <button class="btn-listo" onclick="toggleRvaOcupacion()">Listo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="reserva-contenedor">
                 <h2 class="reserva-titulo">Selecciona tu habitación</h2>
                 <div id="lista-habitaciones" class="lista-habitaciones"></div>
