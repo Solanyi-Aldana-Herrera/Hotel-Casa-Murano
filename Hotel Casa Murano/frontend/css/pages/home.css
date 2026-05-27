@@ -69,6 +69,7 @@
 }
 
 .reserva-box {
+  position: relative;
   background-color: rgba(246, 246, 245, 0.1);
   padding: 10px 30px;
   border-radius: 75px;
@@ -160,13 +161,14 @@
 
 .ocupacion-dropdown {
   display: none;
-  position:absolute;
+  position: absolute;
   background-color: #ffffff;
   border-radius: 12px;
   padding: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   z-index: 101;
-  bottom: 115%;
+  bottom: calc(100% + 10px);
+  right: 10;
   min-width: 180px;
 }
 
