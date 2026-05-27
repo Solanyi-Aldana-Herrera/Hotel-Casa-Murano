@@ -251,9 +251,11 @@ function cargarReservaHome() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Si venimos desde index con el hash, aseguramos mostrar la sección correcta
+    // Mostrar la primera sección y marcar su nav como activa
     if (window.location.hash === '#habitacion-detalle-reserva') {
         irASeccion('habitacion-detalle-reserva');
+    } else {
+        actualizarNavActivo('habitacion-detalle-reserva');
     }
 
     document.querySelectorAll('.nav-links a').forEach(link => {
