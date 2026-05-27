@@ -84,10 +84,16 @@ app.post('/login', (req, res) => {
 // CONFIGURACIÓN DEL CONFIGURADOR DE CORREOS (NODEMAILER)
 // =========================================================================
 const transportador = nodemailer.createTransport({
-    service: 'hotmail',
+    host: 'smtp-mail.outlook.com',
+    port: 587,
+    secure: false,
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
+    },
+    tls: {
+        ciphers: 'SSLv3',
+        rejectUnauthorized: false
     }
 });
 
@@ -115,7 +121,7 @@ app.post('/recuperar-contrasena', (req, res) => {
 
         const adminId = resultados[0].id;
         const token = crypto.randomBytes(32).toString('hex');
-        const expiracion = new Date(Date.now() + 3600000);
+        const expiracion = new Date(Date.now() + 600000);
 
         const sqlGuardarToken = 'UPDATE administrador SET token_recuperacion = ?, expiracion_token = ? WHERE id = ?';
 
@@ -125,7 +131,7 @@ app.post('/recuperar-contrasena', (req, res) => {
                 return res.status(500).json({ success: false, mensaje: 'Error al generar el enlace de recuperación.' });
             }
 
-            const linkRecuperacion = `http://127.0.0.1:5500/frontend/pages/restablecer.html?token=${token}`;
+            const linkRecuperacion = `http://localhost:3000/frontend/pages/restablecer.html?token=${token}`;
 
             const opcionesCorreo = {
                 from: `Hotel Casa Murano <${process.env.EMAIL_USER}>`,
@@ -139,7 +145,7 @@ app.post('/recuperar-contrasena', (req, res) => {
                         <div style="text-align: center; margin: 30px 0;">
                             <a href="${linkRecuperacion}" style="background-color: #12cbc4; color: white; padding: 12px 25px; text-decoration: none; font-weight: bold; border-radius: 4px;">Restablecer Contraseña</a>
                         </div>
-                        <p style="color: #666; font-size: 12px;">Este enlace expirará en 1 hora.</p>
+                        <p style="color: #666; font-size: 12px;">Este enlace expirará en 10 minutos.</p>
                         <p style="color: #666; font-size: 12px;">Si tú no solicitaste este cambio, ignora este correo.</p>
                     </div>
                 `
@@ -353,6 +359,15 @@ app.delete('/api/:tabla/:id', (req, res) => {
         res.json({ success: true, mensaje: 'Registro eliminado' });
     });
 });
+transportador.verify((error, success) => {
+    if (error) {
+        console.error('Error de conexión SMTP — verifica EMAIL_USER y EMAIL_PASS en .env');
+        console.error('Detalle:', error.message);
+    } else {
+        console.log('Servicio de correo listo');
+    }
+});
+
 app.listen(3000, () => {
     console.log('Servidor ejecutándose en http://localhost:3000');
 });

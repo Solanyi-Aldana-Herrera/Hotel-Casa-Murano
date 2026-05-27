@@ -1,5 +1,9 @@
 const API = 'http://localhost:3000';
 
+function salir() {
+    window.location.replace('/frontend/index.html');
+}
+
 // ============================================================
 // SCRIPTS CARGADOS (evita recargar)
 // ============================================================
