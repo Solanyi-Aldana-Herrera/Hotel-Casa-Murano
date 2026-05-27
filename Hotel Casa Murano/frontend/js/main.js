@@ -103,7 +103,7 @@ function irAReserva() {
         }));
     }
 
-    window.location.href = '/frontend/pages/reserva.html#habitacion-detalle-reserva';
+    window.location.href = '/frontend/pages/reserva.html';
 }
 
 window.addEventListener('scroll', function() {

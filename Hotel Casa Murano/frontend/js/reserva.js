@@ -251,12 +251,8 @@ function cargarReservaHome() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Mostrar la primera sección y marcar su nav como activa
-    if (window.location.hash === '#habitacion-detalle-reserva') {
-        irASeccion('habitacion-detalle-reserva');
-    } else {
-        actualizarNavActivo('habitacion-detalle-reserva');
-    }
+    // Marcar el nav de la primera sección como activa sin scrollear
+    actualizarNavActivo('habitacion-detalle-reserva');
 
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', function (e) {
