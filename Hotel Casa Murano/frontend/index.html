@@ -64,18 +64,7 @@
      <main>
         <section class="hero-section">
 
-            <div class="slider">
-                <div class="slide active">
-                    <img src="/frontend/images/contenido/FondoPrincipal.png" alt="Hotel 1">
-                </div>
-
-                <div class="slide">
-                    <img src="/frontend/images/contenido/Frente de hotel.webp" alt="Hotel 2">
-                </div>
-
-                <div class="slide">
-                    <img src="/frontend/images/contenido/1.jpg" alt="Hotel 3">
-                </div>
+            <div class="slider" id="slider-container">
             </div>
 
             <div class="nombrehotel">
@@ -212,7 +201,58 @@
         
     </footer>
 
-    <!-- Aquí enlazarás tu archivo JS -->
+    <script>
+        const API_BASE = 'http://localhost:3000';
+
+        async function cargarContenidoInicio() {
+            try {
+                // Cargar bienvenida
+                const resB = await fetch(API_BASE + '/api/bienvenida');
+                const jsonB = await resB.json();
+                if (jsonB.success && jsonB.datos.length > 0) {
+                    const d = jsonB.datos[0];
+                    const tituloEl = document.querySelector('.titulo h2');
+                    const subtituloEl = document.querySelector('.titulo h3');
+                    const descEl = document.querySelector('.texto_bienvenida p');
+                    const despedidaEl = document.querySelector('.texto_bienvenida h4');
+                    const imgEl = document.querySelector('.imagen_lateral img');
+                    if (d.titulo && tituloEl) tituloEl.textContent = d.titulo;
+                    if (d.subtitulo && subtituloEl) subtituloEl.textContent = d.subtitulo;
+                    if (d.descripcion && descEl) descEl.innerHTML = d.descripcion.replace(/\n/g, '<br>');
+                    if (d.despedida && despedidaEl) despedidaEl.textContent = d.despedida;
+                    if (d.imagen && imgEl) imgEl.src = d.imagen;
+                }
+
+                // Cargar slider
+                const resS = await fetch(API_BASE + '/api/slider_inicio');
+                const jsonS = await resS.json();
+                if (jsonS.success && jsonS.datos.length > 0) {
+                    const container = document.getElementById('slider-container');
+                    const activos = jsonS.datos
+                        .filter(s => s.activo)
+                        .sort((a, b) => (a.orden_slider || 0) - (b.orden_slider || 0));
+                    container.innerHTML = activos.map((s, i) =>
+                        '<div class="slide' + (i === 0 ? ' active' : '') + '"><img src="' + s.imagen + '" alt="Hotel ' + (i + 1) + '"></div>'
+                    ).join('');
+
+                    const slides = container.querySelectorAll('.slide');
+                    if (slides.length > 1) {
+                        let index = 0;
+                        setInterval(function () {
+                            slides[index].classList.remove('active');
+                            index++;
+                            if (index >= slides.length) index = 0;
+                            slides[index].classList.add('active');
+                        }, 5000);
+                    }
+                }
+            } catch (e) {
+                console.warn('No se pudieron cargar los datos de inicio');
+            }
+        }
+
+        cargarContenidoInicio();
+    </script>
     <script src="/frontend/js/main.js"></script>
 </body>
 </html>

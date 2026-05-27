@@ -136,14 +136,24 @@ function configurarUpload(inputId, previewId, nombreId, hiddenId) {
     input.addEventListener('change', async () => {
         const file = input.files[0];
         if (!file) return;
+
+        // Mostrar preview local inmediatamente
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.style.display = 'flex';
+            preview.querySelector('img').src = e.target.result;
+            nombreEl.textContent = file.name;
+            hidden.value = '';
+        };
+        reader.readAsDataURL(file);
+
+        // Subir al servidor en segundo plano
         const res = await subirArchivo(file);
         if (res.success) {
-            preview.style.display = 'flex';
             preview.querySelector('img').src = res.ruta;
-            nombreEl.textContent = file.name;
             hidden.value = res.ruta;
         } else {
-            toast('Error al subir la imagen', 'error');
+            toast('Error al subir la imagen al servidor', 'error');
         }
     });
 }

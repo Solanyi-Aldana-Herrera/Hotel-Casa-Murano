@@ -276,7 +276,7 @@ app.post('/api/upload', upload.single('imagen'), (req, res) => {
 // =========================================================================
 
 const TABLAS = {
-    bienvenida:           { insertar: ['titulo','descripcion','imagen'] },
+    bienvenida:           { insertar: ['titulo','subtitulo','descripcion','despedida','imagen'] },
     galeria:              { insertar: ['titulo','imagen'] },
     habitaciones:         { insertar: ['nombre','descripcion','precio','imagen','capacidad','estado'] },
     iconos_nosotros:      { insertar: ['nombre','icono','descripcion'] },

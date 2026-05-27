@@ -33,7 +33,9 @@ DROP TABLE IF EXISTS `bienvenida`;
 CREATE TABLE `bienvenida` (
   `id` int NOT NULL AUTO_INCREMENT,
   `titulo` varchar(150) DEFAULT NULL,
+  `subtitulo` varchar(150) DEFAULT NULL,
   `descripcion` text,
+  `despedida` varchar(255) DEFAULT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
