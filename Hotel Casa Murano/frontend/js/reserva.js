@@ -69,6 +69,18 @@ function calcularNoches(entrada, salida) {
     return Math.max(0, Math.floor((d2 - d1) / (1000 * 60 * 60 * 24)));
 }
 
+function actualizarNavActivo(sectionId) {
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        const text = link.textContent.trim();
+        const entry = NAV_MAP.find(m => m.linkText === text);
+        if (entry && entry.sectionId === sectionId) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
+
 function irASeccion(sectionId) {
     const ids = NAV_MAP.map(m => m.sectionId);
     ids.forEach(id => {
@@ -76,6 +88,7 @@ function irASeccion(sectionId) {
     });
     document.getElementById(sectionId).style.display = 'block';
     window.scrollTo({ top: document.getElementById(sectionId).offsetTop - 30, behavior: 'smooth' });
+    actualizarNavActivo(sectionId);
 }
 
 function renderizarHabitaciones() {
@@ -249,9 +262,42 @@ document.addEventListener('DOMContentLoaded', function () {
             const text = this.textContent.trim();
             const entry = NAV_MAP.find(m => m.linkText === text);
             if (!entry) return;
+
+            if (entry.sectionId === 'digitacion-datos') {
+                const entrada = document.getElementById('rva-input-entrada').value;
+                const salida = document.getElementById('rva-input-salida').value;
+                if (!entrada || !salida) {
+                    alert('Por favor selecciona las fechas de entrada y salida.');
+                    return;
+                }
+                if (!reservaData.habitacion) {
+                    alert('Primero debes seleccionar una habitación.');
+                    return;
+                }
+            }
+
+            if (entry.sectionId === 'resumen-reserva') {
+                const entrada = document.getElementById('rva-input-entrada').value;
+                const salida = document.getElementById('rva-input-salida').value;
+                if (!entrada || !salida) {
+                    alert('Por favor selecciona las fechas de entrada y salida.');
+                    return;
+                }
+                if (!reservaData.habitacion) {
+                    alert('Primero debes seleccionar una habitación.');
+                    return;
+                }
+                const nombres = document.getElementById('nombres').value.trim();
+                if (!nombres) {
+                    alert('Primero debes completar tus datos personales.');
+                    return;
+                }
+            }
+
             irASeccion(entry.sectionId);
         });
     });
+
 
     configurarRvaFecha('rva-input-entrada', 'rva-dia-entrada', 'rva-mes-entrada', 0);
     configurarRvaFecha('rva-input-salida', 'rva-dia-salida', 'rva-mes-salida', 1);

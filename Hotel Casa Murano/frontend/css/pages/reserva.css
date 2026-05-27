@@ -664,16 +664,57 @@ body { background-color: #fafafa; font-family: 'Forum', serif; }
   }
 }
 
-
-.navegador {
+.navegador{
   justify-content: center;
 }
 
 .navbar {
+  align-content: center;
   margin-left: 0;
   flex-grow: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 50px;
+  gap: 80px;
+}
+
+#habitacion-detalle-reserva .reserva-titulo {
+  position:static;
+  top: 0;
+  z-index: 50;
+  background: #fafafa;
+  padding: 20px 0;
+  border-left: 20px;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+#ditacion-datos .reserva-titulo {
+  position:static;
+  top: 0;
+  z-index: 50;
+  background: #fafafa;
+  padding: 20px 0;
+  border-left: 20px;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+#resumen-reserva .reserva-titulo {
+  position:static;
+  top: 0;
+  z-index: 50;
+  background: #fafafa;
+  padding: 20px 0;
+  border-left: 20px;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.navbar ul li a.active {
+  color: var(--primary-light);
+}
+
+.navbar ul li a.active::after {
+  width: 70%;
 }
