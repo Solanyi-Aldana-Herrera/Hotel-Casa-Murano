@@ -101,8 +101,10 @@
 }
 
 .catalogo-habitaciones article {
-  background: transparent;
+  background-color: #f6f6f1;
   transition: 0.3s ease;
+  padding: 20px;
+  border-radius: 25px;
 }
 
 .catalogo-habitaciones article img {
