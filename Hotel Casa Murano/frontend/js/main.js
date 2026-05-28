@@ -83,32 +83,37 @@ window.addEventListener('click', function(e) {
 });
 
 
+function irAReserva() {
+    const entrada = document.getElementById('input-entrada').value;
+    const salida = document.getElementById('input-salida').value;
+
+    if (entrada && salida) {
+        const d1 = new Date(entrada + 'T00:00:00');
+        const d2 = new Date(salida + 'T00:00:00');
+        const noches = Math.max(0, Math.floor((d2 - d1) / (1000 * 60 * 60 * 24)));
+        const adultos = document.getElementById('num-adultos').innerText;
+        const ninos = document.getElementById('num-ninos').innerText;
+
+        sessionStorage.setItem('reservaHome', JSON.stringify({
+            entrada: entrada,
+            salida: salida,
+            noches: noches,
+            adultos: parseInt(adultos),
+            ninos: parseInt(ninos)
+        }));
+    }
+
+    window.location.href = '/frontend/pages/reserva.html';
+}
+
 window.addEventListener('scroll', function() {
     const header = document.querySelector('header');
-    if (window.scrollY > 50) {
+    const hero = document.querySelector('.hero-section');
+    const threshold = hero ? hero.offsetTop + hero.offsetHeight - header.offsetHeight : 50;
+    if (window.scrollY > threshold) {
         header.classList.add('scrolled');
     } else {
         header.classList.remove('scrolled');
     }
 });
 
-
-//Movimiento del slide//
-const slides = document.querySelectorAll('.slide');
-
-let index = 0;
-
-function cambiarSlide() {
-
-    slides[index].classList.remove('active');
-
-    index++;
-
-    if(index >= slides.length){
-        index = 0;
-    }
-
-    slides[index].classList.add('active');
-}
-
-setInterval(cambiarSlide, 5000);

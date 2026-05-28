@@ -1,5 +1,6 @@
 #servicios-hotel {
-  width: 1700px;
+  max-width: 1700px;
+  width: 100%;
   margin: 0 auto;
   background-color: white;
   padding: 50px 20px;
@@ -23,9 +24,14 @@
 }
 
 .uno, .dos {
-  flex: 0 1 600px;
+  flex: 1 1 100%;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
+  border: 2px solid #ab9025;
+  background: #f6f6f5;
+  border-radius: 12px;
+  padding: 30px;
 }
 
 .ubicacion, .bar, .wifi, .tv {
@@ -58,6 +64,15 @@
   letter-spacing: 2px;
   margin-top: -10px;
   text-transform: uppercase;
+}
+
+.encabezado-servicios h3::after {
+  content: url("/frontend/images/decoracion/linea.png");
+  display: block;
+  font-size: 30px;
+  color: var(--gold);
+  margin-top: 0;
+  letter-spacing: 10px;
 }
 
 .ubicacion p, .parqueadero p, .bar p, .recepcion p, .wifi p, .cafe p, .tv p {
@@ -97,6 +112,85 @@
   height: 100%;
 }
 
+@media (max-width: 992px) {
+  .ubicacion, .parqueadero, .bar, .recepcion, .wifi, .cafe, .tv {
+    flex-direction: column !important;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .uno, .dos {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .contenedor-servicios img {
+    max-width: 100%;
+    height: auto;
+    max-height: 280px;
+  }
+
+  .img-ubicacion, .img-parqueadero, .img-bar, .img-recepcion, .img-wifi, .img-cafe, .img-tv {
+    max-width: 100%;
+  }
+
+  .encabezado-servicios h2 {
+    font-size: 45px;
+  }
+
+  .encabezado-servicios h3 {
+    font-size: 24px;
+  }
+
+  .ubicacion p, .parqueadero p, .bar p, .recepcion p, .wifi p, .cafe p, .tv p {
+    font-size: 20px;
+  }
+}
+
 @media (max-width: 768px) {
   .modal-overlay img { width: 95%; }
+
+  .encabezado-servicios h2 {
+    font-size: 36px;
+  }
+
+  .encabezado-servicios h3 {
+    font-size: 20px;
+    margin-bottom: 40px;
+  }
+
+  #servicios-hotel {
+    padding: 30px 15px;
+  }
+
+  .contenedor-servicios {
+    gap: 40px;
+  }
+
+  .ubicacion p, .parqueadero p, .bar p, .recepcion p, .wifi p, .cafe p, .tv p {
+    font-size: 18px;
+  }
+
+  .ubicacion h4, .parqueadero h4, .bar h4, .recepcion h4, .wifi h4, .cafe h4, .tv h4 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .encabezado-servicios h2 {
+    font-size: 30px;
+  }
+
+  .encabezado-servicios h3 {
+    font-size: 18px;
+  }
+
+  .contenedor-servicios {
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+
+  .contenedor-servicios img {
+    max-height: 220px;
+  }
 }

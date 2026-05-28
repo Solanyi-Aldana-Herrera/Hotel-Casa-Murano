@@ -24,7 +24,7 @@
   position: relative;
 }
 
-.titulo-mensaje h2::after {
+.titulo-habitaciones h3::after {
   content: url("/frontend/images/decoracion/linea.png");
   display: block;
   font-size: 30px;
@@ -101,8 +101,10 @@
 }
 
 .catalogo-habitaciones article {
-  background: transparent;
+  background-color: #f6f6f1;
   transition: 0.3s ease;
+  padding: 20px;
+  border-radius: 25px;
 }
 
 .catalogo-habitaciones article img {
@@ -212,6 +214,7 @@
 .modal-content p {
   font-size: 20px;
   line-height: 1.7;
+  color: #111;
 }
 
 @media (max-width: 992px) {
@@ -238,4 +241,57 @@
   .catalogo-habitaciones article p,
   .catalogo-habitaciones article ul li { font-size: 20px; }
   .botones-habitacion a { font-size: 20px; padding: 10px 18px; }
+
+  #catalogo {
+    padding: 30px 15px;
+  }
+
+  .catalogo-habitaciones article {
+    padding: 20px;
+  }
+
+  .catalogo-habitaciones article img {
+    height: 200px;
+  }
+
+  .botones-habitacion {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .titulo-habitaciones h2 {
+    font-size: 28px;
+  }
+
+  .titulo-mensaje h2 {
+    font-size: 28px;
+  }
+
+  .mensaje-mensaje p {
+    font-size: 18px;
+  }
+
+  .catalogo-habitaciones article h3 {
+    font-size: 24px;
+  }
+
+  .catalogo-habitaciones article p,
+  .catalogo-habitaciones article ul li {
+    font-size: 16px;
+  }
+
+  .botones-habitacion a {
+    font-size: 18px;
+    padding: 8px 15px;
+  }
+
+  .catalogo-habitaciones article img {
+    height: 180px;
+  }
+
+  #mensaje {
+    padding: 40px 15px;
+  }
 }

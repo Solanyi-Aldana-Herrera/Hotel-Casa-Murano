@@ -1,7 +1,7 @@
 #contacto-general {
   width: 100%;
   background-color: white;
-  margin: -10px auto 30px;
+  margin: 0 auto 100px;
 }
 
 .contacto-contenedor {
@@ -13,35 +13,50 @@
   gap: 60px;
 }
 
+#contacto, #box-contacto {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: 650px;
+}
+
+.información-contacto {
+  width: 100%;
+}
+
 .encabezado {
   text-align: center;
+  padding-top: 85px;
   margin-bottom: 50px;
-  margin-top: 90px;
 }
 
 .encabezado h2 {
+  font-family: 'Pinyon Script', cursive;
   font-size: 60.3px;
-  font-family: var(--font-decorative);
-  color: var(--gold);
+  color: #ab9025;
   margin: 0;
   font-weight: 400;
   text-align: center;
 }
 
 .encabezado h3 {
+  font-family: 'Fraunces', serif;
   font-size: 30.3px;
   color: black;
   letter-spacing: 2px;
   text-transform: uppercase;
-  font-weight: 700;
-  font-family: var(--font-body);
   margin: -10px 0 80px;
+  text-align: center;
 }
 
-.información-contacto {
-  flex: 1;
-  max-width: 700px;
-  width: 100%;
+.encabezado h3::after {
+  content: url("/frontend/images/decoracion/linea.png");
+  display: block;
+  font-size: 30px;
+  color: var(--gold);
+  margin-top: 0;
+  letter-spacing: 10px;
 }
 
 .información-contacto h4 {
@@ -71,7 +86,8 @@
   background: #e1d9ba;
   padding: 35px 35px 20px;
   border-radius: 20px;
-  width: 550px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .formulario::before {
@@ -127,15 +143,120 @@
 }
 
 @media (max-width: 992px) {
-  .contacto-contenedor { flex-direction: column; }
+  .contacto-contenedor {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
   .información-contacto h4,
   .formulario::before { font-size: 38px; }
   .información-contacto p { font-size: 22px; }
+
+  .encabezado h2 {
+    font-size: 45px;
+  }
+
+  .encabezado h3 {
+    font-size: 24px;
+  }
 }
 
 @media (max-width: 768px) {
-  .encabezado h3 { font-size: 40px; }
   .información-contacto h4,
   .formulario::before { font-size: 32px; }
   .formulario { padding: 25px; }
+
+  .encabezado {
+    padding-top: 100px;
+    margin-bottom: 30px;
+  }
+
+  .encabezado h2 {
+    font-size: 36px;
+  }
+
+  .encabezado h3 {
+    font-size: 20px;
+    margin-bottom: 40px;
+  }
+
+  .información-contacto h4 {
+    font-size: 28px;
+  }
+
+  .información-contacto p {
+    font-size: 20px;
+  }
+
+  .formulario {
+    padding: 20px;
+  }
+
+  .formulario::before {
+    font-size: 26px;
+  }
+
+  .formulario label {
+    font-size: 20px;
+  }
+
+  .formulario button {
+    font-size: 22px;
+    padding: 12px 30px;
+  }
+}
+
+@media (max-width: 480px) {
+.encabezado h2 {
+  font-family: 'Pinyon Script', cursive;
+  font-size: 60.3px;
+  color: #ab9025;
+  margin: 0;
+  font-weight: 400;
+  text-align: center;
+}
+
+.encabezado h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 30.3px;
+  color: black;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: -10px 0 80px;
+  text-align: center;
+}
+
+  .encabezado h3 {
+    font-size: 18px;
+  }
+
+  .información-contacto h4 {
+    font-size: 24px;
+  }
+
+  .información-contacto p {
+    font-size: 18px;
+  }
+
+  .formulario {
+    padding: 15px;
+  }
+
+  .formulario::before {
+    font-size: 22px;
+  }
+
+  .formulario label {
+    font-size: 18px;
+  }
+
+  .formulario input,
+  .formulario textarea {
+    font-size: 14px;
+  }
+
+  .formulario button {
+    font-size: 20px;
+    padding: 10px 25px;
+  }
 }

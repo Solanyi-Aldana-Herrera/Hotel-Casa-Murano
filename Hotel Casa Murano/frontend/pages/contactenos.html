@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Casa Murano</title>
     
     <link rel="icon" href="/frontend/images/logo/favicon.png" type="image/png" sizes="16x16">
@@ -28,6 +29,9 @@
                 
             </div> 
             <nav class="navbar">
+                <div class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.navbar ul').classList.toggle('show')">
+                    <span></span><span></span><span></span>
+                </div>
                 <ul>
                     <li><a href="/frontend/index.html">INICIO</a></li>
                     <li><a href="/frontend/pages/nosotros.html">NOSOTROS</a></li>
@@ -165,7 +169,7 @@
                     </div>      
                 </div>
                 <div class="copyrith">
-                    <p>&copy; 2026 Hotel Casa Murano. Todos los derechos reservados.</p>
+                    <p>&copy; Este proyecto fue desarrollado por TecnoParque Nodo Neiva - SENA - CIES Regional Huila</p>
                 </div>
             </div>
         

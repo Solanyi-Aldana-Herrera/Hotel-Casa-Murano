@@ -1,19 +1,33 @@
+<link rel="stylesheet" href="/frontend/css/pages/admin-inicio.css">
 <section id="inicio" class="seccion-admin active">
     <h1>Administrar Inicio</h1>
-    <p class="descripcion-seccion">Gestiona el slider principal y el texto de bienvenida.</p>
+    <p class="descripcion-seccion">Gestiona el texto de bienvenida, la imagen lateral y el carrusel de fotos del slider.</p>
 
     <div class="admin-form" id="form-bienvenida">
-        <h2>Texto de Bienvenida</h2>
+        <h2>Contenido de Bienvenida</h2>
+
         <div class="admin-form-group">
             <label>Título</label>
-            <input type="text" id="bienvenida-titulo" placeholder="Título de bienvenida">
+            <input type="text" id="bienvenida-titulo" placeholder="Título principal (ej: Bienvenidos)">
         </div>
+
+        <div class="admin-form-group">
+            <label>Subtítulo</label>
+            <input type="text" id="bienvenida-subtitulo" placeholder="Subtítulo (ej: Hotel Casa Murano)">
+        </div>
+
         <div class="admin-form-group">
             <label>Descripción</label>
-            <textarea id="bienvenida-descripcion" placeholder="Descripción corta"></textarea>
+            <textarea id="bienvenida-descripcion" placeholder="Descripción de bienvenida" rows="4"></textarea>
         </div>
+
         <div class="admin-form-group">
-            <label>Imagen de fondo</label>
+            <label>Despedida</label>
+            <input type="text" id="bienvenida-despedida" placeholder="Frase de despedida (ej: La Gerencia de Hotel Casa Murano)">
+        </div>
+
+        <div class="admin-form-group">
+            <label>Imagen Bienvenida</label>
             <div class="upload-area" onclick="document.getElementById('bienvenida-img-input').click()">
                 <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
                 <p>Haz clic para seleccionar imagen</p>
@@ -23,76 +37,95 @@
             <div class="upload-preview" id="bienvenida-img-preview" style="display:none">
                 <img src="" alt="preview">
                 <div class="info"><p id="bienvenida-img-nombre"></p></div>
+                <button type="button" class="btn-remove-img" onclick="removerBienvenidaImg()" title="Quitar imagen">&times;</button>
             </div>
             <input type="hidden" id="bienvenida-imagen">
         </div>
-        <div class="admin-actions">
-            <button class="btn-guardar" onclick="guardarBienvenida()">Guardar Bienvenida</button>
-        </div>
-    </div>
 
-    <div class="admin-toolbar" style="margin-top:30px">
-        <h2 style="font-family:var(--font-serif);font-size:1.4rem;color:#222">Slides del Banner</h2>
-        <button class="btn-agregar" onclick="abrirFormSlider()">
-            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-            Nuevo Slide
-        </button>
-    </div>
-
-    <div class="admin-table-wrap">
-        <table class="admin-table" id="tabla-slider">
-            <thead>
-                <tr>
-                    <th>Imagen</th>
-                    <th>Título</th>
-                    <th>Orden</th>
-                    <th>Estado</th>
-                    <th class="th-acciones">Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="slider-body"><tr><td colspan="5" class="vacio">Sin datos</td></tr></tbody>
-        </table>
-    </div>
-
-    <div class="admin-form" id="form-slider" style="display:none">
-        <h2 id="slider-form-titulo">Nuevo Slide</h2>
-        <input type="hidden" id="slider-id">
         <div class="admin-form-group">
-            <label>Título <span class="req">*</span></label>
-            <input type="text" id="slider-titulo" placeholder="Título del slide">
-        </div>
-        <div class="admin-form-group">
-            <label>Descripción</label>
-            <textarea id="slider-descripcion" placeholder="Descripción breve"></textarea>
-        </div>
-        <div class="admin-form-group">
-            <label>Imagen <span class="req">*</span></label>
-            <div class="upload-area" onclick="document.getElementById('slider-img-input').click()">
-                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-                <p>Haz clic para seleccionar imagen</p>
-                <span class="sub-texto">JPG, JPEG, PNG, WEBP</span>
+            <label>Imagenes formato carrucel</label>
+            <p class="sub-texto" style="margin-bottom:12px;color:#94a3b8;">Sube hasta 5 imágenes de forma independiente. Solo las que tengan imagen aparecerán en el slider.</p>
+            <div class="carrusel-grid" id="carrusel-grid">
+                <div class="carrusel-item" data-pos="1">
+                    <span class="carrusel-item-label">Imagen 1</span>
+                    <div class="upload-area" onclick="document.getElementById('carrusel-input-1').click()">
+                        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                        <p>Haz clic para seleccionar imagen</p>
+                        <span class="sub-texto">JPG, JPEG, PNG, WEBP</span>
+                    </div>
+                    <input type="file" id="carrusel-input-1" accept="image/*" style="display:none">
+                    <div class="upload-preview" id="carrusel-preview-1" style="display:none">
+                        <img src="" alt="preview">
+                        <div class="info"><p id="carrusel-nombre-1"></p></div>
+                        <button type="button" class="btn-remove-img" onclick="removerCarruselImg(1)" title="Quitar imagen">&times;</button>
+                    </div>
+                    <input type="hidden" id="carrusel-imagen-1">
+                </div>
+                <div class="carrusel-item" data-pos="2">
+                    <span class="carrusel-item-label">Imagen 2</span>
+                    <div class="upload-area" onclick="document.getElementById('carrusel-input-2').click()">
+                        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                        <p>Haz clic para seleccionar imagen</p>
+                        <span class="sub-texto">JPG, JPEG, PNG, WEBP</span>
+                    </div>
+                    <input type="file" id="carrusel-input-2" accept="image/*" style="display:none">
+                    <div class="upload-preview" id="carrusel-preview-2" style="display:none">
+                        <img src="" alt="preview">
+                        <div class="info"><p id="carrusel-nombre-2"></p></div>
+                        <button type="button" class="btn-remove-img" onclick="removerCarruselImg(2)" title="Quitar imagen">&times;</button>
+                    </div>
+                    <input type="hidden" id="carrusel-imagen-2">
+                </div>
+                <div class="carrusel-item" data-pos="3">
+                    <span class="carrusel-item-label">Imagen 3</span>
+                    <div class="upload-area" onclick="document.getElementById('carrusel-input-3').click()">
+                        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                        <p>Haz clic para seleccionar imagen</p>
+                        <span class="sub-texto">JPG, JPEG, PNG, WEBP</span>
+                    </div>
+                    <input type="file" id="carrusel-input-3" accept="image/*" style="display:none">
+                    <div class="upload-preview" id="carrusel-preview-3" style="display:none">
+                        <img src="" alt="preview">
+                        <div class="info"><p id="carrusel-nombre-3"></p></div>
+                        <button type="button" class="btn-remove-img" onclick="removerCarruselImg(3)" title="Quitar imagen">&times;</button>
+                    </div>
+                    <input type="hidden" id="carrusel-imagen-3">
+                </div>
+                <div class="carrusel-item" data-pos="4">
+                    <span class="carrusel-item-label">Imagen 4</span>
+                    <div class="upload-area" onclick="document.getElementById('carrusel-input-4').click()">
+                        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                        <p>Haz clic para seleccionar imagen</p>
+                        <span class="sub-texto">JPG, JPEG, PNG, WEBP</span>
+                    </div>
+                    <input type="file" id="carrusel-input-4" accept="image/*" style="display:none">
+                    <div class="upload-preview" id="carrusel-preview-4" style="display:none">
+                        <img src="" alt="preview">
+                        <div class="info"><p id="carrusel-nombre-4"></p></div>
+                        <button type="button" class="btn-remove-img" onclick="removerCarruselImg(4)" title="Quitar imagen">&times;</button>
+                    </div>
+                    <input type="hidden" id="carrusel-imagen-4">
+                </div>
+                <div class="carrusel-item" data-pos="5">
+                    <span class="carrusel-item-label">Imagen 5</span>
+                    <div class="upload-area" onclick="document.getElementById('carrusel-input-5').click()">
+                        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                        <p>Haz clic para seleccionar imagen</p>
+                        <span class="sub-texto">JPG, JPEG, PNG, WEBP</span>
+                    </div>
+                    <input type="file" id="carrusel-input-5" accept="image/*" style="display:none">
+                    <div class="upload-preview" id="carrusel-preview-5" style="display:none">
+                        <img src="" alt="preview">
+                        <div class="info"><p id="carrusel-nombre-5"></p></div>
+                        <button type="button" class="btn-remove-img" onclick="removerCarruselImg(5)" title="Quitar imagen">&times;</button>
+                    </div>
+                    <input type="hidden" id="carrusel-imagen-5">
+                </div>
             </div>
-            <input type="file" id="slider-img-input" accept="image/*" style="display:none">
-            <div class="upload-preview" id="slider-img-preview" style="display:none">
-                <img src="" alt="preview">
-                <div class="info"><p id="slider-img-nombre"></p></div>
-            </div>
-            <input type="hidden" id="slider-imagen">
         </div>
-        <div class="admin-form-group">
-            <label>Orden</label>
-            <input type="number" id="slider-orden" value="1" min="1">
-        </div>
-        <div class="admin-form-group">
-            <label>Estado</label>
-            <select id="slider-activo">
-                <option value="1">Activo</option>
-                <option value="0">Inactivo</option>
-            </select>
-        </div>
+
         <div class="admin-actions">
-            <button class="btn-guardar" onclick="guardarSlider()">Guardar Slide</button>
-            <button class="btn-cancelar" onclick="cerrarFormSlider()">Cancelar</button>
+            <button class="btn-guardar" onclick="guardarBienvenida()">Guardar</button>
         </div>
     </div>
 </section>
