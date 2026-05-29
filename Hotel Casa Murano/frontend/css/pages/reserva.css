@@ -475,6 +475,8 @@ body { background-color: #fafafa; font-family: 'Forum', serif; }
   flex-shrink: 0;
   accent-color: var(--color-gold-btn);
   cursor: pointer;
+  align-items: center;
+  display: flex;
 }
 
 .btn-confirmar {
