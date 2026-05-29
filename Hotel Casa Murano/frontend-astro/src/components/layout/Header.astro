@@ -22,15 +22,6 @@ import { NAV_LINKS } from '../../lib/constants';
       </button>
 
       <ul id="nav-links" class="flex items-center justify-end gap-[23px] m-0 p-0 max-lg:hidden max-lg:flex-col max-lg:absolute max-lg:top-[115px] max-lg:left-0 max-lg:w-full max-lg:bg-bg-form max-lg:p-5 max-lg:gap-2.5 max-lg:z-[999]">
-        <div id="adminBtn" class="w-10 h-10 flex justify-center items-center cursor-pointer transition-transform duration-300 hover:scale-105">
-          <svg class="w-full h-full fill-primary-light stroke-primary-light stroke-[0.5]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="11" fill="none" stroke-width="1.2"/>
-            <circle cx="9.5" cy="8.5" r="3" />
-            <path d="M4 17c0-2.5 3-3.5 5.5-3.5.8 0 1.6.1 2.3.4-.4.6-.6 1.4-.6 2.1v2.5H4V17z" />
-            <rect x="14" y="14" width="6" height="4.5" rx="1" />
-            <path d="M15 14v-1.5c0-1.1.9-2 2-2s2 .9 2 2V14" fill="none" stroke-width="1.5" />
-          </svg>
-        </div>
         {
           NAV_LINKS.map((link) => (
             <li>
@@ -79,9 +70,6 @@ import { NAV_LINKS } from '../../lib/constants';
     }
   }
 
-  document.getElementById('adminBtn')?.addEventListener('click', () => {
-    window.location.href = '/login';
-  });
 </script>
 
 <style>
