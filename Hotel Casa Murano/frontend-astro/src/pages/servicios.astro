@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { STRAPI_URL } from '../lib/constants';
+
+const API = STRAPI_URL;
+const res = await fetch(`${API}/api/servicios?populate=imagen`);
+const json = await res.json();
+const servicios = Array.isArray(json?.data) ? json.data : [];
+
+const imgUrl = (img) => {
+  if (!img?.url) return null;
+  return img.url.startsWith('http') ? img.url : API + img.url;
+};
+---
+
+<BaseLayout title="Servicios - Hotel Casa Murano" description="Descubre los servicios de Hotel Casa Murano">
+  <main>
+    <section id="servicios-hotel" class="max-w-[1200px] mx-auto py-16 px-4">
+      <div class="encabezado-servicios text-center mb-12">
+        <h2 class="font-heading text-4xl text-white">Descubre los</h2>
+        <h3 class="font-decorative text-3xl text-gold mt-2">SERVICIOS</h3>
+      </div>
+
+      <div class="contenedor-servicios grid gap-12">
+        {
+          servicios.map((s, i) => {
+            const src = imgUrl(s.imagen) || '/images/contenido/Frente de hotel.webp';
+            return (
+              <div class="flex items-center gap-8 max-md:flex-col odd:flex-row-reverse">
+                <div class="flex-1">
+                  <h4 class="font-heading text-2xl text-gold mb-4">{s.nombre}</h4>
+                  <p class="font-heading text-white leading-relaxed">{s.descripcion}</p>
+                </div>
+                <div class="flex-shrink-0">
+                  <img src={src} alt={s.nombre} onclick="abrirImagen(this.src)" class="w-[400px] h-[250px] object-cover rounded-2xl cursor-pointer transition-transform duration-300 hover:scale-[1.02] max-md:w-full" />
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </section>
+
+    <div class="modal-overlay" id="modalGaleria">
+      <span onclick="cerrarImagen()" class="absolute top-5 right-10 text-white text-5xl cursor-pointer">&times;</span>
+      <img id="imagenGrande" class="max-w-[90vw] max-h-[90vh] rounded-2xl" />
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  function abrirImagen(src) {
+    document.getElementById('imagenGrande').src = src;
+    document.getElementById('modalGaleria').classList.add('mostrar');
+  }
+  function cerrarImagen() {
+    document.getElementById('modalGaleria').classList.remove('mostrar');
+  }
+  document.getElementById('modalGaleria')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) cerrarImagen();
+  });
+</script>

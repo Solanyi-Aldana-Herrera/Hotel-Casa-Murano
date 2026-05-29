@@ -1,0 +1,92 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Admin - Galería" currentSection="galeria">
+  <div id="admin-content"><div class="flex flex-col items-center py-20"><div class="spinner mb-4"></div><p class="font-sans text-text-muted">Cargando...</p></div></div>
+</AdminLayout>
+
+<script type="module">
+  import { STRAPI_URL } from '../../lib/constants';
+  const API = STRAPI_URL;
+  const norm = (raw) => {
+    if (!raw || raw.error || raw.data == null) return { success: false, datos: [], dato: null };
+    if (Array.isArray(raw.data)) return { success: true, datos: raw.data, dato: null };
+    return { success: true, datos: [raw.data], dato: raw.data };
+  };
+  const normUpload = (raw) => Array.isArray(raw) && raw.length > 0 ? { success: true, ruta: raw[0].url, id: raw[0].id } : { success: false, ruta: '', id: null };
+  const imgUrl = (img) => img?.url ? (img.url.startsWith('http') ? img.url : API + img.url) : null;
+  const apiGet = async (t, id, params) => { let url = id ? `${API}/api/${t}/${id}` : `${API}/api/${t}`; if (params) url += '?' + new URLSearchParams(params).toString(); const r = await fetch(url); return norm(await r.json()); };
+  const apiPost = async (t, data) => { const r = await fetch(`${API}/api/${t}`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({data}) }); return norm(await r.json()); };
+  const apiDelete = async (t, id) => { const r = await fetch(`${API}/api/${t}/${id}`, { method:'DELETE' }); return norm(await r.json()); };
+  const subirArchivo = async (file) => { const fd = new FormData(); fd.append('files', file); const r = await fetch(`${API}/api/upload`, { method:'POST', body: fd }); return normUpload(await r.json()); };
+  const toast = (msg, tipo) => { const c = document.getElementById('toast-container'); if(!c) return; const t = document.createElement('div'); t.className='toast '+tipo; t.textContent=msg; c.appendChild(t); setTimeout(()=>{t.style.opacity='0';setTimeout(()=>t.remove(),300)},3000); };
+  const mostrarCargando = (el) => { el.innerHTML = '<div class="flex flex-col items-center py-10"><div class="spinner mb-4"></div><p class="font-sans text-text-muted">Cargando...</p></div>'; };
+
+  document.getElementById('admin-content').innerHTML = `
+    <section>
+      <h1 class="font-heading text-3xl text-white mb-2">Administrar Galería</h1>
+      <p class="font-sans text-text-muted mb-8">Sube y elimina imágenes de la galería del hotel.</p>
+      <div class="bg-bg-admin rounded-2xl p-6 mb-8">
+        <h2 class="font-heading text-xl text-gold mb-6">Subir nueva imagen</h2>
+        <div class="grid grid-cols-1 gap-4">
+          <div><label class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Título de la imagen</label><input type="text" id="galeria-titulo" class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-3 text-white font-sans text-sm focus:outline-none focus:border-primary" /></div>
+          <div>
+            <label class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Imagen <span class="text-primary">*</span></label>
+            <div id="galeria-upload-area" class="border-2 border-dashed border-white/20 rounded-xl p-6 text-center cursor-pointer hover:border-primary transition-colors" onclick="document.getElementById('galeria-img-input').click()">
+              <svg viewBox="0 0 24 24" class="w-12 h-12 fill-text-muted mx-auto mb-2"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+              <p class="font-sans text-white">Haz clic o arrastra una imagen aquí</p>
+              <span class="font-sans text-text-muted text-xs">JPG, JPEG, PNG, WEBP</span>
+            </div>
+            <input type="file" id="galeria-img-input" accept="image/*" class="hidden" />
+            <div id="galeria-img-preview" class="hidden mt-3 flex items-center gap-3 bg-white/5 rounded-lg p-3"><img src="" class="w-20 h-20 object-cover rounded" /><div class="flex-1"><p id="galeria-img-nombre" class="font-sans text-white text-sm"></p></div></div>
+          </div>
+          <div><button class="bg-primary text-black font-sans font-medium border-none rounded-lg px-6 py-3 cursor-pointer hover:bg-primary-dark" onclick="subirGaleria()">Subir Imagen</button></div>
+        </div>
+      </div>
+      <h2 class="font-heading text-xl text-gold mb-6">Imágenes subidas</h2>
+      <div id="galeria-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+    </section>
+  `;
+  cargarGaleria();
+
+  function configurarUploadGaleria() {
+    const input = document.getElementById('galeria-img-input'); const preview = document.getElementById('galeria-img-preview'); const nombreEl = document.getElementById('galeria-img-nombre');
+    if (!input) return;
+    input.addEventListener('change', async () => {
+      const file = input.files[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) { preview.style.display = 'flex'; preview.querySelector('img').src = e.target.result; nombreEl.textContent = file.name; };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function cargarGaleria() {
+    const grid = document.getElementById('galeria-grid'); mostrarCargando(grid);
+    const res = await apiGet('galeria', null, { populate: 'imagen' });
+    if (!res.success || res.datos.length === 0) { grid.innerHTML = '<div class="col-span-full text-center py-10 font-sans text-text-muted">No hay imágenes en la galería</div>'; configurarUploadGaleria(); return; }
+    grid.innerHTML = res.datos.map(g => `
+      <div class="relative group rounded-xl overflow-hidden bg-white/5">
+        <img src="${imgUrl(g.imagen)}" alt="${g.titulo || ''}" class="w-full h-48 object-cover" />
+        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2">
+          <span class="font-sans text-white text-sm text-center px-2">${g.titulo || '—'}</span>
+          <button class="bg-red-500/80 text-white border-none rounded-lg p-2 cursor-pointer hover:bg-red-600" onclick="eliminarGaleria(${g.id})"><svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+        </div>
+      </div>
+    `).join('');
+    configurarUploadGaleria();
+  }
+
+  window.subirGaleria = async function () {
+    const input = document.getElementById('galeria-img-input'); const titulo = document.getElementById('galeria-titulo').value;
+    if (!input.files.length) { toast('Selecciona una imagen','error'); return; }
+    const file = input.files[0];
+    const uploadRes = await subirArchivo(file);
+    if (!uploadRes.success) { toast('Error al subir imagen','error'); return; }
+    const res = await apiPost('galeria', { titulo, imagen: uploadRes.id });
+    if (res.success) { toast('Imagen subida','exito'); document.getElementById('galeria-titulo').value = ''; document.getElementById('galeria-img-input').value = ''; document.getElementById('galeria-img-preview').style.display = 'none'; cargarGaleria(); }
+    else toast('Error al guardar','error');
+  };
+
+  window.eliminarGaleria = function(id) { window.abrirModalConfirmar('¿Eliminar esta imagen?', async () => { const r = await apiDelete('galeria', id); if (r.success) { toast('Imagen eliminada','exito'); cargarGaleria(); } else toast('Error al eliminar','error'); }); };
+</script>

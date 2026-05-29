@@ -1,0 +1,103 @@
+---
+import '../styles/global.css';
+import AdminSidebar from '../components/layout/AdminSidebar.astro';
+import { ADMIN_SECTIONS } from '../lib/constants';
+
+export interface Props {
+  title?: string;
+  currentSection?: string;
+}
+
+const { title = 'Panel Admin - Hotel Casa Murano', currentSection } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="icon" href="/images/logo/favicon.png" type="image/png" sizes="16x16" />
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen flex bg-bg-dark text-white font-heading">
+    <AdminSidebar sections={ADMIN_SECTIONS} current={currentSection} />
+    <div class="flex-1 flex flex-col min-h-screen">
+      <header class="bg-bg-admin px-8 py-4 flex items-center justify-between sticky top-0 z-40">
+        <h1 class="font-body text-xl uppercase tracking-wider text-white">Panel de Administración</h1>
+        <button
+          id="btn-salir"
+          class="bg-primary-light text-white border-none px-5 py-2 rounded text-sm font-bold cursor-pointer transition-colors hover:bg-gold active:scale-95 font-sans"
+        >
+          Salir
+        </button>
+      </header>
+      <main class="flex-1 p-8 overflow-auto">
+        <slot />
+      </main>
+    </div>
+
+    <div id="toast-container" class="fixed top-4 right-4 z-[9999] flex flex-col gap-2"></div>
+
+    <div id="modal-confirmar" class="fixed inset-0 z-[9998] bg-black/70 hidden items-center justify-center" style="display:none">
+      <div class="bg-white text-text-dark rounded-xl p-8 max-w-md w-[90%] shadow-2xl animate-[modalFadeIn_0.3s_ease]">
+        <p id="modal-confirmar-msg" class="text-lg mb-6 text-center font-sans"></p>
+        <div class="flex gap-3 justify-center">
+          <button id="modal-confirmar-btn" class="bg-primary text-black border-none px-6 py-2.5 rounded-lg font-sans font-medium cursor-pointer transition-colors hover:bg-primary-dark">Confirmar</button>
+          <button onclick="cerrarModalConfirmar()" class="bg-gray-500 text-white border-none px-6 py-2.5 rounded-lg font-sans cursor-pointer">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const btnSalir = document.getElementById('btn-salir');
+      if (btnSalir) {
+        btnSalir.addEventListener('click', () => {
+          localStorage.removeItem('auth_token');
+          localStorage.removeItem('auth_user');
+          window.location.href = '/login';
+        });
+      }
+
+      // Toast
+      window.toast = function (msg, tipo) {
+        const c = document.getElementById('toast-container');
+        if (!c) return;
+        const t = document.createElement('div');
+        t.className = 'toast ' + tipo;
+        t.textContent = msg;
+        c.appendChild(t);
+        setTimeout(() => {
+          t.style.opacity = '0';
+          setTimeout(() => t.remove(), 300);
+        }, 3000);
+      };
+
+      // Confirm modal
+      let confirmCallback = null;
+      window.abrirModalConfirmar = function (msg, cb) {
+        const el = document.getElementById('modal-confirmar');
+        document.getElementById('modal-confirmar-msg').textContent = msg;
+        el.style.display = 'flex';
+        confirmCallback = cb;
+      };
+      window.cerrarModalConfirmar = function () {
+        document.getElementById('modal-confirmar').style.display = 'none';
+        confirmCallback = null;
+      };
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('#modal-confirmar-btn') && confirmCallback) {
+          confirmCallback();
+          cerrarModalConfirmar();
+        }
+      });
+
+      // Verify auth
+      const token = localStorage.getItem('auth_token');
+      if (!token) {
+        window.location.href = '/login';
+      }
+    </script>
+  </body>
+</html>

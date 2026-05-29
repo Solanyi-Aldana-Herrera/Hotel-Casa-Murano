@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { STRAPI_URL } from '../lib/constants';
+
+const API = STRAPI_URL;
+const res = await fetch(`${API}/api/nosotros?populate=imagen`);
+const json = await res.json();
+const data = json?.data || null;
+
+const imgUrl = (img) => {
+  if (!img?.url) return null;
+  return img.url.startsWith('http') ? img.url : API + img.url;
+};
+
+const titulo = data?.titulo || 'Conócenos';
+const descripcion = data?.descripcion || '';
+const mision = data?.mision || '';
+const vision = data?.vision || '';
+const heroImg = imgUrl(data?.imagen) || '/images/contenido/Frente de hotel.webp';
+---
+
+<BaseLayout title="Nosotros - Hotel Casa Murano" description="Conoce la historia y valores de Hotel Casa Murano">
+  <main>
+    <section id="primera" class="max-w-[1200px] mx-auto py-16 px-4">
+      <div class="texto_conocenos">
+        <div class="intro text-center mb-10">
+          <h2 class="font-heading text-4xl text-white">{titulo}</h2>
+          <h3 class="font-decorative text-3xl text-gold mt-2">Hotel Casa Murano</h3>
+        </div>
+        <div class="contenedor-nosotros flex gap-10 items-center max-md:flex-col">
+          <div class="img1 flex-shrink-0">
+            <img src={heroImg} alt="Hotel Casa Murano" class="w-[400px] h-[300px] object-cover rounded-2xl max-md:w-full" />
+          </div>
+          <div class="texto_nosotros max-w-[600px]">
+            <p class="font-heading text-white leading-relaxed text-lg">{descripcion}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="segunda" class="max-w-[1200px] mx-auto pb-16 px-4">
+      <div class="bloque-mision flex items-center gap-8 mb-12 max-md:flex-col">
+        <div class="mision flex-1">
+          <h4 class="font-heading text-2xl text-gold mb-4">Misión</h4>
+          <p class="font-heading text-white leading-relaxed">{mision}</p>
+        </div>
+        <div class="imagen-mision flex-shrink-0">
+          <img src="/images/iconos/icono_mision.png" class="w-32 h-32" />
+        </div>
+      </div>
+
+      <div class="bloque-vision flex items-center gap-8 mb-12 max-md:flex-col max-md:flex-col-reverse">
+        <div class="imagen-vision flex-shrink-0">
+          <img src="/images/iconos/icono_vision.png" class="w-32 h-32" />
+        </div>
+        <div class="vision flex-1">
+          <h4 class="font-heading text-2xl text-gold mb-4">Visión</h4>
+          <p class="font-heading text-white leading-relaxed">{vision}</p>
+        </div>
+      </div>
+
+      <div class="bloque-valores flex items-center gap-8 max-md:flex-col">
+        <div class="valores flex-1">
+          <h4 class="font-heading text-2xl text-gold mb-4">Valores</h4>
+          <p class="font-heading text-white leading-relaxed">
+            Hospitalidad: Recibimos con calidez, amabilidad y vocación de servicio.<br />
+            Calidad: Buscamos la excelencia para brindar confort y satisfacción.<br />
+            Responsabilidad: Actuamos con compromiso.<br />
+            Respeto: Promovemos relaciones basadas en la cortesía y buen trato.<br />
+            Innovación: Buscamos mejorar nuestros servicios y experiencias.<br />
+            Sostenibilidad: Promovemos prácticas responsables con el medio ambiente y la comunidad.
+          </p>
+        </div>
+        <div class="imagen-valores flex-shrink-0">
+          <img src="/images/iconos/icono_valores.png" class="w-32 h-32" />
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

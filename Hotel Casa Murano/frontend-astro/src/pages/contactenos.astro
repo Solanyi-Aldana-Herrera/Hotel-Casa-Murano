@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Contáctenos - Hotel Casa Murano" description="Contacta con Hotel Casa Murano">
+  <main>
+    <section id="contacto-general" class="max-w-[1200px] mx-auto py-16 px-4">
+      <div class="encabezado text-center mb-12">
+        <h2 class="font-heading text-4xl text-white">Escribenos</h2>
+        <h3 class="font-decorative text-3xl text-gold mt-2">Contáctanos</h3>
+      </div>
+
+      <div class="contacto-contenedor flex gap-12 max-md:flex-col">
+        <section id="contacto" class="flex-1">
+          <div class="información-contacto">
+            <h4 class="font-heading text-2xl text-white mb-6">Información de contacto</h4>
+            <p class="font-heading text-white/80 leading-relaxed mb-8">
+              Celular: +57 3005236987<br />
+              Email: hotelcasamurano@gmail.com<br />
+              Dirección: Avenida Circunvalar No 6 -32, Neiva, Huila
+            </p>
+            <div class="mapa">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.623740157669!2d-75.2928287!3d2.9240407999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3b747ddef6aad5%3A0x62e80c47191ffaad!2sHOTEL%20CASA%20MURANO!5e0!3m2!1ses!2sco!4v1778623386703!5m2!1ses!2sco"
+                width="100%" height="450" class="border-0 rounded-2xl"
+                allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </div>
+          </div>
+        </section>
+
+        <section id="box-contacto" class="flex-1">
+          <div class="formulario">
+            <form id="contactForm" class="flex flex-col gap-6">
+              <div>
+                <label for="nombre" class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans font-medium">Nombres y apellidos</label>
+                <input type="text" id="nombre" name="nombre" required
+                  class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-[14px_16px] text-white font-sans text-sm transition-all duration-300 focus:outline-none focus:border-primary focus:bg-[rgba(31,214,227,0.02)] focus:shadow-[0_0_10px_rgba(31,214,227,0.1)]" />
+              </div>
+              <div>
+                <label for="email" class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans font-medium">Correo</label>
+                <input type="email" id="email" name="email" required
+                  class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-[14px_16px] text-white font-sans text-sm transition-all duration-300 focus:outline-none focus:border-primary focus:bg-[rgba(31,214,227,0.02)] focus:shadow-[0_0_10px_rgba(31,214,227,0.1)]" />
+              </div>
+              <div>
+                <label for="telefono" class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans font-medium">Teléfono</label>
+                <input type="tel" id="telefono" name="telefono" required
+                  class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-[14px_16px] text-white font-sans text-sm transition-all duration-300 focus:outline-none focus:border-primary focus:bg-[rgba(31,214,227,0.02)] focus:shadow-[0_0_10px_rgba(31,214,227,0.1)]" />
+              </div>
+              <div>
+                <label for="mensaje" class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans font-medium">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" rows="5" required
+                  class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-[14px_16px] text-white font-sans text-sm resize-y transition-all duration-300 focus:outline-none focus:border-primary focus:bg-[rgba(31,214,227,0.02)] focus:shadow-[0_0_10px_rgba(31,214,227,0.1)]"></textarea>
+              </div>
+              <button type="submit"
+                class="w-full bg-primary text-black border-none rounded-lg p-[14px] font-sans text-sm font-medium cursor-pointer flex justify-center items-center gap-2.5 mt-[30px] transition-all duration-300 hover:bg-primary-dark hover:shadow-[0_5px_15px_rgba(31,214,227,0.3)] active:scale-[0.98]">
+                Enviar
+              </button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<script>
+  import { STRAPI_URL } from '../lib/constants';
+
+  document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = {
+      nombre: document.getElementById('nombre').value,
+      email: document.getElementById('email').value,
+      telefono: document.getElementById('telefono').value,
+      mensaje: document.getElementById('mensaje').value,
+    };
+    try {
+      const res = await fetch(`${STRAPI_URL}/api/mensajes-contacto`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data }),
+      });
+      const json = await res.json();
+      if (json.data) {
+        alert('Mensaje enviado correctamente.');
+        document.getElementById('contactForm').reset();
+      } else {
+        alert('Error al enviar el mensaje.');
+      }
+    } catch {
+      alert('No se pudo conectar con el servidor.');
+    }
+  });
+</script>

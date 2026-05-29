@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "habitaciones",
+  "info": {
+    "singularName": "habitacione",
+    "pluralName": "habitaciones",
+    "displayName": "Habitación",
+    "description": "Habitaciones del hotel"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": { "type": "string" },
+    "descripcion": { "type": "text" },
+    "precio": { "type": "float" },
+    "capacidad": { "type": "integer" },
+    "imagen": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "estado": { "type": "integer" }
+  }
+}

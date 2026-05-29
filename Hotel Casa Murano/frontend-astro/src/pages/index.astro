@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import Bienvenida from '../components/home/Bienvenida.astro';
+---
+
+<BaseLayout title="Hotel Casa Murano - Tu refugio de elegancia y comodidad">
+  <Hero />
+  <Bienvenida />
+</BaseLayout>
+
+<script>
+  import { STRAPI_URL } from '../lib/constants';
+
+  const imgUrl = (img) => img?.url ? (img.url.startsWith('http') ? img.url : STRAPI_URL + img.url) : null;
+
+  function normalizeOne(raw) {
+    if (!raw || raw.error) return null;
+    return raw.data != null ? (Array.isArray(raw.data) ? raw.data[0] : raw.data) : null;
+  }
+
+  function normalizeList(raw) {
+    if (!raw || raw.error || !raw.data) return [];
+    return Array.isArray(raw.data) ? raw.data : [raw.data];
+  }
+
+  async function cargarContenidoInicio() {
+    try {
+      const resB = await fetch(STRAPI_URL + '/api/bienvenida?populate=imagen');
+      const d = normalizeOne(await resB.json());
+      if (d) {
+        const tituloEl = document.querySelector('#bienvenida-titulo');
+        const subtituloEl = document.querySelector('#bienvenida-subtitulo');
+        const descEl = document.querySelector('#bienvenida-desc');
+        const despedidaEl = document.querySelector('#bienvenida-despedida');
+        const imgEl = document.querySelector('#bienvenida-img');
+        if (d.titulo && tituloEl) tituloEl.textContent = d.titulo;
+        if (d.subtitulo && subtituloEl) subtituloEl.textContent = d.subtitulo;
+        if (d.descripcion && descEl) descEl.innerHTML = d.descripcion.replace(/\n/g, '<br>');
+        if (d.despedida && despedidaEl) despedidaEl.textContent = d.despedida;
+        const bImg = imgUrl(d.imagen);
+        if (bImg && imgEl) imgEl.src = bImg;
+      }
+
+      const resS = await fetch(STRAPI_URL + '/api/slider-inicios?populate=imagen');
+      const activos = normalizeList(await resS.json())
+        .filter(s => s.activo)
+        .sort((a, b) => (a.orden_slider || 0) - (b.orden_slider || 0));
+      if (activos.length > 0) {
+        const container = document.getElementById('slider-container');
+        container.innerHTML = activos.map((s, i) =>
+          '<div class="slide' + (i === 0 ? ' active' : '') + '"><img src="' + imgUrl(s.imagen) + '" alt="Hotel ' + (i + 1) + '"></div>'
+        ).join('');
+
+        const slides = container.querySelectorAll('.slide');
+        if (slides.length > 1) {
+          let index = 0;
+          setInterval(() => {
+            slides[index]?.classList.remove('active');
+            index = (index + 1) % slides.length;
+            slides[index]?.classList.add('active');
+          }, 5000);
+        }
+      }
+    } catch (e) {
+      console.warn('No se pudieron cargar los datos de inicio');
+    }
+  }
+
+  cargarContenidoInicio();
+</script>
+
+<script>
+  // Date picker defaults
+  (function() {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const formatDate = (d) => d.toISOString().split('T')[0];
+    const entradaInput = document.getElementById('input-entrada');
+    const salidaInput = document.getElementById('input-salida');
+
+    if (entradaInput) {
+      entradaInput.value = formatDate(today);
+      entradaInput.min = formatDate(today);
+    }
+    if (salidaInput) {
+      salidaInput.value = formatDate(tomorrow);
+      salidaInput.min = formatDate(tomorrow);
+    }
+
+    window.actualizarFechas = function () {
+      const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+      if (entradaInput) {
+        const e = new Date(entradaInput.value + 'T12:00:00');
+        document.getElementById('dia-entrada').textContent = e.getDate();
+        document.getElementById('mes-entrada').textContent = meses[e.getMonth()];
+        if (salidaInput) salidaInput.min = entradaInput.value;
+      }
+      if (salidaInput) {
+        const s = new Date(salidaInput.value + 'T12:00:00');
+        document.getElementById('dia-salida').textContent = s.getDate();
+        document.getElementById('mes-salida').textContent = meses[s.getMonth()];
+      }
+    };
+
+    entradaInput?.addEventListener('change', actualizarFechas);
+    salidaInput?.addEventListener('change', actualizarFechas);
+    actualizarFechas();
+  })();
+
+  function toggleOcupacion() {
+    document.getElementById('dropdown-ocupacion')?.classList.toggle('hidden');
+  }
+
+  function actualizarOcupacion() {
+    const adultos = document.getElementById('cant-adultos')?.value || 1;
+    const ninos = document.getElementById('cant-ninos')?.value || 0;
+    document.getElementById('num-adultos').textContent = adultos;
+    document.getElementById('num-ninos').textContent = ninos;
+  }
+
+  function irAReserva() {
+    const entrada = document.getElementById('input-entrada')?.value;
+    const salida = document.getElementById('input-salida')?.value;
+    const adultos = document.getElementById('cant-adultos')?.value || 1;
+    const ninos = document.getElementById('cant-ninos')?.value || 0;
+
+    if (!entrada || !salida) return;
+
+    const e = new Date(entrada + 'T12:00:00');
+    const s = new Date(salida + 'T12:00:00');
+    const noches = Math.max(1, Math.round((s - e) / (1000 * 60 * 60 * 24)));
+
+    sessionStorage.setItem('reservaHome', JSON.stringify({
+      entrada, salida, noches, adultos: parseInt(adultos), ninos: parseInt(ninos)
+    }));
+    window.location.href = '/reserva';
+  }
+
+  window.toggleOcupacion = toggleOcupacion;
+  window.actualizarOcupacion = actualizarOcupacion;
+  window.irAReserva = irAReserva;
+</script>

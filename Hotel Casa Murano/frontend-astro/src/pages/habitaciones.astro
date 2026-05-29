@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { STRAPI_URL } from '../lib/constants';
+
+const API = STRAPI_URL;
+const res = await fetch(`${API}/api/habitaciones?populate=imagen`);
+const json = await res.json();
+const habitaciones = Array.isArray(json?.data) ? json.data : [];
+
+const imgUrl = (img) => {
+  if (!img?.url) return null;
+  return img.url.startsWith('http') ? img.url : API + img.url;
+};
+---
+
+<BaseLayout title="Habitaciones - Hotel Casa Murano" description="Conoce nuestras habitaciones en Hotel Casa Murano">
+  <main>
+    <section id="mensaje" class="max-w-[1200px] mx-auto pt-16 px-4 text-center">
+      <div class="contenedor-mensaje">
+        <div class="titulo-mensaje">
+          <h2 class="font-heading text-4xl text-white">Comodidad que se siente como en casa</h2>
+        </div>
+        <div class="mensaje-mensaje max-w-[800px] mx-auto mt-6">
+          <p class="font-heading text-white leading-relaxed text-lg">En Hotel Casa Murano, creemos que una buena estancia no necesita excesos. Nuestras habitaciones son espacios limpios, tranquilos y preparados para ofrecerte exactamente lo que necesitas, permitiéndote disfrutar de tu viaje sin preocupaciones. Simple, cómodo y listo para ti.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="habitaciones" class="max-w-[1200px] mx-auto py-16 px-4">
+      <div class="contenedor-habitaciones">
+        <div class="titulo-habitaciones text-center mb-10">
+          <h3 class="font-heading text-3xl text-white tracking-wider">HABITACIONES</h3>
+        </div>
+
+        <div id="catalogo-habitaciones" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+          {
+            habitaciones.map((r, i) => {
+              const src = imgUrl(r.imagen) || '/images/contenido/Frente de hotel.webp';
+              return (
+                <article data-index={i} class="bg-bg-form rounded-2xl overflow-hidden transition-transform duration-300 hover:scale-[1.02]">
+                  <img src={src} alt={r.nombre} class="w-full h-[250px] object-cover" />
+                  <div class="p-6">
+                    <h4 class="font-heading text-2xl text-white mb-3">{r.nombre}</h4>
+                    <p class="font-heading text-white/80 leading-relaxed mb-5">{r.descripcion}</p>
+                    <div class="flex gap-3">
+                      <button class="ver-mas-btn flex-1 bg-primary-light text-bg-dark-alt font-body text-base border-none py-2.5 px-4 rounded-[35px] cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-[0_0_10px_white] hover:text-black">Ver más</button>
+                      <button class="flex-1 bg-primary text-black font-body text-base border-none py-2.5 px-4 rounded-[35px] cursor-pointer transition-all duration-300 hover:scale-105" onclick="window.location.href='/reserva'">Reserva</button>
+                    </div>
+                  </div>
+                </article>
+              );
+            })
+          }
+        </div>
+      </div>
+    </section>
+
+    <div id="modalHabitacion" class="modal-overlay">
+      <div class="modal-content bg-white text-text-dark p-8 rounded-xl max-w-[600px] w-[90%] relative animate-[modalFadeIn_0.3s_ease]">
+        <span onclick="cerrarModal()" class="absolute top-5 right-5 text-4xl cursor-pointer text-text-dark leading-none">&times;</span>
+        <h2 id="tituloModal" class="font-heading text-2xl mb-4"></h2>
+        <p id="textoModal" class="font-sans leading-relaxed"></p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<script type="application/json" id="rooms-data">
+{JSON.stringify(habitaciones.map(r => ({ nombre: r.nombre, descripcion: r.descripcion })))}
+</script>
+<script is:inline>
+  const rooms = JSON.parse(document.getElementById('rooms-data').textContent);
+
+  document.getElementById('catalogo-habitaciones')?.addEventListener('click', (e) => {
+    const btn = e.target.closest('.ver-mas-btn');
+    if (!btn) return;
+    const idx = btn.closest('article').dataset.index;
+    const r = rooms[idx];
+    if (r) abrirModal(r.nombre, r.descripcion);
+  });
+
+  function abrirModal(titulo, texto) {
+    document.getElementById('tituloModal').textContent = titulo;
+    document.getElementById('textoModal').textContent = texto;
+    document.getElementById('modalHabitacion').classList.add('mostrar');
+  }
+
+  function cerrarModal() {
+    document.getElementById('modalHabitacion').classList.remove('mostrar');
+  }
+
+  document.getElementById('modalHabitacion')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) cerrarModal();
+  });
+</script>

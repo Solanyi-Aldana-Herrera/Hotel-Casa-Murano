@@ -1,0 +1,25 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Admin - Reservas" currentSection="reservas">
+  <div id="admin-content">
+    <section>
+      <h1 class="font-heading text-3xl text-white mb-2">Administrar Reservas</h1>
+      <p class="font-sans text-text-muted mb-8">Visualiza las reservas realizadas por los clientes.</p>
+      <div class="overflow-x-auto rounded-xl">
+        <table class="w-full admin-table" id="tabla-reservas">
+          <thead><tr>
+            <th class="bg-[#1a2330] text-text-muted uppercase text-xs tracking-[1px] p-3 text-left">Cliente</th>
+            <th class="bg-[#1a2330] text-text-muted uppercase text-xs tracking-[1px] p-3 text-left">Habitación</th>
+            <th class="bg-[#1a2330] text-text-muted uppercase text-xs tracking-[1px] p-3 text-left">Check-in</th>
+            <th class="bg-[#1a2330] text-text-muted uppercase text-xs tracking-[1px] p-3 text-left">Check-out</th>
+            <th class="bg-[#1a2330] text-text-muted uppercase text-xs tracking-[1px] p-3 text-left">Estado</th>
+            <th class="bg-[#1a2330] text-text-muted uppercase text-xs tracking-[1px] p-3 text-left">Acciones</th>
+          </tr></thead>
+          <tbody id="reservas-body"><tr><td colspan="6" class="text-center py-10 font-sans text-text-muted">Módulo de reservas en desarrollo</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</AdminLayout>

@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "iconos_nosotros",
+  "info": {
+    "singularName": "icono-nosotros",
+    "pluralName": "iconos-nosotros",
+    "displayName": "Iconos Nosotros",
+    "description": "Iconos/Valores de la página Nosotros"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": { "type": "string" },
+    "icono": { "type": "string" },
+    "descripcion": { "type": "text" }
+  }
+}

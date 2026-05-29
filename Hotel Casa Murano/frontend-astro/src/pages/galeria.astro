@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { STRAPI_URL } from '../lib/constants';
+
+const API = STRAPI_URL;
+const res = await fetch(`${API}/api/galeria?populate=imagen${API.startsWith('http://localhost') ? `&t=${Date.now()}` : ''}`);
+const json = await res.json();
+const galeriaData = Array.isArray(json?.data) ? json.data : [];
+
+const imgUrl = (img) => {
+  if (!img?.url) return null;
+  return img.url.startsWith('http') ? img.url : API + img.url;
+};
+---
+
+<BaseLayout title="Galería - Hotel Casa Murano" description="Galería de imágenes de Hotel Casa Murano">
+  <main>
+    <section id="galeria" class="max-w-[1200px] mx-auto py-16 px-4">
+      <h2 class="font-heading text-4xl text-white text-center">Despierta en el corazón de Casa Murano</h2>
+      <h3 class="font-decorative text-3xl text-gold text-center mt-2 mb-10">Galería</h3>
+      <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          galeriaData.map((item, i) => {
+            const src = imgUrl(item.imagen);
+            if (!src) return null;
+            return (
+              <img
+                src={src}
+                alt={item.titulo || `Galería ${i + 1}`}
+              onclick={`abrirImagen(${i})`}
+                class="w-full h-[280px] object-cover rounded-lg cursor-pointer transition-transform duration-300 hover:scale-[1.03]"
+              />
+            );
+          })
+        }
+      </div>
+    </section>
+
+    <div class="modal-overlay" id="modalGaleria">
+      <span class="modal-close absolute top-5 right-10 text-white text-5xl cursor-pointer">&times;</span>
+      <div class="flex flex-col items-center gap-4">
+        <div class="flex items-center gap-6">
+          <button id="modalPrev" class="text-white text-4xl cursor-pointer bg-transparent border-none hover:text-primary-light transition-colors">&#10094;</button>
+          <div class="modal-imagen-wrapper">
+            <img id="imagenGrande" class="max-w-[85vw] max-h-[70vh] rounded-2xl" />
+          </div>
+          <button id="modalNext" class="text-white text-4xl cursor-pointer bg-transparent border-none hover:text-primary-light transition-colors">&#10095;</button>
+        </div>
+        <div id="modalRibbon" class="flex gap-2 overflow-x-auto max-w-[80vw] p-2"></div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<script is:inline>
+  const images = <%- JSON.stringify(galeriaData.map(i => imgUrl(i.imagen)).filter(Boolean)) %>;
+
+  let currentIndex = 0;
+
+  function renderRibbon() {
+    const ribbon = document.getElementById('modalRibbon');
+    if (!ribbon) return;
+    ribbon.innerHTML = images.map((src, i) =>
+      `<img src="${src}" alt="${i}" onclick="abrirImagen(${i})" class="w-16 h-16 object-cover rounded cursor-pointer transition-all duration-200 ${i === currentIndex ? 'ring-2 ring-primary-light opacity-100' : 'opacity-60 hover:opacity-100'}" />`
+    ).join('');
+  }
+
+  function abrirImagen(index) {
+    currentIndex = index;
+    document.getElementById('imagenGrande').src = images[currentIndex];
+    document.getElementById('modalGaleria').classList.add('mostrar');
+    renderRibbon();
+  }
+
+  function cambiarImagen(dir) {
+    currentIndex = (currentIndex + dir + images.length) % images.length;
+    document.getElementById('imagenGrande').src = images[currentIndex];
+    renderRibbon();
+  }
+
+  function cerrarImagen() {
+    document.getElementById('modalGaleria').classList.remove('mostrar');
+  }
+
+  document.getElementById('modalPrev')?.addEventListener('click', () => cambiarImagen(-1));
+  document.getElementById('modalNext')?.addEventListener('click', () => cambiarImagen(1));
+  document.getElementById('modalGaleria')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) cerrarImagen();
+  });
+  document.querySelector('.modal-close')?.addEventListener('click', cerrarImagen);
+</script>

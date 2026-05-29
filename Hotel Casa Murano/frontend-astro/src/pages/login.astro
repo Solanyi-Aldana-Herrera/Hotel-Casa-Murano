@@ -1,0 +1,106 @@
+---
+import AuthLayout from '../layouts/AuthLayout.astro';
+---
+
+<AuthLayout title="Administrador | Hotel Casa Murano">
+  <div class="flex w-full max-w-5xl min-h-screen max-md:flex-col">
+    <div class="w-1/2 flex items-center justify-center bg-gradient-to-br from-primary/20 to-bg-dark p-10 max-md:w-full max-md:p-6">
+      <div class="text-center">
+        <svg viewBox="0 0 24 24" class="w-20 h-20 fill-primary mx-auto mb-6">
+          <path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+        </svg>
+        <h1 class="font-heading text-4xl text-white leading-tight">Hotel<br />Casa Murano</h1>
+        <p class="font-sans text-text-muted text-sm mt-2">Exclusividad. Confort. Experiencia.</p>
+      </div>
+    </div>
+
+    <div class="w-1/2 flex items-center justify-center p-10 max-md:w-full max-md:p-6">
+      <div class="w-full max-w-sm">
+        <div class="mb-8">
+          <h2 class="font-heading text-2xl text-white mb-2">Bienvenido de vuelta</h2>
+          <p class="font-sans text-text-muted text-sm">Ingresa tus credenciales para continuar</p>
+        </div>
+
+        <form id="loginForm">
+          <div class="mb-6">
+            <label for="username" class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans font-medium">Usuario <span class="text-primary">*</span></label>
+            <div class="relative flex items-center">
+              <input type="text" id="username" placeholder="Tu nombre de usuario" required autocomplete="username"
+                class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-[14px_16px_14px_45px] text-white font-sans text-sm transition-all duration-300 focus:outline-none focus:border-primary focus:bg-[rgba(31,214,227,0.02)] focus:shadow-[0_0_10px_rgba(31,214,227,0.1)]" />
+              <svg class="absolute left-4 w-[18px] h-[18px] fill-text-muted" viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label for="password" class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans font-medium">Contraseña <span class="text-primary">*</span></label>
+            <div class="relative flex items-center">
+              <input type="password" id="password" placeholder="Tu contraseña" required autocomplete="current-password"
+                class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-[14px_16px_14px_45px] text-white font-sans text-sm transition-all duration-300 focus:outline-none focus:border-primary focus:bg-[rgba(31,214,227,0.02)] focus:shadow-[0_0_10px_rgba(31,214,227,0.1)]" />
+              <svg class="absolute left-4 w-[18px] h-[18px] fill-text-muted" viewBox="0 0 24 24">
+                <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+              </svg>
+              <button type="button" id="togglePasswordBtn" class="absolute right-3 bg-transparent border-none cursor-pointer p-1">
+                <svg viewBox="0 0 24 24" class="w-5 h-5 fill-text-muted" id="eyeIcon">
+                  <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full bg-primary text-black border-none rounded-lg p-[14px] font-sans text-sm font-medium cursor-pointer flex justify-center items-center gap-2.5 mt-[30px] transition-all duration-300 hover:bg-primary-dark hover:shadow-[0_5px_15px_rgba(31,214,227,0.3)] active:scale-[0.98]">
+            Ingresar al sistema
+            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-black">
+              <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+            </svg>
+          </button>
+
+          <a href="/recuperar" class="block text-center mt-5 text-sm text-text-muted no-underline transition-colors duration-200 hover:text-primary font-sans">¿Olvidaste tu contraseña?</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</AuthLayout>
+
+<script>
+  import { STRAPI_URL } from '../lib/constants';
+
+  // Toggle password visibility
+  document.getElementById('togglePasswordBtn')?.addEventListener('click', () => {
+    const pw = document.getElementById('password');
+    const isPw = pw.type === 'password';
+    pw.type = isPw ? 'text' : 'password';
+    const icon = document.getElementById('eyeIcon');
+    if (isPw) {
+      icon.innerHTML = '<path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l2.92 2.92c1.51-1.26 2.7-2.89 3.44-4.74-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.43-1.47.68-2.33.68-2.49 0-4.5-2.01-4.5-4.5 0-.86.25-1.66.68-2.33zM11.83 9l1.8 1.8c-.06-.43-.4-.77-.83-.83z"/>';
+    } else {
+      icon.innerHTML = '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>';
+    }
+  });
+
+  document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const usuario = document.getElementById('username').value;
+    const contrasena = document.getElementById('password').value;
+
+    try {
+      const respuesta = await fetch(STRAPI_URL + '/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuario, contrasena }),
+      });
+      const datos = await respuesta.json();
+
+      if (datos.success) {
+        localStorage.setItem('auth_token', datos.token || 'authenticated');
+        if (datos.usuario) localStorage.setItem('auth_user', JSON.stringify(datos.usuario));
+        window.location.href = '/admin';
+      } else {
+        alert(datos.mensaje || 'Credenciales incorrectas');
+      }
+    } catch {
+      alert('No se pudo conectar con el servidor');
+    }
+  });
+</script>

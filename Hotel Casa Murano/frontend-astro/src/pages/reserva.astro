@@ -1,0 +1,360 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Reserva - Hotel Casa Murano">
+  <main>
+    <!-- Header nav interno -->
+    <header class="bg-bg-form sticky top-0 z-40">
+      <div class="flex items-center justify-between max-w-[1500px] mx-auto px-6 py-4">
+        <div class="flex items-center gap-6">
+          <img src="/images/logo/LogoConNombre.png" alt="Hotel Casa Murano" class="h-[50px] w-auto" />
+        </div>
+        <ul class="flex items-center gap-6 m-0 p-0 list-none max-md:hidden" id="nav-links-reserva">
+          <li><a href="#habitacion-detalle-reserva" class="text-white font-heading text-sm transition-colors duration-300 hover:text-primary-light">Selecciona la habitación</a></li>
+          <li><a href="#digitacion-datos" class="text-white font-heading text-sm transition-colors duration-300 hover:text-primary-light">Digita tus datos</a></li>
+          <li><a href="#resumen-reserva" class="text-white font-heading text-sm transition-colors duration-300 hover:text-primary-light">Confirma tu reserva</a></li>
+          <button onclick="window.location.href='/'" class="bg-primary-light text-white border-none px-5 py-2 rounded text-sm font-bold cursor-pointer transition-colors duration-300 hover:bg-gold">Salir</button>
+        </ul>
+      </div>
+    </header>
+
+    <!-- SECCIÓN 1: SELECCIÓN DE HABITACIÓN -->
+    <section id="habitacion-detalle-reserva" class="max-w-[1200px] mx-auto py-8 px-4">
+      <div class="bg-bg-form/80 backdrop-blur-sm rounded-2xl p-6 mb-8 flex flex-wrap gap-4 items-center justify-center">
+        <div class="campo cursor-pointer" onclick="document.getElementById('rva-input-entrada').showPicker()">
+          <span class="block text-xs uppercase tracking-wider text-text-muted mb-1 font-sans">Entrada</span>
+          <div class="bg-white/5 border border-white/10 rounded-lg px-4 py-2 min-w-[120px]">
+            <p id="rva-dia-entrada" class="text-xl font-heading m-0"></p>
+            <span id="rva-mes-entrada" class="text-xs text-text-muted"></span>
+          </div>
+          <input type="date" id="rva-input-entrada" class="absolute opacity-0 pointer-events-none" />
+        </div>
+        <div class="campo cursor-pointer" onclick="document.getElementById('rva-input-salida').showPicker()">
+          <span class="block text-xs uppercase tracking-wider text-text-muted mb-1 font-sans">Salida</span>
+          <div class="bg-white/5 border border-white/10 rounded-lg px-4 py-2 min-w-[120px]">
+            <p id="rva-dia-salida" class="text-xl font-heading m-0"></p>
+            <span id="rva-mes-salida" class="text-xs text-text-muted"></span>
+          </div>
+          <input type="date" id="rva-input-salida" class="absolute opacity-0 pointer-events-none" />
+        </div>
+        <div class="campo relative">
+          <span class="block text-xs uppercase tracking-wider text-text-muted mb-1 font-sans">Ocupación</span>
+          <div class="ocupacion-selector bg-white/5 border border-white/10 rounded-lg px-4 py-2 cursor-pointer flex items-center gap-3" onclick="toggleRvaOcupacion()">
+            <div class="flex items-center gap-2">
+              <img src="/images/iconos/Adulto.png" alt="Adulto" class="w-5 h-5" />
+              <span id="rva-num-adultos" class="text-white font-heading">1</span>
+              <img src="/images/iconos/Niño.png" alt="Niño" class="w-5 h-5" />
+              <span id="rva-num-ninos" class="text-white font-heading">1</span>
+            </div>
+          </div>
+          <div id="rva-dropdown-ocupacion" class="absolute bg-bg-form border border-white/10 rounded-xl p-4 mt-2 z-20 hidden min-w-[200px] shadow-xl">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-white font-sans text-sm">Adultos</span>
+              <input type="number" id="rva-cant-adultos" value="1" min="1" class="w-16 bg-white/5 border border-white/10 rounded px-2 py-1 text-white text-center font-sans" oninput="actualizarRvaOcupacion()" />
+            </div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-white font-sans text-sm">Niños</span>
+              <input type="number" id="rva-cant-ninos" value="1" min="0" class="w-16 bg-white/5 border border-white/10 rounded px-2 py-1 text-white text-center font-sans" oninput="actualizarRvaOcupacion()" />
+            </div>
+            <button class="w-full bg-primary-light border-none py-2 rounded-xl font-heading text-sm cursor-pointer mt-2" onclick="toggleRvaOcupacion()">Listo</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="reserva-contenedor">
+        <h2 class="reserva-titulo font-heading text-3xl text-white text-center mb-8">Selecciona tu habitación</h2>
+        <div id="lista-habitaciones" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: DIGITACIÓN DE DATOS -->
+    <section id="digitacion-datos" class="max-w-[800px] mx-auto py-8 px-4" style="display:none">
+      <div class="reserva-contenedor">
+        <h2 class="reserva-titulo font-heading text-3xl text-white text-center mb-8">Digita tus datos</h2>
+        <form id="form-datos" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="form-field">
+            <label for="nombres" class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Nombres</label>
+            <input type="text" id="nombres" required class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-[12px_14px] text-white font-sans text-sm transition-all duration-300 focus:outline-none focus:border-primary" />
+          </div>
+          <div class="form-field">
+            <label for="apellidos" class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Apellidos</label>
+            <input type="text" id="apellidos" required class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-[12px_14px] text-white font-sans text-sm transition-all duration-300 focus:outline-none focus:border-primary" />
+          </div>
+          <div class="form-field">
+            <label for="tipo-documento" class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Tipo de documento</label>
+            <select id="tipo-documento" required class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-[12px_14px] text-white font-sans text-sm transition-all duration-300 focus:outline-none focus:border-primary">
+              <option value="">Seleccione...</option>
+              <option value="CC">Cédula de Ciudadanía</option>
+              <option value="CE">Cédula de Extranjería</option>
+              <option value="NIT">NIT</option>
+              <option value="Pasaporte">Pasaporte</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="num-documento" class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Número de documento</label>
+            <input type="text" id="num-documento" required class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-[12px_14px] text-white font-sans text-sm transition-all duration-300 focus:outline-none focus:border-primary" />
+          </div>
+          <div class="form-field">
+            <label for="celular" class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Celular</label>
+            <input type="tel" id="celular" required class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-[12px_14px] text-white font-sans text-sm transition-all duration-300 focus:outline-none focus:border-primary" />
+          </div>
+          <div class="form-field">
+            <label for="email" class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Email</label>
+            <input type="email" id="email" required class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-[12px_14px] text-white font-sans text-sm transition-all duration-300 focus:outline-none focus:border-primary" />
+          </div>
+          <div class="form-field">
+            <label for="fecha-nacimiento" class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Fecha de nacimiento</label>
+            <input type="date" id="fecha-nacimiento" required class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-[12px_14px] text-white font-sans text-sm transition-all duration-300 focus:outline-none focus:border-primary" />
+          </div>
+          <div class="form-field md:col-span-2">
+            <label for="comentario" class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Comentario / Novedad</label>
+            <textarea id="comentario" rows="3" class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-[12px_14px] text-white font-sans text-sm transition-all duration-300 focus:outline-none focus:border-primary"></textarea>
+          </div>
+          <div class="md:col-span-2">
+            <button type="button" id="btn-siguiente" class="w-full bg-primary-light text-bg-dark-alt font-body text-lg border-none py-3 px-6 rounded-[35px] cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]">Siguiente</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: RESUMEN DE RESERVA -->
+    <section id="resumen-reserva" class="max-w-[1000px] mx-auto py-8 px-4" style="display:none">
+      <div class="reserva-contenedor">
+        <h2 class="reserva-titulo font-heading text-3xl text-white text-center mb-8">Confirma tu reserva</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-bg-form rounded-2xl p-6">
+            <h3 class="font-heading text-xl text-gold mb-4">Habitación</h3>
+            <p id="resumen-habitacion" class="font-heading text-white mb-4">—</p>
+            <h3 class="font-heading text-xl text-gold mb-4 mt-6">Fechas</h3>
+            <p class="font-sans text-white/80 text-sm mb-1"><strong>Entrada:</strong> <span id="resumen-entrada">—</span></p>
+            <p class="font-sans text-white/80 text-sm mb-1"><strong>Salida:</strong> <span id="resumen-salida">—</span></p>
+            <p class="font-sans text-white/80 text-sm mb-1"><strong>Noches:</strong> <span id="resumen-noches">—</span></p>
+            <h3 class="font-heading text-xl text-gold mb-4 mt-6">Ocupación</h3>
+            <p id="resumen-ocupacion" class="font-sans text-white/80 text-sm">—</p>
+          </div>
+          <div class="bg-bg-form rounded-2xl p-6">
+            <h3 class="font-heading text-xl text-gold mb-4">Tus datos</h3>
+            <p id="resumen-nombres" class="font-sans text-white/80 text-sm mb-1">—</p>
+            <p id="resumen-documento" class="font-sans text-white/80 text-sm mb-1">—</p>
+            <p id="resumen-celular" class="font-sans text-white/80 text-sm mb-1">—</p>
+            <p id="resumen-email" class="font-sans text-white/80 text-sm mb-1">—</p>
+            <p id="resumen-fecha-nac" class="font-sans text-white/80 text-sm mb-1">—</p>
+            <h3 class="font-heading text-xl text-gold mb-4 mt-6">Comentario</h3>
+            <p id="resumen-comentario" class="font-sans text-white/80 text-sm">—</p>
+          </div>
+          <div class="bg-bg-form rounded-2xl p-6">
+            <h3 class="font-heading text-xl text-gold mb-4">Total</h3>
+            <p class="resumen-precio font-heading text-3xl text-primary-light mb-6" id="resumen-total">—</p>
+            <label class="flex items-start gap-3 mb-6">
+              <input type="checkbox" id="check-terminos" class="mt-1" />
+              <span class="font-sans text-white/80 text-sm">Acepto las <a href="/terminos" class="text-primary-light underline">condiciones y políticas</a> de reserva del hotel</span>
+            </label>
+            <button id="btn-confirmar" disabled class="w-full bg-primary text-black font-body text-lg border-none py-3 px-6 rounded-[35px] cursor-pointer transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed">Confirmar reserva</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<script>
+  const habitaciones = [
+    { nombre: 'Suite Deluxe', imagen: '/images/contenido/Frente de hotel.webp', descripcion: 'Habitación amplia con vista panorámica, jacuzzi y minibar.', detalle: 'Habitación cómoda de 12 m2, ubicada en el primer piso ofrece una cama sencilla con baño privado, tv pantalla plana, wi-Fi gratuito con ocupación de hasta 1 persona.', precio: 250000, capacidad: 1 },
+    { nombre: 'Habitación Estándar', imagen: '/images/contenido/Frente de hotel.webp', descripcion: 'Comodidad y elegancia a un precio accesible.', detalle: 'Habitación amplia con jacuzzi, minibar, televisión, Wi-Fi y vista panorámica.', precio: 180000, capacidad: 2 },
+    { nombre: 'Suite Deluxe', imagen: '/images/contenido/Frente de hotel.webp', descripcion: 'Habitación amplia con vista panorámica, jacuzzi y minibar.', detalle: 'Habitación amplia con jacuzzi, minibar, televisión, Wi-Fi y vista panorámica.', precio: 250000, capacidad: 1 },
+    { nombre: 'Habitación Estándar', imagen: '/images/contenido/Frente de hotel.webp', descripcion: 'Comodidad y elegancia a un precio accesible.', detalle: 'Habitación amplia con jacuzzi, minibar, televisión, Wi-Fi y vista panorámica.', precio: 180000, capacidad: 2 },
+  ];
+
+  const WHATSAPP_NUMBER = '573144785524';
+  const NAV_MAP = [
+    { linkText: 'Selecciona la habitación', sectionId: 'habitacion-detalle-reserva' },
+    { linkText: 'Digita tus datos', sectionId: 'digitacion-datos' },
+    { linkText: 'Confirma tu reserva', sectionId: 'resumen-reserva' },
+  ];
+
+  const reservaData = {
+    habitacion: null, entrada: '', salida: '', noches: 0, ocupacion: '',
+    adultos: 0, ninos: 0, nombres: '', apellidos: '', tipoDocumento: '',
+    numDocumento: '', celular: '', email: '', fechaNacimiento: '', comentario: '',
+  };
+
+  const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+  function formatearPrecio(valor) { return '$' + valor.toLocaleString('es-CO') + ' COP'; }
+  function calcularNoches(e, s) { return Math.max(0, Math.floor((new Date(s) - new Date(e)) / (1000 * 60 * 60 * 24))); }
+
+  function actualizarNavActivo(sectionId) {
+    document.querySelectorAll('#nav-links-reserva a').forEach(link => {
+      const text = link.textContent.trim();
+      const entry = NAV_MAP.find(m => m.linkText === text);
+      if (entry) link.style.color = entry.sectionId === sectionId ? '#27d0dc' : 'white';
+    });
+  }
+
+  function irASeccion(sectionId) {
+    NAV_MAP.forEach(m => {
+      document.getElementById(m.sectionId).style.display = 'none';
+    });
+    document.getElementById(sectionId).style.display = 'block';
+    window.scrollTo({ top: document.getElementById(sectionId).offsetTop - 30, behavior: 'smooth' });
+    actualizarNavActivo(sectionId);
+  }
+
+  function renderizarHabitaciones() {
+    const contenedor = document.getElementById('lista-habitaciones');
+    contenedor.innerHTML = habitaciones.map((h, i) => `
+      <div class="bg-bg-form rounded-2xl overflow-hidden transition-transform duration-300 hover:scale-[1.02]">
+        <img src="${h.imagen}" alt="${h.nombre}" class="w-full h-[200px] object-cover" />
+        <div class="p-5">
+          <h4 class="font-heading text-xl text-white mb-2">${h.nombre}</h4>
+          <p class="font-sans text-white/70 text-sm mb-3">${h.detalle}</p>
+          <div class="flex items-center justify-between">
+            <span class="font-heading text-lg text-primary-light">${formatearPrecio(h.precio)}</span>
+            <button class="btn-seleccionar bg-primary-light text-bg-dark-alt font-body text-sm border-none py-2 px-5 rounded-[35px] cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-[0_0_10px_rgba(255,255,255,0.3)]" data-index="${i}">Seleccionar</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    contenedor.querySelectorAll('.btn-seleccionar').forEach(btn => {
+      btn.addEventListener('click', function () {
+        seleccionarHabitacion(parseInt(this.dataset.index));
+      });
+    });
+  }
+
+  function seleccionarHabitacion(index) {
+    const h = habitaciones[index];
+    reservaData.habitacion = h;
+    if (reservaData.entrada && reservaData.salida) reservaData.noches = calcularNoches(reservaData.entrada, reservaData.salida);
+    if (!reservaData.adultos && !reservaData.ninos) { reservaData.adultos = h.capacidad; reservaData.ninos = 0; }
+    irASeccion('digitacion-datos');
+  }
+
+  function toggleRvaOcupacion() {
+    const d = document.getElementById('rva-dropdown-ocupacion');
+    d.classList.toggle('hidden');
+  }
+
+  function actualizarRvaOcupacion() {
+    const a = document.getElementById('rva-cant-adultos').value;
+    const n = document.getElementById('rva-cant-ninos').value;
+    document.getElementById('rva-num-adultos').textContent = a;
+    document.getElementById('rva-num-ninos').textContent = n;
+    reservaData.adultos = parseInt(a);
+    reservaData.ninos = parseInt(n);
+  }
+
+  function actualizarRvaVistaFecha(fechaStr, idDia, idMes) {
+    const elDia = document.getElementById(idDia);
+    const elMes = document.getElementById(idMes);
+    if (elDia && elMes && fechaStr) {
+      const f = new Date(fechaStr + 'T12:00:00');
+      elDia.textContent = f.getDate();
+      elMes.textContent = meses[f.getMonth()] + ' ' + f.getFullYear();
+    }
+  }
+
+  function configurarRvaFecha(idInput, idDia, idMes, offsetDias = 0) {
+    const input = document.getElementById(idInput);
+    if (!input) return;
+    const fb = new Date();
+    fb.setDate(fb.getDate() + offsetDias);
+    const val = fb.toISOString().split('T')[0];
+    input.value = val;
+    actualizarRvaVistaFecha(val, idDia, idMes);
+    const key = idInput === 'rva-input-entrada' ? 'entrada' : 'salida';
+    reservaData[key] = val;
+    input.addEventListener('change', function () {
+      actualizarRvaVistaFecha(this.value, idDia, idMes);
+      reservaData[key] = this.value;
+      if (reservaData.entrada && reservaData.salida) reservaData.noches = calcularNoches(reservaData.entrada, reservaData.salida);
+    });
+  }
+
+  function cargarReservaHome() {
+    const datos = sessionStorage.getItem('reservaHome');
+    if (!datos) return;
+    const data = JSON.parse(datos);
+    sessionStorage.removeItem('reservaHome');
+    document.getElementById('rva-input-entrada').value = data.entrada;
+    document.getElementById('rva-input-salida').value = data.salida;
+    actualizarRvaVistaFecha(data.entrada, 'rva-dia-entrada', 'rva-mes-entrada');
+    actualizarRvaVistaFecha(data.salida, 'rva-dia-salida', 'rva-mes-salida');
+    document.getElementById('rva-cant-adultos').value = data.adultos;
+    document.getElementById('rva-cant-ninos').value = data.ninos;
+    document.getElementById('rva-num-adultos').textContent = data.adultos;
+    document.getElementById('rva-num-ninos').textContent = data.ninos;
+    Object.assign(reservaData, data);
+  }
+
+  function actualizarResumen() {
+    const h = reservaData.habitacion;
+    document.getElementById('resumen-habitacion').textContent = h ? h.nombre : '—';
+    document.getElementById('resumen-entrada').textContent = reservaData.entrada || '—';
+    document.getElementById('resumen-salida').textContent = reservaData.salida || '—';
+    document.getElementById('resumen-noches').textContent = reservaData.noches || '—';
+    const adultos = reservaData.adultos || 0;
+    const ninos = reservaData.ninos || 0;
+    document.getElementById('resumen-ocupacion').textContent = `Adultos: ${adultos}, Niños: ${ninos}, Total: ${adultos + ninos} personas`;
+    document.getElementById('resumen-nombres').textContent = (reservaData.nombres + ' ' + reservaData.apellidos).trim() || '—';
+    document.getElementById('resumen-documento').textContent = (reservaData.tipoDocumento || '') + ' ' + (reservaData.numDocumento || '—');
+    document.getElementById('resumen-celular').textContent = reservaData.celular || '—';
+    document.getElementById('resumen-email').textContent = reservaData.email || '—';
+    document.getElementById('resumen-fecha-nac').textContent = reservaData.fechaNacimiento || '—';
+    document.getElementById('resumen-comentario').textContent = reservaData.comentario || '—';
+    document.getElementById('resumen-total').textContent = h ? formatearPrecio(h.precio * (reservaData.noches || 1)) : '—';
+  }
+
+  function enviarWhatsApp() {
+    const h = reservaData.habitacion;
+    if (!h) return;
+    const total = h.precio * (reservaData.noches || 1);
+    const mensaje = [
+      'Hola, quiero confirmar mi reserva:', '',
+      '*HABITACIÓN*', 'Nombre: ' + h.nombre, 'Precio por noche: ' + formatearPrecio(h.precio), '',
+      '*FECHAS*', 'Entrada: ' + reservaData.entrada, 'Salida: ' + reservaData.salida, 'Noches: ' + reservaData.noches, 'Ocupación: Adultos ' + reservaData.adultos + ', Niños ' + reservaData.ninos, '',
+      '*DATOS PERSONALES*', 'Nombres: ' + reservaData.nombres + ' ' + reservaData.apellidos, 'Documento: ' + reservaData.tipoDocumento + ' ' + reservaData.numDocumento, 'Celular: ' + reservaData.celular, 'Email: ' + reservaData.email, 'Fecha de nacimiento: ' + reservaData.fechaNacimiento, '',
+      '*COMENTARIO*', reservaData.comentario, '',
+      '*TOTAL*', formatearPrecio(total), '', '¡Gracias!'
+    ].join('\n');
+    window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(mensaje), '_blank');
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    actualizarNavActivo('habitacion-detalle-reserva');
+    configurarRvaFecha('rva-input-entrada', 'rva-dia-entrada', 'rva-mes-entrada', 0);
+    configurarRvaFecha('rva-input-salida', 'rva-dia-salida', 'rva-mes-salida', 1);
+    window.addEventListener('click', (e) => {
+      const d = document.getElementById('rva-dropdown-ocupacion');
+      const s = document.querySelector('.ocupacion-selector');
+      if (d && s && !s.contains(e.target) && !d.contains(e.target)) d.classList.add('hidden');
+    });
+    cargarReservaHome();
+    renderizarHabitaciones();
+
+    document.getElementById('btn-siguiente').addEventListener('click', function () {
+      const nombres = document.getElementById('nombres').value.trim();
+      const apellidos = document.getElementById('apellidos').value.trim();
+      const tipoDoc = document.getElementById('tipo-documento').value;
+      const numDoc = document.getElementById('num-documento').value.trim();
+      const celular = document.getElementById('celular').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const fechaNac = document.getElementById('fecha-nacimiento').value;
+      const comentario = document.getElementById('comentario').value.trim();
+      if (!nombres || !apellidos || !tipoDoc || !numDoc || !celular || !email || !fechaNac) {
+        alert('Por favor completa todos los campos obligatorios.');
+        return;
+      }
+      Object.assign(reservaData, { nombres, apellidos, tipoDocumento: tipoDoc, numDocumento: numDoc, celular, email, fechaNacimiento: fechaNac, comentario: comentario || 'Sin novedades' });
+      actualizarResumen();
+      irASeccion('resumen-reserva');
+    });
+
+    document.getElementById('check-terminos').addEventListener('change', function () {
+      document.getElementById('btn-confirmar').disabled = !this.checked;
+    });
+
+    document.getElementById('btn-confirmar').addEventListener('click', enviarWhatsApp);
+  });
+</script>

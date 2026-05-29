@@ -1,0 +1,175 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Admin - Nosotros" currentSection="nosotros">
+  <div id="admin-content">
+    <div class="flex flex-col items-center py-20"><div class="spinner mb-4"></div><p class="font-sans text-text-muted">Cargando...</p></div>
+  </div>
+</AdminLayout>
+
+<script type="module">
+  import { STRAPI_URL } from '../../lib/constants';
+  const API = STRAPI_URL;
+  const norm = (raw) => {
+    if (!raw || raw.error || raw.data == null) return { success: false, datos: [], dato: null };
+    if (Array.isArray(raw.data)) return { success: true, datos: raw.data, dato: null };
+    return { success: true, datos: [raw.data], dato: raw.data };
+  };
+  const normUpload = (raw) => Array.isArray(raw) && raw.length > 0 ? { success: true, ruta: raw[0].url, id: raw[0].id } : { success: false, ruta: '', id: null };
+  const imgUrl = (img) => img?.url ? (img.url.startsWith('http') ? img.url : API + img.url) : null;
+  const apiGet = async (t, id, params) => { let url = id ? `${API}/api/${t}/${id}` : `${API}/api/${t}`; if (params) url += '?' + new URLSearchParams(params).toString(); const r = await fetch(url); return norm(await r.json()); };
+  const apiPost = async (t, d) => { const r = await fetch(`${API}/api/${t}`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({data:d}) }); return norm(await r.json()); };
+  const apiPut = async (t, id, d) => { const r = await fetch(`${API}/api/${t}/${id}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({data:d}) }); return norm(await r.json()); };
+  const apiDelete = async (t, id) => { const r = await fetch(`${API}/api/${t}/${id}`, { method:'DELETE' }); return norm(await r.json()); };
+  const subirArchivo = async (file) => { const fd = new FormData(); fd.append('files', file); const r = await fetch(`${API}/api/upload`, { method:'POST', body: fd }); return normUpload(await r.json()); };
+  const toast = (msg, tipo) => { const c = document.getElementById('toast-container'); if(!c) return; const t = document.createElement('div'); t.className='toast '+tipo; t.textContent=msg; c.appendChild(t); setTimeout(()=>{t.style.opacity='0';setTimeout(()=>t.remove(),300)},3000); };
+  const configurarUpload = (inputId, previewId, nombreId, hiddenId) => {
+    const input = document.getElementById(inputId); const preview = document.getElementById(previewId); const nombreEl = document.getElementById(nombreId); const hidden = document.getElementById(hiddenId);
+    if (!input) return;
+    input.addEventListener('change', async () => {
+      const file = input.files[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) { preview.style.display = 'flex'; preview.querySelector('img').src = e.target.result; nombreEl.textContent = file.name; hidden.value = ''; };
+      reader.readAsDataURL(file);
+      const res = await subirArchivo(file);
+      if (res.success) { preview.querySelector('img').src = res.ruta; hidden.value = String(res.id); } else toast('Error al subir imagen', 'error');
+    });
+  };
+  const mostrarCargando = (el) => { el.innerHTML = '<div class="flex flex-col items-center py-10"><div class="spinner mb-4"></div><p class="font-sans text-text-muted">Cargando...</p></div>'; };
+
+  const html = `
+    <section>
+      <h1 class="font-heading text-3xl text-white mb-2">Administrar Nosotros</h1>
+      <p class="font-sans text-text-muted mb-8">Modifica la información del hotel y los iconos de servicios.</p>
+
+      <div class="bg-bg-admin rounded-2xl p-6 mb-8">
+        <h2 class="font-heading text-xl text-gold mb-6">Información del Hotel</h2>
+        <div class="grid grid-cols-1 gap-6">
+          <div><label class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Título</label><input type="text" id="nosotros-titulo" class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-3 text-white font-sans text-sm focus:outline-none focus:border-primary" /></div>
+          <div><label class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Descripción</label><textarea id="nosotros-descripcion" rows="4" class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-3 text-white font-sans text-sm focus:outline-none focus:border-primary"></textarea></div>
+          <div>
+            <label class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Imagen</label>
+            <div class="upload-area border-2 border-dashed border-white/20 rounded-xl p-6 text-center cursor-pointer hover:border-primary transition-colors" onclick="document.getElementById('nosotros-img-input').click()">
+              <svg viewBox="0 0 24 24" class="w-10 h-10 fill-text-muted mx-auto mb-2"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+              <p class="font-sans text-white text-sm">Haz clic para seleccionar imagen</p>
+            </div>
+            <input type="file" id="nosotros-img-input" accept="image/*" class="hidden" />
+            <div id="nosotros-img-preview" class="hidden mt-3 flex items-center gap-3 bg-white/5 rounded-lg p-3">
+              <img src="" class="w-16 h-16 object-cover rounded" />
+              <div class="flex-1"><p id="nosotros-img-nombre" class="font-sans text-white text-sm"></p></div>
+            </div>
+            <input type="hidden" id="nosotros-imagen" />
+          </div>
+          <div><button class="bg-primary text-black font-sans font-medium border-none rounded-lg px-6 py-3 cursor-pointer hover:bg-primary-dark" onclick="guardarNosotros()">Guardar Información</button></div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="font-heading text-xl text-gold">Iconos / Valores</h2>
+        <button class="bg-primary-light text-bg-dark-alt font-sans font-medium border-none rounded-lg px-4 py-2 cursor-pointer flex items-center gap-2 hover:bg-primary-dark" onclick="abrirFormIcono()">
+          <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+          Nuevo Icono
+        </button>
+      </div>
+      <div id="iconos-lista" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8"></div>
+
+      <div id="form-icono" class="bg-bg-admin rounded-2xl p-6 mb-8 hidden">
+        <h2 id="icono-form-titulo" class="font-heading text-xl text-gold mb-6">Nuevo Icono</h2>
+        <input type="hidden" id="icono-id" />
+        <div class="grid grid-cols-1 gap-4">
+          <div><label class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Nombre <span class="text-primary">*</span></label><input type="text" id="icono-nombre" class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-3 text-white font-sans text-sm focus:outline-none focus:border-primary" /></div>
+          <div><label class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Clase del Icono <span class="text-primary">*</span></label><input type="text" id="icono-icono" class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-3 text-white font-sans text-sm focus:outline-none focus:border-primary" /></div>
+          <div><label class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Descripción</label><textarea id="icono-descripcion" rows="3" class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-3 text-white font-sans text-sm focus:outline-none focus:border-primary"></textarea></div>
+          <div class="flex gap-3"><button class="bg-primary text-black font-sans font-medium border-none rounded-lg px-6 py-3 cursor-pointer hover:bg-primary-dark" onclick="guardarIcono()">Guardar Icono</button><button class="bg-gray-500 text-white font-sans border-none rounded-lg px-6 py-3 cursor-pointer hover:bg-gray-600" onclick="cerrarFormIcono()">Cancelar</button></div>
+        </div>
+      </div>
+    </section>
+  `;
+
+  document.getElementById('admin-content').innerHTML = html;
+  cargarNosotros();
+  cargarIconos();
+
+  async function cargarNosotros() {
+    const res = await apiGet('nosotros', null, { populate: 'imagen' });
+    if (res.success && res.datos.length > 0) {
+      const d = res.datos[0];
+      document.getElementById('nosotros-titulo').value = d.titulo || '';
+      document.getElementById('nosotros-descripcion').value = d.descripcion || '';
+      const img = d.imagen;
+      document.getElementById('nosotros-imagen').value = img?.id || '';
+      if (img?.url) {
+        document.getElementById('nosotros-img-preview').style.display = 'flex';
+        document.getElementById('nosotros-img-preview').querySelector('img').src = imgUrl(img);
+        document.getElementById('nosotros-img-nombre').textContent = img.url.split('/').pop();
+      }
+    }
+    configurarUpload('nosotros-img-input', 'nosotros-img-preview', 'nosotros-img-nombre', 'nosotros-imagen');
+  }
+
+  window.guardarNosotros = async function () {
+    const imgVal = document.getElementById('nosotros-imagen').value;
+    const data = { titulo: document.getElementById('nosotros-titulo').value, descripcion: document.getElementById('nosotros-descripcion').value, imagen: imgVal ? Number(imgVal) : null };
+    const res = await apiGet('nosotros');
+    const r = (res.success && res.datos.length > 0) ? await apiPut('nosotros', res.datos[0].id, data) : await apiPost('nosotros', data);
+    if (r.success) toast('Información guardada', 'exito'); else toast('Error al guardar', 'error');
+  };
+
+  async function cargarIconos() {
+    const lista = document.getElementById('iconos-lista');
+    mostrarCargando(lista);
+    const res = await apiGet('iconos-nosotros');
+    if (!res.success || res.datos.length === 0) {
+      lista.innerHTML = '<div class="col-span-full text-center py-10"><p class="font-sans text-text-muted">Sin iconos registrados</p></div>'; return;
+    }
+    lista.innerHTML = res.datos.map(i => `
+      <div class="bg-white/5 rounded-xl p-4">
+        <h3 class="font-heading text-white text-lg mb-2">${i.nombre || '—'}</h3>
+        <p class="font-sans text-text-muted text-sm mb-1"><strong>Icono:</strong> ${i.icono || '—'}</p>
+        <p class="font-sans text-text-muted text-sm mb-3">${i.descripcion || ''}</p>
+        <div class="flex gap-2">
+          <button class="bg-blue-500/20 text-blue-400 border-none rounded-lg p-2 cursor-pointer hover:bg-blue-500/30" onclick="editarIcono(${i.id})"><svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+          <button class="bg-red-500/20 text-red-400 border-none rounded-lg p-2 cursor-pointer hover:bg-red-500/30" onclick="eliminarIcono(${i.id})"><svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.abrirFormIcono = function(data) {
+    document.getElementById('form-icono').classList.remove('hidden');
+    if (data) {
+      document.getElementById('icono-form-titulo').textContent = 'Editar Icono';
+      document.getElementById('icono-id').value = data.id;
+      document.getElementById('icono-nombre').value = data.nombre || '';
+      document.getElementById('icono-icono').value = data.icono || '';
+      document.getElementById('icono-descripcion').value = data.descripcion || '';
+    } else {
+      document.getElementById('icono-form-titulo').textContent = 'Nuevo Icono';
+      ['icono-id','icono-nombre','icono-icono','icono-descripcion'].forEach(id => document.getElementById(id).value = '');
+    }
+    document.getElementById('form-icono').scrollIntoView({ behavior: 'smooth' });
+  };
+
+  window.cerrarFormIcono = function() { document.getElementById('form-icono').classList.add('hidden'); };
+
+  window.guardarIcono = async function () {
+    const id = document.getElementById('icono-id').value;
+    const data = { nombre: document.getElementById('icono-nombre').value, icono: document.getElementById('icono-icono').value, descripcion: document.getElementById('icono-descripcion').value };
+    if (!data.nombre) { toast('El nombre es requerido', 'error'); return; }
+    const r = id ? await apiPut('iconos-nosotros', id, data) : await apiPost('iconos-nosotros', data);
+    if (r.success) { toast('Icono guardado', 'exito'); cerrarFormIcono(); cargarIconos(); } else toast('Error al guardar', 'error');
+  };
+
+  window.editarIcono = async function(id) {
+    const res = await apiGet('iconos-nosotros', id);
+    if (res.success) abrirFormIcono(res.dato);
+  };
+
+  window.eliminarIcono = function(id) {
+    window.abrirModalConfirmar('¿Eliminar este icono?', async () => {
+      const r = await apiDelete('iconos-nosotros', id);
+      if (r.success) { toast('Icono eliminado', 'exito'); cargarIconos(); } else toast('Error al eliminar', 'error');
+    });
+  };
+</script>

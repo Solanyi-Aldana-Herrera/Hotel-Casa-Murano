@@ -1,0 +1,36 @@
+{
+  "kind": "singleType",
+  "collectionName": "bienvenidas",
+  "info": {
+    "singularName": "bienvenida",
+    "pluralName": "bienvenidas",
+    "displayName": "Bienvenida",
+    "description": "Contenido de bienvenida del homepage"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "subtitulo": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "despedida": {
+      "type": "string"
+    },
+    "imagen": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

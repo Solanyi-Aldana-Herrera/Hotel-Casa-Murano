@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mensajes_contacto",
+  "info": {
+    "singularName": "mensaje-contacto",
+    "pluralName": "mensajes-contacto",
+    "displayName": "Mensaje Contacto",
+    "description": "Mensajes recibidos del formulario de contacto"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "telefono": {
+      "type": "string"
+    },
+    "mensaje": {
+      "type": "text"
+    }
+  }
+}

@@ -1,0 +1,69 @@
+---
+
+---
+
+<section class="hero-section relative min-h-screen w-full bg-black overflow-hidden flex items-center justify-center">
+  <div id="slider-container" class="absolute inset-0 z-0 overflow-hidden"></div>
+
+  <div class="relative z-10 flex flex-col items-center justify-center w-full px-4 pt-[80px] md:pt-0">
+    <div class="text-center">
+      <h1 class="font-heading text-[50px] md:text-[59.5px] tracking-[5px] text-white leading-tight">HOTEL</h1>
+      <h2 class="font-heading text-[30px] md:text-[35.3px] tracking-[5px] text-white leading-tight">CASA MURANO</h2>
+    </div>
+
+    <div class="mt-[120px] md:mt-[250px] w-full flex justify-center">
+      <div id="reserva-box" class="w-full max-w-[900px] flex flex-wrap items-center justify-center gap-y-3 gap-x-[15px] bg-white/10 backdrop-blur-sm px-4 md:px-[30px] py-3 md:py-[10px] rounded-[30px] md:rounded-[75px] border-[3px] border-primary-light shadow-lg">
+        <div class="flex flex-wrap items-center justify-center gap-2 md:gap-[15px] px-3 md:px-[30px] py-2 md:py-[10px] border-2 border-primary-light rounded-[25px] md:rounded-[35px]">
+          <div class="campo cursor-pointer flex flex-col items-center min-w-[80px]" onclick="document.getElementById('input-entrada').showPicker()">
+            <span class="font-body text-[13px] md:text-[15.6px] text-primary-light font-bold leading-none tracking-[1px] mb-1">Entrada</span>
+            <div class="fecha-display flex flex-col items-center text-white font-heading leading-[1.2]">
+              <p id="dia-entrada" class="text-[26px] md:text-[34.6px] m-0 font-normal"></p>
+              <span id="mes-entrada" class="text-[13px] md:text-[15.6px] -mt-[5px] capitalize"></span>
+            </div>
+            <input type="date" id="input-entrada" class="absolute opacity-0 w-0 h-0 pointer-events-none" />
+          </div>
+
+          <div class="campo cursor-pointer flex flex-col items-center min-w-[80px]" onclick="document.getElementById('input-salida').showPicker()">
+            <span class="font-body text-[13px] md:text-[15.6px] text-primary-light font-bold leading-none tracking-[1px] mb-1">Salida</span>
+            <div class="fecha-display flex flex-col items-center text-white font-heading leading-[1.2]">
+              <p id="dia-salida" class="text-[26px] md:text-[34.6px] m-0 font-normal"></p>
+              <span id="mes-salida" class="text-[13px] md:text-[15.6px] -mt-[5px] capitalize"></span>
+            </div>
+            <input type="date" id="input-salida" class="absolute opacity-0 w-0 h-0 pointer-events-none" />
+          </div>
+        </div>
+
+        <div class="campo flex flex-col items-center relative">
+          <span class="font-body text-[13px] md:text-[15.6px] text-primary-light font-bold leading-none tracking-[1px] mb-1">Ocupación</span>
+          <div class="ocupacion-selector cursor-pointer" onclick="toggleOcupacion()">
+            <div class="flex items-center gap-1.5 md:gap-2 justify-center">
+              <div class="w-[28px] h-[28px] md:w-[35px] md:h-[35px] flex justify-center items-center">
+                <img src="/images/iconos/Adulto.png" alt="Adulto" class="max-w-full max-h-full object-contain" />
+              </div>
+              <span id="num-adultos" class="font-heading text-[20px] md:text-[25px] text-white md:mr-[10px]">1</span>
+              <div class="w-[28px] h-[28px] md:w-[35px] md:h-[35px] flex justify-center items-center">
+                <img src="/images/iconos/Niño.png" alt="Niño" class="max-w-full max-h-full object-contain" />
+              </div>
+              <span id="num-ninos" class="font-heading text-[20px] md:text-[25px] text-white md:mr-[10px]">1</span>
+            </div>
+          </div>
+          <div id="dropdown-ocupacion" class="hidden absolute bg-white rounded-xl p-[15px] shadow-lg z-[101] bottom-full mb-2 left-1/2 -translate-x-1/2 min-w-[180px]">
+            <div class="flex justify-between items-center mb-[5px] text-black font-heading">
+              <span class="text-sm">Adultos</span>
+              <input type="number" id="cant-adultos" value="1" min="1" class="w-[45px] text-center border border-gray-300 rounded px-1 py-0.5 text-sm" oninput="actualizarOcupacion()" />
+            </div>
+            <div class="flex justify-between items-center mb-[5px] text-black font-heading">
+              <span class="text-sm">Niños</span>
+              <input type="number" id="cant-ninos" value="1" min="0" class="w-[45px] text-center border border-gray-300 rounded px-1 py-0.5 text-sm" oninput="actualizarOcupacion()" />
+            </div>
+            <button class="w-full bg-primary-light border-none py-2 rounded-[20px] font-heading text-xs cursor-pointer mt-2" onclick="toggleOcupacion()">Listo</button>
+          </div>
+        </div>
+
+        <button class="bg-primary-light text-bg-dark-alt font-body text-[18px] md:text-[22.3px] border-none px-4 md:px-[15px] py-2 rounded-[35px] cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_white] hover:text-black" onclick="irAReserva()">
+          RESERVA
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

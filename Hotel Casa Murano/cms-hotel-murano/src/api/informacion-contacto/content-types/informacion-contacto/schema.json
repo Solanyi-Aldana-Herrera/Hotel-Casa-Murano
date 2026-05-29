@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "informacion_contactos",
+  "info": {
+    "singularName": "informacion-contacto",
+    "pluralName": "informacion-contactos",
+    "displayName": "Información Contacto",
+    "description": "Información de contacto del hotel"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "direccion": {
+      "type": "string"
+    },
+    "celular": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "mapa": {
+      "type": "text"
+    }
+  }
+}

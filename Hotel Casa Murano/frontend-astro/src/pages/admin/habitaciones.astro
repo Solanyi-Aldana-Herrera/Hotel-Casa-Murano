@@ -1,0 +1,163 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Admin - Habitaciones" currentSection="habitaciones">
+  <div id="admin-content">
+    <div class="flex flex-col items-center py-20"><div class="spinner mb-4"></div><p class="font-sans text-text-muted">Cargando...</p></div>
+  </div>
+</AdminLayout>
+
+<script type="module">
+  import { STRAPI_URL } from '../../lib/constants';
+  const API = STRAPI_URL;
+  const norm = (raw) => {
+    if (!raw || raw.error || raw.data == null) return { success: false, datos: [], dato: null };
+    if (Array.isArray(raw.data)) return { success: true, datos: raw.data, dato: null };
+    return { success: true, datos: [raw.data], dato: raw.data };
+  };
+  const normUpload = (raw) => Array.isArray(raw) && raw.length > 0 ? { success: true, ruta: raw[0].url, id: raw[0].id } : { success: false, ruta: '', id: null };
+  const imgUrl = (img) => img?.url ? (img.url.startsWith('http') ? img.url : API + img.url) : null;
+  const apiGet = async (t, id, params) => { let url = id ? `${API}/api/${t}/${id}` : `${API}/api/${t}`; if (params) url += '?' + new URLSearchParams(params).toString(); const r = await fetch(url); return norm(await r.json()); };
+  const apiPost = async (t, d) => { const r = await fetch(`${API}/api/${t}`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({data:d}) }); return norm(await r.json()); };
+  const apiPut = async (t, id, d) => { const r = await fetch(`${API}/api/${t}/${id}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({data:d}) }); return norm(await r.json()); };
+  const apiDelete = async (t, id) => { const r = await fetch(`${API}/api/${t}/${id}`, { method:'DELETE' }); return norm(await r.json()); };
+  const subirArchivo = async (file) => { const fd = new FormData(); fd.append('files', file); const r = await fetch(`${API}/api/upload`, { method:'POST', body: fd }); return normUpload(await r.json()); };
+  const toast = (msg, tipo) => { const c = document.getElementById('toast-container'); if(!c) return; const t = document.createElement('div'); t.className='toast '+tipo; t.textContent=msg; c.appendChild(t); setTimeout(()=>{t.style.opacity='0';setTimeout(()=>t.remove(),300)},3000); };
+  const configurarUpload = (inputId, previewId, nombreId, hiddenId) => {
+    const input = document.getElementById(inputId); const preview = document.getElementById(previewId); const nombreEl = document.getElementById(nombreId); const hidden = document.getElementById(hiddenId);
+    if (!input) return;
+    input.addEventListener('change', async () => {
+      const file = input.files[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) { preview.style.display = 'flex'; preview.querySelector('img').src = e.target.result; nombreEl.textContent = file.name; hidden.value = ''; };
+      reader.readAsDataURL(file);
+      const res = await subirArchivo(file);
+      if (res.success) { preview.querySelector('img').src = res.ruta; hidden.value = String(res.id); } else toast('Error al subir imagen', 'error');
+    });
+  };
+  const mostrarCargando = (el) => { el.innerHTML = '<div class="flex flex-col items-center py-10"><div class="spinner mb-4"></div><p class="font-sans text-text-muted">Cargando...</p></div>'; };
+
+  document.getElementById('admin-content').innerHTML = `
+    <section>
+      <h1 class="font-heading text-3xl text-white mb-2">Administrar Habitaciones</h1>
+      <p class="font-sans text-text-muted mb-8">Agrega, edita y elimina habitaciones del hotel.</p>
+
+      <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+        <button class="bg-primary-light text-bg-dark-alt font-sans font-medium border-none rounded-lg px-4 py-2 cursor-pointer flex items-center gap-2 hover:bg-primary-dark" onclick="abrirFormHabitacion()">
+          <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+          Nueva Habitación
+        </button>
+        <input type="text" id="habitaciones-buscar" placeholder="Buscar habitaciones..." oninput="filtrarTabla('habitaciones')" class="bg-white/[0.03] border border-white/10 rounded-lg px-4 py-2 text-white font-sans text-sm min-w-[200px] focus:outline-none focus:border-primary" />
+      </div>
+
+      <div class="overflow-x-auto rounded-xl mb-8">
+        <table class="w-full admin-table" id="tabla-habitaciones">
+          <thead><tr>
+            <th class="bg-[#1a2330] text-text-muted uppercase text-xs tracking-[1px] p-3 text-left">Imagen</th>
+            <th class="bg-[#1a2330] text-text-muted uppercase text-xs tracking-[1px] p-3 text-left">Nombre</th>
+            <th class="bg-[#1a2330] text-text-muted uppercase text-xs tracking-[1px] p-3 text-left">Precio</th>
+            <th class="bg-[#1a2330] text-text-muted uppercase text-xs tracking-[1px] p-3 text-left">Capacidad</th>
+            <th class="bg-[#1a2330] text-text-muted uppercase text-xs tracking-[1px] p-3 text-left">Estado</th>
+            <th class="bg-[#1a2330] text-text-muted uppercase text-xs tracking-[1px] p-3 text-left">Acciones</th>
+          </tr></thead>
+          <tbody id="habitaciones-body"><tr><td colspan="6" class="text-center py-10 font-sans text-text-muted">Cargando...</td></tr></tbody>
+        </table>
+      </div>
+
+      <div id="form-habitacion" class="bg-bg-admin rounded-2xl p-6 mb-8 hidden">
+        <h2 id="habitacion-form-titulo" class="font-heading text-xl text-gold mb-6">Nueva Habitación</h2>
+        <input type="hidden" id="habitacion-id" />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div><label class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Nombre <span class="text-primary">*</span></label><input type="text" id="habitacion-nombre" class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-3 text-white font-sans text-sm focus:outline-none focus:border-primary" /></div>
+          <div><label class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Precio por noche <span class="text-primary">*</span></label><input type="number" id="habitacion-precio" step="0.01" class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-3 text-white font-sans text-sm focus:outline-none focus:border-primary" /></div>
+          <div><label class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Capacidad</label><input type="number" id="habitacion-capacidad" class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-3 text-white font-sans text-sm focus:outline-none focus:border-primary" /></div>
+          <div><label class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Estado</label><select id="habitacion-estado" class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-3 text-white font-sans text-sm focus:outline-none focus:border-primary"><option value="1">Disponible</option><option value="0">No disponible</option></select></div>
+          <div class="md:col-span-2"><label class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Descripción</label><textarea id="habitacion-descripcion" rows="3" class="w-full bg-white/[0.03] border border-white/10 rounded-lg p-3 text-white font-sans text-sm focus:outline-none focus:border-primary"></textarea></div>
+          <div class="md:col-span-2">
+            <label class="block text-xs uppercase tracking-[1.5px] text-text-muted mb-2 font-sans">Imagen</label>
+            <div class="upload-area border-2 border-dashed border-white/20 rounded-xl p-6 text-center cursor-pointer hover:border-primary transition-colors" onclick="document.getElementById('habitacion-img-input').click()">
+              <svg viewBox="0 0 24 24" class="w-10 h-10 fill-text-muted mx-auto mb-2"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+              <p class="font-sans text-white text-sm">Haz clic para seleccionar imagen</p>
+            </div>
+            <input type="file" id="habitacion-img-input" accept="image/*" class="hidden" />
+            <div id="habitacion-img-preview" class="hidden mt-3 flex items-center gap-3 bg-white/5 rounded-lg p-3"><img src="" class="w-16 h-16 object-cover rounded" /><div class="flex-1"><p id="habitacion-img-nombre" class="font-sans text-white text-sm"></p></div></div>
+            <input type="hidden" id="habitacion-imagen" />
+          </div>
+          <div class="md:col-span-2 flex gap-3"><button class="bg-primary text-black font-sans font-medium border-none rounded-lg px-6 py-3 cursor-pointer hover:bg-primary-dark" onclick="guardarHabitacion()">Guardar Habitación</button><button class="bg-gray-500 text-white font-sans border-none rounded-lg px-6 py-3 cursor-pointer hover:bg-gray-600" onclick="cerrarFormHabitacion()">Cancelar</button></div>
+        </div>
+      </div>
+    </section>
+  `;
+  cargarHabitaciones();
+
+  async function cargarHabitaciones() {
+    const tbody = document.getElementById('habitaciones-body');
+    mostrarCargando(tbody);
+    const res = await apiGet('habitaciones', null, { populate: 'imagen' });
+    if (!res.success || res.datos.length === 0) { tbody.innerHTML = '<tr><td colspan="6" class="text-center py-10 font-sans text-text-muted">Sin habitaciones</td></tr>'; configurarUpload('habitacion-img-input','habitacion-img-preview','habitacion-img-nombre','habitacion-imagen'); return; }
+    tbody.innerHTML = res.datos.map(h => `<tr class="border-b border-white/5">
+      <td class="p-3">${h.imagen?.url ? `<img src="${imgUrl(h.imagen)}" class="w-12 h-12 object-cover rounded" />` : '<span class="font-sans text-text-muted">—</span>'}</td>
+      <td class="p-3 font-sans text-white">${h.nombre || '—'}</td>
+      <td class="p-3 font-sans text-white">${h.precio ? '$' + parseFloat(h.precio).toLocaleString('es-CO') : '—'}</td>
+      <td class="p-3 font-sans text-white">${h.capacidad || '—'} pers.</td>
+      <td class="p-3"><span class="inline-block px-3 py-1 rounded-full text-xs font-sans font-medium ${h.estado ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}">${h.estado ? 'Disponible' : 'No disponible'}</span></td>
+      <td class="p-3"><div class="flex gap-2"><button class="bg-blue-500/20 text-blue-400 border-none rounded-lg p-2 cursor-pointer hover:bg-blue-500/30" onclick="editarHabitacion(${h.id})"><svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button><button class="bg-red-500/20 text-red-400 border-none rounded-lg p-2 cursor-pointer hover:bg-red-500/30" onclick="eliminarHabitacion(${h.id})"><svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></div></td>
+    </tr>`).join('');
+    configurarUpload('habitacion-img-input','habitacion-img-preview','habitacion-img-nombre','habitacion-imagen');
+  }
+
+  window.abrirFormHabitacion = function(data) {
+    document.getElementById('form-habitacion').classList.remove('hidden');
+    if (data) {
+      document.getElementById('habitacion-form-titulo').textContent = 'Editar Habitación';
+      document.getElementById('habitacion-id').value = data.id;
+      document.getElementById('habitacion-nombre').value = data.nombre || '';
+      document.getElementById('habitacion-descripcion').value = data.descripcion || '';
+      document.getElementById('habitacion-precio').value = data.precio || '';
+      document.getElementById('habitacion-capacidad').value = data.capacidad || '';
+      document.getElementById('habitacion-estado').value = data.estado !== undefined ? data.estado : 1;
+      const img = data.imagen;
+      document.getElementById('habitacion-imagen').value = img?.id || '';
+      if (img?.url) {
+        document.getElementById('habitacion-img-preview').style.display = 'flex';
+        document.getElementById('habitacion-img-preview').querySelector('img').src = imgUrl(img);
+        document.getElementById('habitacion-img-nombre').textContent = img.url.split('/').pop();
+      }
+    } else {
+      document.getElementById('habitacion-form-titulo').textContent = 'Nueva Habitación';
+      ['habitacion-id','habitacion-nombre','habitacion-descripcion','habitacion-precio','habitacion-capacidad','habitacion-imagen'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('habitacion-estado').value = '1';
+      document.getElementById('habitacion-img-preview').style.display = 'none';
+    }
+    document.getElementById('form-habitacion').scrollIntoView({ behavior: 'smooth' });
+  };
+
+  window.cerrarFormHabitacion = function() { document.getElementById('form-habitacion').classList.add('hidden'); };
+
+  window.guardarHabitacion = async function () {
+    const id = document.getElementById('habitacion-id').value;
+    const imgVal = document.getElementById('habitacion-imagen').value;
+    const data = {
+      titulo: document.getElementById('habitacion-titulo').value,
+      descripcion: document.getElementById('habitacion-descripcion').value,
+      imagen: imgVal ? Number(imgVal) : null,
+      precio: document.getElementById('habitacion-precio').value ? Number(document.getElementById('habitacion-precio').value) : null,
+      estado: document.getElementById('habitacion-estado').value
+    };
+    let r;
+    if (id) {
+      r = await apiPut('habitaciones', id, data);
+    } else {
+      r = await apiPost('habitaciones', data);
+    }
+    if (!r.success) { toast('Error al guardar habitación', 'error'); return; }
+    toast('Habitación guardada', 'exito');
+    cancelarFormHabitacion();
+    cargarHabitaciones();
+  };
+
+  window.editarHabitacion = async function(id) { const res = await apiGet('habitaciones', id); if (res.success) abrirFormHabitacion(res.dato); };
+
+  window.eliminarHabitacion = function(id) { window.abrirModalConfirmar('¿Eliminar esta habitación?', async () => { const r = await apiDelete('habitaciones', id); if (r.success) { toast('Habitación eliminada','exito'); cargarHabitaciones(); } else toast('Error al eliminar','error'); }); };
+</script>

@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "servicios",
+  "info": {
+    "singularName": "servicio",
+    "pluralName": "servicios",
+    "displayName": "Servicio",
+    "description": "Servicios del hotel"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": { "type": "string" },
+    "descripcion": { "type": "text" },
+    "imagen": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

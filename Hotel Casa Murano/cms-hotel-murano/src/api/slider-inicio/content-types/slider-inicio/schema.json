@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "slider_inicios",
+  "info": {
+    "singularName": "slider-inicio",
+    "pluralName": "slider-inicios",
+    "displayName": "Slider Inicio",
+    "description": "Imágenes del slider del homepage"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": { "type": "string" },
+    "descripcion": { "type": "text" },
+    "imagen": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "orden_slider": { "type": "integer" },
+    "activo": { "type": "integer" }
+  }
+}
