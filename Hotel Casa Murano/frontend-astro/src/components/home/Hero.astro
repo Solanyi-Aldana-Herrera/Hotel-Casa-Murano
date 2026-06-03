@@ -7,8 +7,8 @@
 
   <div class="relative z-10 flex flex-col items-center justify-center w-full px-4 md:px-8 pt-20 md:pt-0">
     <div class="text-center">
-      <h1 class="font-heading text-5xl md:text-6xl tracking-[5px] text-white leading-tight">HOTEL</h1>
-      <h2 class="font-heading text-3xl md:text-4xl tracking-[5px] text-white leading-tight">CASA MURANO</h2>
+      <h1 id="slider-titulo" class="font-headingCr text-5xl md:text-6xl tracking-[5px] text-white leading-tight">HOTEL</h1>
+      <h2 id="slider-descripcion" class="font-heading text-3xl md:text-4xl tracking-[5px] text-white leading-tight">CASA MURANO</h2>
     </div>
 
     <div class="mt-28 md:mt-56 w-full flex justify-center">
@@ -67,3 +67,58 @@
     </div>
   </div>
 </section>
+
+<script>
+  import { STRAPI_URL } from '../../lib/constants';
+
+  const imgUrl = (img) => img?.url ? (img.url.startsWith('http') ? img.url : STRAPI_URL + img.url) : null;
+
+  function normalizeList(raw) {
+    if (!raw || raw.error || !raw.data) return [];
+    return Array.isArray(raw.data) ? raw.data : [raw.data];
+  }
+
+  async function cargarSlider() {
+    try {
+      const res = await fetch(STRAPI_URL + '/api/slider-inicios?populate=imagen');
+      const activos = normalizeList(await res.json())
+        .filter(s => s.activo)
+        .sort((a, b) => (a.orden_slider || 0) - (b.orden_slider || 0));
+
+      if (activos.length > 0) {
+        const container = document.getElementById('slider-container');
+        container.innerHTML = activos.map((s, i) =>
+          '<div class="slide' + (i === 0 ? ' active' : '') + '">' +
+            '<img src="' + imgUrl(s.imagen) + '" alt="Hotel ' + (i + 1) + '">' +
+          '</div>'
+        ).join('');
+
+        const tituloEl = document.getElementById('slider-titulo');
+        const descEl = document.getElementById('slider-descripcion');
+
+        function actualizarTextoSlide(idx) {
+          const s = activos[idx];
+          if (tituloEl) tituloEl.textContent = s.titulo || 'HOTEL';
+          if (descEl) descEl.textContent = s.descripcion || 'CASA MURANO';
+        }
+
+        actualizarTextoSlide(0);
+
+        const slides = container.querySelectorAll('.slide');
+        if (slides.length > 1) {
+          let index = 0;
+          setInterval(() => {
+            slides[index]?.classList.remove('active');
+            index = (index + 1) % slides.length;
+            slides[index]?.classList.add('active');
+            actualizarTextoSlide(index);
+          }, 5000);
+        }
+      }
+    } catch (e) {
+      console.warn('No se pudieron cargar las imágenes del slider');
+    }
+  }
+
+  cargarSlider();
+</script>

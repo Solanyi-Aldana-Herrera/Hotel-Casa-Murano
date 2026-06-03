@@ -21,60 +21,87 @@ const heroImg = imgUrl(data?.imagen) || '/images/contenido/Frente de hotel.webp'
 
 <BaseLayout title="Nosotros - Hotel Casa Murano" description="Conoce la historia y valores de Hotel Casa Murano">
   <main>
-    <section id="primera" class="max-w-[1200px] mx-auto py-16 px-4">
-      <div class="texto_conocenos">
-        <div class="intro text-center mb-10">
-          <h2 class="font-heading text-4xl text-white">{titulo}</h2>
-          <h3 class="font-decorative text-3xl text-gold mt-2">Hotel Casa Murano</h3>
-        </div>
-        <div class="contenedor-nosotros flex gap-10 items-center max-md:flex-col">
-          <div class="img1 flex-shrink-0">
-            <img src={heroImg} alt="Hotel Casa Murano" class="w-[400px] h-[300px] object-cover rounded-2xl max-md:w-full" />
-          </div>
-          <div class="texto_nosotros max-w-[600px]">
-            <p class="font-heading text-white leading-relaxed text-lg">{descripcion}</p>
-          </div>
+
+    <!-- HERO -->
+    <section class="bg-white pt-24 pb-20 px-4 w-full flex flex-col items-center">
+      <div class="max-w-4xl w-full text-center">
+        <h3 class="font-decorative text-3xl md:text-4xl text-gold mb-2">Hotel Casa Murano</h3>
+        <h1 class="font-heading text-4xl md:text-5xl text-gray-900 mb-10 tracking-wide">{titulo}</h1>
+        <div class="w-20 h-0.5 bg-gold/40 mx-auto mb-10"></div>
+        <div class="overflow-hidden rounded-lg shadow-md">
+          <img src={heroImg} alt="Hotel Casa Murano" class="w-full h-[350px] md:h-[420px] object-cover" />
         </div>
       </div>
     </section>
 
-    <section id="segunda" class="max-w-[1200px] mx-auto pb-16 px-4">
-      <div class="bloque-mision flex items-center gap-8 mb-12 max-md:flex-col">
-        <div class="mision flex-1">
-          <h4 class="font-heading text-2xl text-gold mb-4">Misión</h4>
-          <p class="font-heading text-white leading-relaxed">{mision}</p>
-        </div>
-        <div class="imagen-mision flex-shrink-0">
-          <img src="/images/iconos/icono_mision.png" class="w-32 h-32" />
-        </div>
-      </div>
-
-      <div class="bloque-vision flex items-center gap-8 mb-12 max-md:flex-col max-md:flex-col-reverse">
-        <div class="imagen-vision flex-shrink-0">
-          <img src="/images/iconos/icono_vision.png" class="w-32 h-32" />
-        </div>
-        <div class="vision flex-1">
-          <h4 class="font-heading text-2xl text-gold mb-4">Visión</h4>
-          <p class="font-heading text-white leading-relaxed">{vision}</p>
-        </div>
-      </div>
-
-      <div class="bloque-valores flex items-center gap-8 max-md:flex-col">
-        <div class="valores flex-1">
-          <h4 class="font-heading text-2xl text-gold mb-4">Valores</h4>
-          <p class="font-heading text-white leading-relaxed">
-            Hospitalidad: Recibimos con calidez, amabilidad y vocación de servicio.<br />
-            Calidad: Buscamos la excelencia para brindar confort y satisfacción.<br />
-            Responsabilidad: Actuamos con compromiso.<br />
-            Respeto: Promovemos relaciones basadas en la cortesía y buen trato.<br />
-            Innovación: Buscamos mejorar nuestros servicios y experiencias.<br />
-            Sostenibilidad: Promovemos prácticas responsables con el medio ambiente y la comunidad.
-          </p>
-        </div>
-        <div class="imagen-valores flex-shrink-0">
-          <img src="/images/iconos/icono_valores.png" class="w-32 h-32" />
-        </div>
+    <!-- DESCRIPCIÓN -->
+    <section class="bg-white pb-20 px-4 w-full flex flex-col items-center">
+      <div class="max-w-3xl w-full text-center">
+        <p class="font-body text-lg md:text-xl text-gray-600 leading-relaxed">{descripcion}</p>
       </div>
     </section>
+
+    <!-- MISIÓN + VISIÓN + VALORES -->
+    <section class="bg-white pb-24 px-4 w-full flex flex-col items-center">
+      <div class="max-w-4xl w-full space-y-14">
+
+        <div class="flex items-start gap-8 max-md:flex-col max-md:items-center max-md:text-center">
+          <div class="w-20 h-20 shrink-0 rounded-full bg-gold/10 flex items-center justify-center">
+            <img src="/images/iconos/icono_mision.png" class="w-11 h-11" />
+          </div>
+          <div>
+            <h4 class="font-heading text-2xl text-gray-900 mb-3">Misión</h4>
+            <p class="font-body text-base text-gray-600 leading-relaxed">{mision}</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-8 max-md:flex-col max-md:items-center max-md:text-center">
+          <div class="w-20 h-20 shrink-0 rounded-full bg-gold/10 flex items-center justify-center">
+            <img src="/images/iconos/icono_vision.png" class="w-11 h-11" />
+          </div>
+          <div>
+            <h4 class="font-heading text-2xl text-gray-900 mb-3">Visión</h4>
+            <p class="font-body text-base text-gray-600 leading-relaxed">{vision}</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-8 max-md:flex-col max-md:items-center max-md:text-center">
+          <div class="w-20 h-20 shrink-0 rounded-full bg-gold/10 flex items-center justify-center">
+            <img src="/images/iconos/icono_valores.png" class="w-11 h-11" />
+          </div>
+          <div class="flex-1">
+            <h4 class="font-heading text-2xl text-gray-900 mb-4">Valores</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
+              <div class="flex items-start gap-2 max-md:justify-center">
+                <span class="text-gold shrink-0">✦</span>
+                <span class="font-body text-sm text-gray-600"><strong class="text-gray-800">Hospitalidad:</strong> Recibimos con calidez, amabilidad y vocación de servicio.</span>
+              </div>
+              <div class="flex items-start gap-2 max-md:justify-center">
+                <span class="text-gold shrink-0">✦</span>
+                <span class="font-body text-sm text-gray-600"><strong class="text-gray-800">Calidad:</strong> Buscamos la excelencia para brindar confort y satisfacción.</span>
+              </div>
+              <div class="flex items-start gap-2 max-md:justify-center">
+                <span class="text-gold shrink-0">✦</span>
+                <span class="font-body text-sm text-gray-600"><strong class="text-gray-800">Responsabilidad:</strong> Actuamos con compromiso.</span>
+              </div>
+              <div class="flex items-start gap-2 max-md:justify-center">
+                <span class="text-gold shrink-0">✦</span>
+                <span class="font-body text-sm text-gray-600"><strong class="text-gray-800">Respeto:</strong> Promovemos relaciones basadas en la cortesía y buen trato.</span>
+              </div>
+              <div class="flex items-start gap-2 max-md:justify-center">
+                <span class="text-gold shrink-0">✦</span>
+                <span class="font-body text-sm text-gray-600"><strong class="text-gray-800">Innovación:</strong> Buscamos mejorar nuestros servicios y experiencias.</span>
+              </div>
+              <div class="flex items-start gap-2 max-md:justify-center">
+                <span class="text-gold shrink-0">✦</span>
+                <span class="font-body text-sm text-gray-600"><strong class="text-gray-800">Sostenibilidad:</strong> Promovemos prácticas responsables con el medio ambiente y la comunidad.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 </BaseLayout>

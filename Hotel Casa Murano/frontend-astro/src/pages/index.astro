@@ -19,15 +19,11 @@ import Bienvenida from '../components/home/Bienvenida.astro';
     return raw.data != null ? (Array.isArray(raw.data) ? raw.data[0] : raw.data) : null;
   }
 
-  function normalizeList(raw) {
-    if (!raw || raw.error || !raw.data) return [];
-    return Array.isArray(raw.data) ? raw.data : [raw.data];
-  }
-
   async function cargarContenidoInicio() {
     try {
       const resB = await fetch(STRAPI_URL + '/api/bienvenida?populate=imagen');
       const d = normalizeOne(await resB.json());
+      console.log('Datos de bienvenida:', d);
       if (d) {
         const tituloEl = document.querySelector('#bienvenida-titulo');
         const subtituloEl = document.querySelector('#bienvenida-subtitulo');
@@ -42,26 +38,7 @@ import Bienvenida from '../components/home/Bienvenida.astro';
         if (bImg && imgEl) imgEl.src = bImg;
       }
 
-      const resS = await fetch(STRAPI_URL + '/api/slider-inicios?populate=imagen');
-      const activos = normalizeList(await resS.json())
-        .filter(s => s.activo)
-        .sort((a, b) => (a.orden_slider || 0) - (b.orden_slider || 0));
-      if (activos.length > 0) {
-        const container = document.getElementById('slider-container');
-        container.innerHTML = activos.map((s, i) =>
-          '<div class="slide' + (i === 0 ? ' active' : '') + '"><img src="' + imgUrl(s.imagen) + '" alt="Hotel ' + (i + 1) + '"></div>'
-        ).join('');
 
-        const slides = container.querySelectorAll('.slide');
-        if (slides.length > 1) {
-          let index = 0;
-          setInterval(() => {
-            slides[index]?.classList.remove('active');
-            index = (index + 1) % slides.length;
-            slides[index]?.classList.add('active');
-          }, 5000);
-        }
-      }
     } catch (e) {
       console.warn('No se pudieron cargar los datos de inicio');
     }
